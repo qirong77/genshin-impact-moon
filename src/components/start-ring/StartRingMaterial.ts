@@ -64,14 +64,11 @@ export function createStringMateril(startRingGUI: GUI) {
         transparent: true,
         vertexColors: true, // 使用顶点颜色
     });
-    Reflect.ownKeys(uniforms).forEach((key) => {
-        // @ts-ignore
-        startRingGUI.add(uniforms[key], "value").onChange((value) => {
-            // @ts-ignore
-            material.uniforms[key] = value;
-        });
-    });
-
+    startRingGUI.add(uniforms.size,'value', 0, 100).name('size');
+    startRingGUI.add(uniforms.glowIntensity,'value', 0, 10).name('glowIntensity');
+    startRingGUI.add(uniforms.glowSpeed,'value', 0, 10).name('glowSpeed');
+    startRingGUI.add(uniforms.fixedGlowRadius,'value', 0, 10).name('fixedGlowRadius');
+    startRingGUI.add(uniforms.gradientGlowRadius,'value', 0, 10).name('gradientGlowRadius');
     function animate() {
         requestAnimationFrame(animate);
         // 更新着色器中的time变量来模拟闪烁效果

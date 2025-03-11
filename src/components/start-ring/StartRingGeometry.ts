@@ -12,19 +12,18 @@ export class StartRingGeometry {
     // @ts-ignore
     constructor(startRingGUI: GUI) {
         this.currentGeometry = this.createGeometry();
-        Reflect.ownKeys(this.geometryConfig).forEach((key) => {
-            // @ts-ignore
-            startRingGUI.add(this.geometryConfig, key).onChange((value) => {
-                // @ts-ignore
-                this.geometryConfig[key] = value;
-                const newGeometry = this.createGeometry();
-                this.currentGeometry?.dispose();
-                this.currentGeometry = newGeometry;
-                this.onChangeHanlders.forEach((fn) => {
-                    fn(newGeometry);
-                });
+        const update = () => {
+            console.log(this.geometryConfig)
+            const newGeometry = this.createGeometry();
+            this.currentGeometry?.dispose();
+            this.currentGeometry = newGeometry;
+            this.onChangeHanlders.forEach((fn) => {
+                fn(newGeometry);
             });
-        });
+        };
+        startRingGUI.add(this.geometryConfig,'innerRadius', 0, 10).onChange(update);
+        startRingGUI.add(this.geometryConfig,'outerRadius', 0, 10).onChange(update);
+        startRingGUI.add(this.geometryConfig,'startCounts', 0, 1000).onChange(update);
     }
     createGeometry() {
         const { startCounts, innerRadius, outerRadius } = this.geometryConfig;
