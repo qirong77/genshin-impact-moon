@@ -11,7 +11,7 @@ let colors = new Float32Array(START_COUNTS * 3);
 let offsets = new Float32Array(START_COUNTS); // 每个粒子的随机偏移量
 
 // 初始化星星位置、颜色和偏移量
-function initStars(innerRadius:number, outerRadius:number) {
+function initStars(innerRadius: number, outerRadius: number) {
     for (let i = 0; i < START_COUNTS; i++) {
         const i3 = i * 3;
 
@@ -109,7 +109,7 @@ scene.add(points);
 
 // 添加图片到圆环中心
 const textureLoader = new THREE.TextureLoader();
-const circleTexture = textureLoader.load('./circle.png');
+const circleTexture = textureLoader.load('../public/circle-inside.png');
 
 const circleGeometry = new THREE.PlaneGeometry(1, 1); // 平面大小根据图片调整
 const circleMaterial = new THREE.MeshBasicMaterial({
@@ -146,7 +146,10 @@ const controls = {
         geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
         geometry.setAttribute("offset", new THREE.BufferAttribute(offsets, 1));
         points.geometry = geometry;
-    }
+    },
+    circleSize: 1, // 新增图片大小控制
+    minOpacity: 0.5, // 新增最小透明度控制
+    maxOpacity: 1.0  // 新增最大透明度控制
 };
 
 // 添加控制器
@@ -176,11 +179,29 @@ gui.add(controls, 'starCount', 100, 5000).step(100).onChange(() => {
 });
 gui.add(controls, 'resetStars');
 
+// 新增图片大小控制
+gui.add(controls, 'circleSize', 0.1, 3).onChange(value => {
+    circleMesh.scale.set(value, value, 1);
+});
+
+// 新增透明度范围控制
+gui.add(controls, 'minOpacity', 0, 1).onChange(value => {
+    controls.minOpacity = value;
+});
+gui.add(controls, 'maxOpacity', 0, 1).onChange(value => {
+    controls.maxOpacity = value;
+});
+
 function animate() {
     requestAnimationFrame(animate);
 
     // 更新着色器中的time变量来模拟闪烁效果
     material.uniforms.time.value = clock.getElapsedTime();
+
+    // 图片透明度随时间变化
+    const time = clock.getElapsedTime();
+    const opacityRange = controls.maxOpacity - controls.minOpacity;
+    circleMaterial.opacity = controls.minOpacity + Math.abs(Math.sin(time * 0.5)) * opacityRange;
 
     renderer.render(scene, camera);
 }
