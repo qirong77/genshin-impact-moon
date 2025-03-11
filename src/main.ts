@@ -1,16 +1,17 @@
 import "./style.css";
 import "./common/index";
 import { scene, camera, renderer, clock, THREE } from "./common/main";
-import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
+import { gui } from "./common/gui";
 
-const START_COUNTS = 1000;
+// 初始化星星数量
+let START_COUNTS = 1000;
 let geometry = new THREE.BufferGeometry();
 let positions = new Float32Array(START_COUNTS * 3);
 let colors = new Float32Array(START_COUNTS * 3);
 let offsets = new Float32Array(START_COUNTS); // 每个粒子的随机偏移量
 
 // 初始化星星位置、颜色和偏移量
-function initStars(innerRadius, outerRadius) {
+function initStars(innerRadius:number, outerRadius:number) {
     for (let i = 0; i < START_COUNTS; i++) {
         const i3 = i * 3;
 
@@ -48,7 +49,9 @@ const material = new THREE.ShaderMaterial({
             value: 5.0,
         },
         glowIntensity: { value: 1.0 }, // 光晕强度
-        glowSpeed: { value: 0.5 } // 光晕动画速度
+        glowSpeed: { value: 0.5 }, // 光晕动画速度
+        fixedGlowRadius: { value: 0.2 }, // 固定亮度范围
+        gradientGlowRadius: { value: 0.3 } // 渐变范围
     },
     vertexShader: `
         uniform float size;
@@ -67,6 +70,8 @@ const material = new THREE.ShaderMaterial({
         uniform float time;
         uniform float glowIntensity;
         uniform float glowSpeed;
+        uniform float fixedGlowRadius;
+        uniform float gradientGlowRadius;
         varying float vOffset;
         varying vec3 vColor; // 接收顶点颜色
         void main() {
@@ -74,17 +79,22 @@ const material = new THREE.ShaderMaterial({
             vec2 coord = gl_PointCoord - 0.5;
             float len = length(coord);
             
-            // 计算光晕效果
-            float glow = 1.0 - smoothstep(0.0, 0.5, len);
+            // 固定亮度范围
+            float fixedGlow = step(len, fixedGlowRadius);
+            
+            // 渐变范围（从内到外逐渐变亮）
+            float gradientGlow = 1.0 - smoothstep(fixedGlowRadius, fixedGlowRadius + gradientGlowRadius, len);
+            
+            // 光晕动画
             float glowAnimation = sin(time * glowSpeed + vOffset) * 0.5 + 0.5;
-            glow *= glowAnimation * glowIntensity;
+            gradientGlow *= glowAnimation * glowIntensity;
             
             if (len > 0.5) {
                 discard; // 丢弃超出圆形范围的像素
             }
             
             float brightness = (sin(time + vOffset) + 1.0) / 2.0;
-            vec3 finalColor = vColor * brightness * glow;
+            vec3 finalColor = vColor * brightness * (fixedGlow + gradientGlow);
             gl_FragColor = vec4(finalColor, 1.0);
         }
     `,
@@ -97,20 +107,26 @@ const material = new THREE.ShaderMaterial({
 const points = new THREE.Points(geometry, material);
 scene.add(points);
 
-// 创建GUI控制器
-const gui = new GUI();
 const controls = {
     innerRadius: initialInnerRadius,
     outerRadius: initialOuterRadius,
     starSize: material.uniforms.size.value,
     glowIntensity: material.uniforms.glowIntensity.value,
     glowSpeed: material.uniforms.glowSpeed.value,
+    fixedGlowRadius: material.uniforms.fixedGlowRadius.value,
+    gradientGlowRadius: material.uniforms.gradientGlowRadius.value,
+    starCount: START_COUNTS, // 新增星星数量控制
     resetStars: function() {
+        // 更新星星数量
+        START_COUNTS = controls.starCount;
+
         // 重新初始化星星位置
         positions = new Float32Array(START_COUNTS * 3);
         colors = new Float32Array(START_COUNTS * 3);
         offsets = new Float32Array(START_COUNTS);
         initStars(controls.innerRadius, controls.outerRadius);
+
+        // 更新几何体
         geometry = new THREE.BufferGeometry();
         geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
@@ -134,6 +150,15 @@ gui.add(controls, 'glowIntensity', 0, 2).onChange(value => {
 });
 gui.add(controls, 'glowSpeed', 0, 2).onChange(value => {
     material.uniforms.glowSpeed.value = value;
+});
+gui.add(controls, 'fixedGlowRadius', 0, 0.5).onChange(value => {
+    material.uniforms.fixedGlowRadius.value = value;
+});
+gui.add(controls, 'gradientGlowRadius', 0, 0.5).onChange(value => {
+    material.uniforms.gradientGlowRadius.value = value;
+});
+gui.add(controls, 'starCount', 100, 5000).step(100).onChange(() => {
+    controls.resetStars();
 });
 gui.add(controls, 'resetStars');
 
