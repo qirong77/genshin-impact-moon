@@ -107,6 +107,20 @@ const material = new THREE.ShaderMaterial({
 const points = new THREE.Points(geometry, material);
 scene.add(points);
 
+// 添加图片到圆环中心
+const textureLoader = new THREE.TextureLoader();
+const circleTexture = textureLoader.load('./circle.png');
+
+const circleGeometry = new THREE.PlaneGeometry(1, 1); // 平面大小根据图片调整
+const circleMaterial = new THREE.MeshBasicMaterial({
+    map: circleTexture,
+    transparent: true,
+    alphaTest: 0.5 // 处理透明度
+});
+const circleMesh = new THREE.Mesh(circleGeometry, circleMaterial);
+circleMesh.position.z = 0.1; // 稍微调整z轴避免与星星重叠
+scene.add(circleMesh);
+
 const controls = {
     innerRadius: initialInnerRadius,
     outerRadius: initialOuterRadius,
