@@ -1,0 +1,84 @@
+import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
+import { camera, clock, renderer, scene, THREE } from "../../common/main";
+
+export function createStringMateril(startRingGUI: GUI) {
+    const uniforms = {
+        time: { value: 1.0 },
+        size: {
+            value: 5.0,
+        },
+        glowIntensity: { value: 1.0 }, // 光晕强度
+        glowSpeed: { value: 0.5 }, // 光晕动画速度
+        fixedGlowRadius: { value: 0.2 }, // 固定亮度范围
+        gradientGlowRadius: { value: 0.3 }, // 渐变范围
+    };
+    const material = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader: `
+            uniform float size;
+            attribute float offset;
+            varying float vOffset;
+            varying vec3 vColor; // 传递顶点颜色到片段着色器
+            void main() {
+                vOffset = offset;
+                vColor = color; // 获取顶点颜色
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                gl_PointSize = size;
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `,
+        fragmentShader: `
+            uniform float time;
+            uniform float glowIntensity;
+            uniform float glowSpeed;
+            uniform float fixedGlowRadius;
+            uniform float gradientGlowRadius;
+            varying float vOffset;
+            varying vec3 vColor; // 接收顶点颜色
+            void main() {
+                // 创建圆形点
+                vec2 coord = gl_PointCoord - 0.5;
+                float len = length(coord);
+                
+                // 固定亮度范围
+                float fixedGlow = step(len, fixedGlowRadius);
+                
+                // 渐变范围（从内到外逐渐变亮）
+                float gradientGlow = 1.0 - smoothstep(fixedGlowRadius, fixedGlowRadius + gradientGlowRadius, len);
+                
+                // 光晕动画
+                float glowAnimation = sin(time * glowSpeed + vOffset) * 0.5 + 0.5;
+                gradientGlow *= glowAnimation * glowIntensity;
+                
+                if (len > 0.5) {
+                    discard; // 丢弃超出圆形范围的像素
+                }
+                
+                float brightness = (sin(time + vOffset) + 1.0) / 2.0;
+                vec3 finalColor = vColor * brightness * (fixedGlow + gradientGlow);
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        transparent: true,
+        vertexColors: true, // 使用顶点颜色
+    });
+    Reflect.ownKeys(uniforms).forEach((key) => {
+        // @ts-ignore
+        startRingGUI.add(uniforms[key], "value").onChange((value) => {
+            // @ts-ignore
+            material.uniforms[key] = value;
+        });
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        // 更新着色器中的time变量来模拟闪烁效果
+        material.uniforms.time.value = clock.getElapsedTime();
+        renderer.render(scene, camera);
+    }
+
+    animate();
+    return material;
+}
