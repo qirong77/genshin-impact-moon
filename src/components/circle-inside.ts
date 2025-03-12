@@ -18,17 +18,18 @@ const folder = gui.addFolder("circle-inside");
 const controls = {
     minOpacity: 0.5,
     maxOpacity: 1,
+    circleSize: 1
 };
-folder.add("minOpacity", 0, 1).onChange((value) => {
+folder.add(controls,"minOpacity", 0, 1).onChange((value) => {
     controls.minOpacity = Number(value);
     animate();
 });
-folder.add("maxOpacity", 0, 1).onChange((value) => {
+folder.add(controls, "maxOpacity", 0, 1).onChange((value) => {
     controls.maxOpacity = Number(value);
     animate();
 });
 // 新增图片大小控制
-folder.add("circleSize", 0.1, 3).onChange((value) => {
+folder.add(controls, "circleSize", 0.1, 3).onChange((value) => {
     circleMesh.scale.set(Number(value), Number(value), 1);
 });
 

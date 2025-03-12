@@ -14,7 +14,7 @@ export function createStringMateril(startRingGUI: GUI) {
     };
     const material = new THREE.ShaderMaterial({
         uniforms,
-        vertexShader: `
+        vertexShader: /* glsl */`
             uniform float size;
             attribute float offset;
             varying float vOffset;
@@ -27,7 +27,7 @@ export function createStringMateril(startRingGUI: GUI) {
                 gl_Position = projectionMatrix * mvPosition;
             }
         `,
-        fragmentShader: `
+        fragmentShader: /* glsl */`
             uniform float time;
             uniform float glowIntensity;
             uniform float glowSpeed;
