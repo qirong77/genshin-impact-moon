@@ -8,6 +8,7 @@ export function createCircle(
         minOpacity: 0.75,
         maxOpacity: 1,
         circleSize: 3.5,
+        rotationSpeed: 0.5, // 默认旋转速度
     }
 ) {
     // 添加图片到圆环中心
@@ -28,7 +29,7 @@ export function createCircle(
     
     const folder = gui.addFolder(circleName);
     const controls = {
-        ...defaultValue,
+        ...defaultValue
     };
     folder.add(controls, "minOpacity", 0, 1).onChange((value) => {
         controls.minOpacity = Number(value);
@@ -42,6 +43,8 @@ export function createCircle(
     folder.add(controls, "circleSize", 1, 10).onChange((value) => {
         circleMesh.scale.set(Number(value), Number(value), 1);
     });
+    // 添加旋转速度控制
+    folder.add(controls, "rotationSpeed", -2, 2, 0.1).name("旋转速度");
 
     function animate() {
         // return
@@ -50,6 +53,9 @@ export function createCircle(
         const time = clock.getElapsedTime();
         const opacityRange = controls.maxOpacity - controls.minOpacity;
         circleMaterial.opacity = controls.minOpacity + Math.abs(Math.sin(time * 0.5)) * opacityRange;
+        
+        // 更新圆环旋转
+        circleMesh.rotation.z += controls.rotationSpeed * 0.01;
     }
 
     animate();
