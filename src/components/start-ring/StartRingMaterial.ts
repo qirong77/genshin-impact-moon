@@ -17,10 +17,13 @@ export function createStringMateril(startRingGUI: GUI) {
         vertexShader: /* glsl */`
             uniform float size;
             attribute float offset;
+            attribute float frequency;
             varying float vOffset;
+            varying float vFrequency;
             varying vec3 vColor; // 传递顶点颜色到片段着色器
             void main() {
                 vOffset = offset;
+                vFrequency = frequency;
                 vColor = color; // 获取顶点颜色
                 vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
                 gl_PointSize = size;
@@ -34,6 +37,7 @@ export function createStringMateril(startRingGUI: GUI) {
             uniform float fixedGlowRadius;
             uniform float gradientGlowRadius;
             varying float vOffset;
+            varying float vFrequency;
             varying vec3 vColor; // 接收顶点颜色
             void main() {
                 // 创建圆形点
@@ -46,15 +50,16 @@ export function createStringMateril(startRingGUI: GUI) {
                 // 渐变范围（从内到外逐渐变亮）
                 float gradientGlow = 1.0 - smoothstep(fixedGlowRadius, fixedGlowRadius + gradientGlowRadius, len);
                 
-                // 光晕动画
-                float glowAnimation = sin(time * glowSpeed + vOffset) * 0.5 + 0.5;
+                // 使用独立频率的光晕动画
+                float glowAnimation = sin(time * glowSpeed * vFrequency + vOffset) * 0.5 + 0.5;
                 gradientGlow *= glowAnimation * glowIntensity;
                 
                 if (len > 0.5) {
                     discard; // 丢弃超出圆形范围的像素
                 }
                 
-                float brightness = (sin(time + vOffset) + 1.0) / 2.0;
+                // 使用独立频率的亮度动画
+                float brightness = (sin(time * vFrequency + vOffset) + 1.0) / 2.0;
                 vec3 finalColor = vColor * brightness * (fixedGlow + gradientGlow);
                 gl_FragColor = vec4(finalColor, 1.0);
             }
