@@ -6,6 +6,7 @@ export class StartRingGeometry {
         startCounts: 1200,
         innerRadius: 1,
         outerRadius: 2,
+        color: new THREE.Color(0.47, 0.19, 0.87), // RGB 格式颜色配置
     };
     currentGeometry: THREE.BufferGeometry<THREE.NormalBufferAttributes> | null = null;
     onChangeHanlders: Function[] = [];
@@ -16,6 +17,7 @@ export class StartRingGeometry {
             startCounts?: number;
             innerRadius?: number;
             outerRadius?: number;
+            color?: THREE.Color;
         }
     ) {
         this.currentGeometry = this.createGeometry();
@@ -32,14 +34,16 @@ export class StartRingGeometry {
             });
         };
         update()
+        startRingGUI.addColor(this.geometryConfig, 'color').onChange(update);
         startRingGUI.add(this.geometryConfig, "innerRadius", 0, 5).onChange(update);
         startRingGUI.add(this.geometryConfig, "outerRadius", 1, 10).onChange(update);
         startRingGUI.add(this.geometryConfig, "startCounts", 0, 3000).onChange(update);
     }
     createGeometry() {
-        const { startCounts, innerRadius, outerRadius } = this.geometryConfig;
+        const { startCounts, innerRadius, outerRadius, color } = this.geometryConfig;
         const geometry = new THREE.BufferGeometry();
         const positions = new Float32Array(startCounts * 3);
+        const colors = new Float32Array(startCounts * 3); // 颜色数组
         const offsets = new Float32Array(startCounts); // 每个粒子的随机偏移量
         for (let i = 0; i < startCounts; i++) {
             const i3 = i * 3;
@@ -52,9 +56,15 @@ export class StartRingGeometry {
             positions[i3 + 2] = 0; // z坐标保持为0（在XY平面上）
             // 随机偏移量
             offsets[i] = Math.random() * 2 * Math.PI; // 0 到 2π 之间的随机偏移量
+
+            // 设置颜色
+            colors[i3] = color.r;
+            colors[i3 + 1] = color.g;
+            colors[i3 + 2] = color.b;
         }
 
         geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
         geometry.setAttribute("offset", new THREE.BufferAttribute(offsets, 1));
         return geometry;
     }

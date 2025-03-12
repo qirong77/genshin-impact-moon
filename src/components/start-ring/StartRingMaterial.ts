@@ -5,12 +5,12 @@ export function createStringMateril(startRingGUI: GUI) {
     const uniforms = {
         time: { value: 1.0 },
         size: {
-            value: 5.0,
+            value: 12.2,
         },
-        glowIntensity: { value: 1.0 }, // 光晕强度
-        glowSpeed: { value: 0.5 }, // 光晕动画速度
-        fixedGlowRadius: { value: 0.2 }, // 固定亮度范围
-        gradientGlowRadius: { value: 0.3 }, // 渐变范围
+        glowIntensity: { value: 2.5 }, // 光晕强度
+        glowSpeed: { value: 1.73 }, // 光晕动画速度
+        fixedGlowRadius: { value: 0.08 }, // 固定亮度范围
+        gradientGlowRadius: { value: 0.15 }, // 渐变范围
     };
     const material = new THREE.ShaderMaterial({
         uniforms,
