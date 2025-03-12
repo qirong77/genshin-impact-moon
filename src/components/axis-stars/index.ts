@@ -3,9 +3,9 @@ import { scene, THREE } from "../../common/main";
 import { gui } from "../../common/gui";
 
 const config = {
-    pointSize: 0.02,
+    pointSize: 0.01,
     axisLength: 5.5,
-    spacing: 0.05,
+    spacing: 0.02,
     color: '#ffffff'
 };
 
@@ -84,11 +84,11 @@ export function createAxisStars() {
     }
 
     // 添加动画
-    const animate = () => {
-        points.rotation.z += 0.001;
-        requestAnimationFrame(animate);
-    };
-    animate();
+    // const animate = () => {
+    //     points.rotation.z += 0.001;
+    //     requestAnimationFrame(animate);
+    // };
+    // animate();
 
     return points;
 }
