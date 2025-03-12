@@ -21,8 +21,8 @@ export class StartRingGeometry {
                 fn(newGeometry);
             });
         };
-        startRingGUI.add(this.geometryConfig,'innerRadius', 0, 10).onChange(update);
-        startRingGUI.add(this.geometryConfig,'outerRadius', 0, 10).onChange(update);
+        startRingGUI.add(this.geometryConfig,'innerRadius', 0, 2).onChange(update);
+        startRingGUI.add(this.geometryConfig,'outerRadius', 0, 2).onChange(update);
         startRingGUI.add(this.geometryConfig,'startCounts', 0, 1000).onChange(update);
     }
     createGeometry() {
