@@ -28,6 +28,7 @@ export function createCircle(
     scene.add(circleMesh);
     
     const folder = gui.addFolder(circleName);
+    folder.close(); // 默认收起面板
     const controls = {
         ...defaultValue
     };

@@ -6,6 +6,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 camera.position.set(1.6, -1.6, 3.7);
 camera.lookAt(0, 0, 0);
 export const cameraGui = gui.addFolder("camera");
+cameraGui.close(); // 默认收起面板
 cameraGui.add(camera.position, "x").min(-10).max(10)
 cameraGui.add(camera.position, "y").min(-10).max(10)
 cameraGui.add(camera.position, "z").min(-10).max(10)

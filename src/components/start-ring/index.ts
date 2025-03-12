@@ -9,6 +9,7 @@ export function createStringRing(config?: {
     outerRadius?: number;
 }) {
     const folder = gui.addFolder("start-ring");
+    folder.close()
     const startRingGeometry = new StartRingGeometry(folder,config);
     const material = createStringMateril(folder);
     const geometry = startRingGeometry.getGeometry();
