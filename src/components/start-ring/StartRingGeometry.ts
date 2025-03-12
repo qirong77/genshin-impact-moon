@@ -3,17 +3,27 @@ import { THREE } from "../../common/main";
 
 export class StartRingGeometry {
     geometryConfig = {
-        startCounts: 1000,
+        startCounts: 1200,
         innerRadius: 1,
         outerRadius: 2,
     };
     currentGeometry: THREE.BufferGeometry<THREE.NormalBufferAttributes> | null = null;
     onChangeHanlders: Function[] = [];
     // @ts-ignore
-    constructor(startRingGUI: GUI) {
+    constructor(
+        startRingGUI: GUI,
+        geometryConfig?: {
+            startCounts?: number;
+            innerRadius?: number;
+            outerRadius?: number;
+        }
+    ) {
         this.currentGeometry = this.createGeometry();
+        this.geometryConfig = {
+            ...this.geometryConfig,
+            ...geometryConfig,
+        };
         const update = () => {
-            console.log(this.geometryConfig)
             const newGeometry = this.createGeometry();
             this.currentGeometry?.dispose();
             this.currentGeometry = newGeometry;
@@ -21,9 +31,10 @@ export class StartRingGeometry {
                 fn(newGeometry);
             });
         };
-        startRingGUI.add(this.geometryConfig,'innerRadius', 0, 2).onChange(update);
-        startRingGUI.add(this.geometryConfig,'outerRadius', 0, 2).onChange(update);
-        startRingGUI.add(this.geometryConfig,'startCounts', 0, 1000).onChange(update);
+        update()
+        startRingGUI.add(this.geometryConfig, "innerRadius", 0, 5).onChange(update);
+        startRingGUI.add(this.geometryConfig, "outerRadius", 1, 10).onChange(update);
+        startRingGUI.add(this.geometryConfig, "startCounts", 0, 3000).onChange(update);
     }
     createGeometry() {
         const { startCounts, innerRadius, outerRadius } = this.geometryConfig;

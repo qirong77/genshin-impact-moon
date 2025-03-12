@@ -21,8 +21,11 @@ export function createCircle(
         alphaTest: 0.5, // 处理透明度
     });
     const circleMesh = new THREE.Mesh(circleGeometry, circleMaterial);
+    circleMesh.scale.set(Number(defaultValue.circleSize), Number(defaultValue.circleSize), 1);
+
     circleMesh.position.z = 0.1; // 稍微调整z轴避免与星星重叠
     scene.add(circleMesh);
+    
     const folder = gui.addFolder(circleName);
     const controls = {
         ...defaultValue,
@@ -41,7 +44,7 @@ export function createCircle(
     });
 
     function animate() {
-        return
+        // return
         requestAnimationFrame(animate);
         // 图片透明度随时间变化
         const time = clock.getElapsedTime();
