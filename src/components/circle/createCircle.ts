@@ -19,6 +19,7 @@ export function createCircle(
     const circleMaterial = new THREE.MeshBasicMaterial({
         map: circleTexture,
         transparent: true,
+        side: THREE.DoubleSide,
         alphaTest: 0.5, // 处理透明度
     });
     const circleMesh = new THREE.Mesh(circleGeometry, circleMaterial);
@@ -44,7 +45,7 @@ export function createCircle(
         circleMesh.scale.set(Number(value), Number(value), 1);
     });
     // 添加旋转速度控制
-    folder.add(controls, "rotationSpeed", -2, 2, 0.1).name("旋转速度");
+    folder.add(controls, "rotationSpeed", -0.1, 0.1).name("旋转速度");
 
     function animate() {
         // return
@@ -55,7 +56,7 @@ export function createCircle(
         circleMaterial.opacity = controls.minOpacity + Math.abs(Math.sin(time * 0.5)) * opacityRange;
         
         // 更新圆环旋转
-        circleMesh.rotation.z += controls.rotationSpeed * 0.01;
+        // circleMesh.rotation.z += controls.rotationSpeed * 0.01;
     }
 
     animate();

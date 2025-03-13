@@ -3,10 +3,10 @@ import { scene, THREE } from "../../common/main";
 import { gui } from "../../common/gui";
 
 const config = {
-    pointSize: 0.01,
+    pointSize: 0.012,
     axisLength: 5.5,
     spacing: 0.02,
-    color: '#ffffff'
+    color: '#9b9b9b'
 };
 
 export function createAxisStars() {
@@ -45,7 +45,7 @@ export function createAxisStars() {
 
     // 添加GUI控制
     const folder = gui.addFolder('轴向星点设置');
-    folder.add(config, 'pointSize', 0.01, 0.1).onChange((value) => {
+    folder.add(config, 'pointSize', 0.01, 0.05).onChange((value) => {
         material.size = value;
     });
     folder.add(config, 'axisLength', 5, 20).onChange(() => {
