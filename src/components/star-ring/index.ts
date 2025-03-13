@@ -14,9 +14,9 @@ export function createStarRing(config?: {
     const material = createStarMateril(folder);
     const geometry = starRingGeometry.getGeometry();
     const points = new THREE.Points(geometry!, material);
-    scene.add(points);
     // @ts-ignore
     starRingGeometry.onChangeConfig((geometry) => {
         points.geometry = geometry;
     });
+    return points
 }

@@ -25,7 +25,6 @@ export function createCircle(
     circleMesh.scale.set(Number(defaultValue.circleSize), Number(defaultValue.circleSize), 1);
 
     circleMesh.position.z = 0.1; // 稍微调整z轴避免与星星重叠
-    scene.add(circleMesh);
     
     const folder = gui.addFolder(circleName);
     folder.close(); // 默认收起面板
@@ -60,4 +59,5 @@ export function createCircle(
     }
 
     animate();
+    return circleMesh;
 }

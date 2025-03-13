@@ -82,13 +82,5 @@ export function createAxisStars() {
         geometry.setAttribute('position', new Float32BufferAttribute(newVertices, 3));
         geometry.attributes.position.needsUpdate = true;
     }
-
-    // 添加动画
-    // const animate = () => {
-    //     points.rotation.z += 0.001;
-    //     requestAnimationFrame(animate);
-    // };
-    // animate();
-
     return points;
 }
