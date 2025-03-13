@@ -1,24 +1,24 @@
 import "./style.css";
 import "./common/index";
-import { createStringRing } from './components/start-ring';
+import { createStarRing } from './components/star-ring';
 import { createCircle } from "./components/createCircle";
 import { createAxisStars } from "./components/axis-stars";
 import { createBackground } from './components/background';
 import { createMeteorBackground } from './components/meteor-background';
 createAxisStars()
-createStringRing({
+createStarRing({
     innerRadius: 0.57,
     outerRadius: 0.9,
 });
-createStringRing({
+createStarRing({
     innerRadius: 1.47,
     outerRadius: 1.6,
 });
-createStringRing({
+createStarRing({
     innerRadius: 2,
     outerRadius: 2.3,
 });
-createStringRing({
+createStarRing({
     innerRadius: 2.6,
     outerRadius: 3.0,
 });

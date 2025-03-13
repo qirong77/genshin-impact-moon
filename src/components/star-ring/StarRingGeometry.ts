@@ -1,9 +1,9 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { THREE } from "../../common/main";
 
-export class StartRingGeometry {
+export class StarRingGeometry {
     geometryConfig = {
-        startCounts: 1200,
+        starCounts: 1200,
         innerRadius: 1,
         outerRadius: 2,
         color: new THREE.Color(0.47, 0.19, 0.87),
@@ -14,9 +14,9 @@ export class StartRingGeometry {
     onChangeHanlders: Function[] = [];
     // @ts-ignore
     constructor(
-        startRingGUI: GUI,
+        starRingGUI: GUI,
         geometryConfig?: {
-            startCounts?: number;
+            starCounts?: number;
             innerRadius?: number;
             outerRadius?: number;
             color?: THREE.Color;
@@ -38,22 +38,22 @@ export class StartRingGeometry {
             });
         };
         update()
-        startRingGUI.addColor(this.geometryConfig, 'color').onChange(update);
-        startRingGUI.add(this.geometryConfig, "innerRadius", 0, 5).onChange(update);
-        startRingGUI.add(this.geometryConfig, "outerRadius", 1, 10).onChange(update);
-        startRingGUI.add(this.geometryConfig, "startCounts", 0, 3000).onChange(update);
-        startRingGUI.add(this.geometryConfig, "randomness", 0, 1).name("位置随机性").onChange(update);
-        startRingGUI.add(this.geometryConfig, "randomFrequency", 0, 2).name("闪烁频率随机性").onChange(update);
+        starRingGUI.addColor(this.geometryConfig, 'color').onChange(update);
+        starRingGUI.add(this.geometryConfig, "innerRadius", 0, 5).onChange(update);
+        starRingGUI.add(this.geometryConfig, "outerRadius", 1, 10).onChange(update);
+        starRingGUI.add(this.geometryConfig, "starCounts", 0, 3000).onChange(update);
+        starRingGUI.add(this.geometryConfig, "randomness", 0, 1).name("位置随机性").onChange(update);
+        starRingGUI.add(this.geometryConfig, "randomFrequency", 0, 2).name("闪烁频率随机性").onChange(update);
     }
     createGeometry() {
-        const { startCounts, innerRadius, outerRadius, color, randomness, randomFrequency } = this.geometryConfig;
+        const { starCounts, innerRadius, outerRadius, color, randomness, randomFrequency } = this.geometryConfig;
         const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(startCounts * 3);
-        const colors = new Float32Array(startCounts * 3);
-        const offsets = new Float32Array(startCounts);
-        const frequencies = new Float32Array(startCounts); // 添加频率数组
+        const positions = new Float32Array(starCounts * 3);
+        const colors = new Float32Array(starCounts * 3);
+        const offsets = new Float32Array(starCounts);
+        const frequencies = new Float32Array(starCounts); // 添加频率数组
 
-        for (let i = 0; i < startCounts; i++) {
+        for (let i = 0; i < starCounts; i++) {
             const i3 = i * 3;
 
             // 生成基础圆环位置

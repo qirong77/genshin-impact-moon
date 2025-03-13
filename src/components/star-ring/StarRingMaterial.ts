@@ -1,7 +1,7 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { camera, clock, renderer, scene, THREE } from "../../common/main";
 
-export function createStringMateril(startRingGUI: GUI) {
+export function createStarMateril(starRingGUI: GUI) {
     const uniforms = {
         time: { value: 1.0 },
         size: {
@@ -69,11 +69,11 @@ export function createStringMateril(startRingGUI: GUI) {
         transparent: true,
         vertexColors: true, // 使用顶点颜色
     });
-    startRingGUI.add(uniforms.size,'value', 0, 100).name('size');
-    startRingGUI.add(uniforms.glowIntensity,'value', 0, 10).name('glowIntensity');
-    startRingGUI.add(uniforms.glowSpeed,'value', 0, 10).name('glowSpeed');
-    startRingGUI.add(uniforms.fixedGlowRadius,'value', 0, 10).name('fixedGlowRadius');
-    startRingGUI.add(uniforms.gradientGlowRadius,'value', 0, 10).name('gradientGlowRadius');
+    starRingGUI.add(uniforms.size,'value', 0, 100).name('size');
+    starRingGUI.add(uniforms.glowIntensity,'value', 0, 10).name('glowIntensity');
+    starRingGUI.add(uniforms.glowSpeed,'value', 0, 10).name('glowSpeed');
+    starRingGUI.add(uniforms.fixedGlowRadius,'value', 0, 10).name('fixedGlowRadius');
+    starRingGUI.add(uniforms.gradientGlowRadius,'value', 0, 10).name('gradientGlowRadius');
     function animate() {
         requestAnimationFrame(animate);
         // 更新着色器中的time变量来模拟闪烁效果

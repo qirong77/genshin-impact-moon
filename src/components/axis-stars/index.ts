@@ -23,12 +23,12 @@ export function createAxisStars() {
     // 在每个轴上生成均匀分布的点
     for (let axis = 0; axis < 3; axis++) {
         const totalLength = config.axisLength;
-        const startPos = -totalLength / 2;
+        const starPos = -totalLength / 2;
         const pointCount = Math.floor(totalLength / config.spacing);
         
         for (let i = 0; i < pointCount; i++) {
             const position = [0, 0, 0];
-            const distance = startPos + i * config.spacing;
+            const distance = starPos + i * config.spacing;
             // 确保点不会超出轴的范围
             if (Math.abs(distance) <= totalLength / 2) {
                 position[axis] = distance;
@@ -66,12 +66,12 @@ export function createAxisStars() {
         const newVertices = [];
         for (let axis = 0; axis < 3; axis++) {
             const totalLength = config.axisLength;
-            const startPos = -totalLength / 2;
+            const starPos = -totalLength / 2;
             const pointCount = Math.floor(totalLength / config.spacing);
             
             for (let i = 0; i < pointCount; i++) {
                 const position = [0, 0, 0];
-                const distance = startPos + i * config.spacing;
+                const distance = starPos + i * config.spacing;
                 // 确保点不会超出轴的范围
                 if (Math.abs(distance) <= totalLength / 2) {
                     position[axis] = distance;
