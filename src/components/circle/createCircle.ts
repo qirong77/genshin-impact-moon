@@ -1,5 +1,5 @@
-import { gui } from "../common/gui";
-import { clock, scene, THREE } from "../common/main";
+import { gui } from "../../common/gui";
+import { clock, scene, THREE } from "../../common/main";
 
 export function createCircle(
     imagePath = "../../public/circle-inside.png",

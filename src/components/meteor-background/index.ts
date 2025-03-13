@@ -6,10 +6,10 @@ export function createMeteorBackground() {
     // GUI配置对象
     const config = {
         opacity: 1.0,
-        positionX: -2,  // 默认位置在左侧
-        positionY: 2,   // 默认位置在上方
-        rotationSpeed: 1.0,  // 旋转速度
-        scale: 3.0      // 缩放比例
+        positionX: -5.7,  // 默认位置在左侧
+        positionY: 3.3,   // 默认位置在上方
+        rotationSpeed: 0.03,  // 旋转速度
+        scale: 7.0      // 缩放比例
     };
 
     // 创建纹理加载器
@@ -28,7 +28,7 @@ export function createMeteorBackground() {
     });
 
     texture.colorSpace = THREE.SRGBColorSpace;
-    
+
     // 创建网格
     const plane = new Mesh(geometry, material);
 
@@ -42,38 +42,31 @@ export function createMeteorBackground() {
     folder.add(config, 'opacity', 0, 1).name('透明度').onChange(() => {
         material.opacity = config.opacity;
     });
-    folder.add(config, 'positionX', -5, 5).name('X轴位置').onChange(() => {
+    folder.add(config, 'positionX', -10, 10).name('X轴位置').onChange(() => {
         plane.position.x = config.positionX;
     });
-    folder.add(config, 'positionY', -5, 5).name('Y轴位置').onChange(() => {
+    folder.add(config, 'positionY', -10, 10).name('Y轴位置').onChange(() => {
         plane.position.y = config.positionY;
     });
-    folder.add(config, 'rotationSpeed', -5, 5).name('旋转速度').onChange(() => {
+    folder.add(config, 'rotationSpeed', -1, 1).name('旋转速度').onChange(() => {
         // 旋转速度的改变会在动画循环中生效
     });
-    folder.add(config, 'scale', 0.1, 3).name('大小').onChange(() => {
+    folder.add(config, 'scale', 1, 10).name('大小').onChange(() => {
         plane.scale.set(config.scale, config.scale, 1);
     });
     folder.open();
-    
+
     // 添加到场景
     scene.add(plane);
 
     // 添加动画更新
-    // function animate() {
-    //     // 计算相机到平面的方向向量
-    //     const directionToCamera = camera.position.clone().sub(plane.position).normalize();
-        
-    //     // 设置平面的朝向
-    //     plane.up.copy(directionToCamera);
-    //     plane.lookAt(camera.position);
-        
-    //     // 应用旋转，但保持面向相机
-    //     plane.rotateZ(config.rotationSpeed * 0.01);
-        
-    //     requestAnimationFrame(animate);
-    // }
-    // animate();
+    function animate() {
+
+        // 应用旋转，但保持面向相机
+        plane.rotateZ(config.rotationSpeed * 0.01);
+        requestAnimationFrame(animate);
+    }
+    animate();
 
     return plane;
 }

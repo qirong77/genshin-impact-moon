@@ -42,7 +42,6 @@ export function createAxisStars() {
 
     // 创建点对象
     const points = new Points(geometry, material);
-    scene.add(points);
 
     // 添加GUI控制
     const folder = gui.addFolder('轴向星点设置');

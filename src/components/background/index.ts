@@ -5,7 +5,7 @@ import { gui } from "../../common/gui";
 export function createBackground() {
     // GUI配置对象
     const config = {
-        brightness: 0.4,
+        brightness: 0.3,
         opacity: 1.0,
         positionX: 0,
         positionY: 0
