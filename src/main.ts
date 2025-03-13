@@ -7,6 +7,7 @@ import { createBackground } from './components/background';
 import { createMeteorBackground } from './components/meteor-background';
 import { scene, THREE } from "./common/main";
 import { gui } from "./common/gui";
+import { createStarBox } from "./components/star-box";
 createAxisStars()
 const startRing1 = createStarRing({
     innerRadius: 0.57,
@@ -72,3 +73,4 @@ galaxyFolder.open()
 // createBackground();
 // 创建流星背景
 // createMeteorBackground();
+createStarBox()
