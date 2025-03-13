@@ -10,8 +10,8 @@ const startRing1 = createStarRing({
     outerRadius: 0.9,
 });
 const startRing2 = createStarRing({
-    innerRadius: 1.47,
-    outerRadius: 1.6,
+    innerRadius: 1.12,
+    outerRadius: 1.35,
 });
 const startRing3 = createStarRing({
     innerRadius: 2,

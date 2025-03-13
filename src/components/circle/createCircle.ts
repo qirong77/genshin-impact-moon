@@ -56,7 +56,7 @@ export function createCircle(
         circleMaterial.opacity = controls.minOpacity + Math.abs(Math.sin(time * 0.5)) * opacityRange;
         
         // 更新圆环旋转
-        // circleMesh.rotation.z += controls.rotationSpeed * 0.01;
+        circleMesh.rotation.z += controls.rotationSpeed * 0.01;
     }
 
     animate();

@@ -1,14 +1,23 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { THREE } from "../../common/main";
-
+export interface IStarRingGeometryConfig {
+    starCounts?: number;
+    innerRadius?: number;
+    outerRadius?: number;
+    color?: THREE.Color;
+    opacity?: number;
+    randomness?: number; // 添加随机性参数
+    randomFrequency?: number; // 添加随机频率参数
+}
 export class StarRingGeometry {
     geometryConfig = {
-        starCounts: 1200,
+        starCounts: 1500,
         innerRadius: 1,
         outerRadius: 2,
         color: new THREE.Color(0.47, 0.19, 0.87),
-        randomness: 0.2, // 添加随机性参数
-        randomFrequency: 0.5, // 添加随机频率参数
+        opacity: 1,
+        randomness: 0.5, // 添加随机性参数
+        randomFrequency: 0.8, // 添加随机频率参数
     };
     currentGeometry: THREE.BufferGeometry<THREE.NormalBufferAttributes> | null = null;
     onChangeHanlders: Function[] = [];

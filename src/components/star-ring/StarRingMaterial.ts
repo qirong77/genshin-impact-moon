@@ -1,17 +1,23 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { camera, clock, renderer, scene, THREE } from "../../common/main";
+import { IStarRingGeometryConfig } from "./StarRingGeometry";
 
-export function createStarMateril(starRingGUI: GUI) {
+export function createStarMateril(starRingGUI: GUI,config:IStarRingGeometryConfig) {
     const uniforms = {
         time: { value: 1.0 },
         size: {
             value: 12.2,
         },
+        opacity: { value: 1.0 }, // 透明度
         glowIntensity: { value: 2.5 }, // 光晕强度
         glowSpeed: { value: 1.73 }, // 光晕动画速度
         fixedGlowRadius: { value: 0.08 }, // 固定亮度范围
         gradientGlowRadius: { value: 0.15 }, // 渐变范围
     };
+    Reflect.ownKeys(config).forEach((key) => {
+        // @ts-ignore
+        uniforms[key] = { value: config[key] };
+    });
     const material = new THREE.ShaderMaterial({
         uniforms,
         vertexShader: /* glsl */`
@@ -36,6 +42,7 @@ export function createStarMateril(starRingGUI: GUI) {
             uniform float glowSpeed;
             uniform float fixedGlowRadius;
             uniform float gradientGlowRadius;
+            uniform float opacity;
             varying float vOffset;
             varying float vFrequency;
             varying vec3 vColor; // 接收顶点颜色
@@ -61,7 +68,7 @@ export function createStarMateril(starRingGUI: GUI) {
                 // 使用独立频率的亮度动画
                 float brightness = (sin(time * vFrequency + vOffset) + 1.0) / 2.0;
                 vec3 finalColor = vColor * brightness * (fixedGlow + gradientGlow);
-                gl_FragColor = vec4(finalColor, 1.0);
+                gl_FragColor = vec4(finalColor, opacity);
             }
         `,
         blending: THREE.AdditiveBlending,
@@ -69,6 +76,7 @@ export function createStarMateril(starRingGUI: GUI) {
         transparent: true,
         vertexColors: true, // 使用顶点颜色
     });
+    starRingGUI.add(uniforms.opacity,'value', 0, 1).name('opacity');
     starRingGUI.add(uniforms.size,'value', 0, 100).name('size');
     starRingGUI.add(uniforms.glowIntensity,'value', 0, 10).name('glowIntensity');
     starRingGUI.add(uniforms.glowSpeed,'value', 0, 10).name('glowSpeed');
