@@ -6,10 +6,10 @@ export function createMeteorBackground() {
     // GUI配置对象
     const config = {
         opacity: 1.0,
-        positionX: -5.7,  // 默认位置在左侧
-        positionY: 3.3,   // 默认位置在上方
+        positionX: -7.16,  // 默认位置在左侧
+        positionY: 2.92,   // 默认位置在上方
         rotationSpeed: 0.03,  // 旋转速度
-        scale: 7.0      // 缩放比例
+        scale: 7.33     // 缩放比例
     };
 
     // 创建纹理加载器
@@ -42,16 +42,16 @@ export function createMeteorBackground() {
     folder.add(config, 'opacity', 0, 1).name('透明度').onChange(() => {
         material.opacity = config.opacity;
     });
-    folder.add(config, 'positionX', -10, 10).name('X轴位置').onChange(() => {
+    folder.add(config, 'positionX', -20, 20).name('X轴位置').onChange(() => {
         plane.position.x = config.positionX;
     });
-    folder.add(config, 'positionY', -10, 10).name('Y轴位置').onChange(() => {
+    folder.add(config, 'positionY', -20, 20).name('Y轴位置').onChange(() => {
         plane.position.y = config.positionY;
     });
     folder.add(config, 'rotationSpeed', -1, 1).name('旋转速度').onChange(() => {
         // 旋转速度的改变会在动画循环中生效
     });
-    folder.add(config, 'scale', 1, 10).name('大小').onChange(() => {
+    folder.add(config, 'scale', 1, 30).name('大小').onChange(() => {
         plane.scale.set(config.scale, config.scale, 1);
     });
     folder.open();

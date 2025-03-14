@@ -22,32 +22,35 @@ const startRing4 = createStarRing({
     outerRadius: 3.0,
 });
 const circle1 = createCircle("../public/circle/circle-A.png", "circle1", {
-    minOpacity: 0.75,
-    maxOpacity: 0.8,
     circleSize: 2.4,
-    rotationSpeed: -0.06,
+    rotationSpeed: 0.05,
+    opacity:1.0
 });
-const circle2 = createCircle("../public/circle/circle-C.png", "circle2", {
-    minOpacity: 0.75,
-    maxOpacity: 0.8,
-
+const circle2 = createCircle("../public/circle/circle-G.png", "circle2", {
     circleSize: 3.9,
     rotationSpeed: 0.10,
-});
-const circle3 = createCircle("../public/circle/circle-B.png", "circle3", {
-    minOpacity: 0.75,
-    maxOpacity: 0.8,
+    opacity:1.0
 
-    circleSize: 4.4,
+});
+const circle3 = createCircle("../public/circle/circle-C.png", "circle3", {
+    circleSize: 4.5,
     rotationSpeed: -0.08,
+    opacity:1.0
 });
-const circle4 = createCircle("../public/circle/circle-D.png", "circle4", {
-    minOpacity: 0.75,
-    maxOpacity: 0.8,
+const circle4 = createCircle("../public/circle/circle-B.png", "circle4", {
+    circleSize: 4.5,
+    rotationSpeed: -0.08,
+    opacity:1.0
+});
+const circle5 = createCircle("../public/circle/circle-D.png", "circle5", {
+    circleSize: 5.5,
+    rotationSpeed: -0.07,
+    opacity:0.8
+});
 
-    circleSize: 5.1,
-    rotationSpeed: 0.12,
-});
+
+
+
 const galaxyGroup = new THREE.Group()
 galaxyGroup.add(startRing1)
 galaxyGroup.add(startRing2)
@@ -57,15 +60,16 @@ galaxyGroup.add(circle1)
 galaxyGroup.add(circle2)
 galaxyGroup.add(circle3)
 galaxyGroup.add(circle4)
-galaxyGroup.add(axisStar)
+galaxyGroup.add(circle5)
+// galaxyGroup.add(axisStar)
 // 添加到场景
 scene.add(galaxyGroup)
 
 // 创建 GUI 控制
 const galaxyFolder = gui.addFolder('星系旋转控制')
-galaxyGroup.rotation.x = -1
-galaxyGroup.rotation.y = -0.2
-galaxyGroup.rotation.z = -0.2
+galaxyGroup.rotation.x = -0.8
+galaxyGroup.rotation.y = -0.21
+galaxyGroup.rotation.z = -0.18
 
 galaxyFolder.add(galaxyGroup.rotation, 'x', -Math.PI, Math.PI).name('X轴旋转')
 galaxyFolder.add(galaxyGroup.rotation, 'y', -Math.PI, Math.PI).name('Y轴旋转')

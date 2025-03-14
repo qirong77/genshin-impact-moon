@@ -3,7 +3,7 @@ import { gui } from "./gui";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 // 默认情况,面向屏幕的是z轴
-camera.position.set(0, 0, 4);
+camera.position.set(-0.14, -1.18, 3.66);
 camera.lookAt(0, 0, 0);
 export const cameraGui = gui.addFolder("camera");
 cameraGui.close(); // 默认收起面板
