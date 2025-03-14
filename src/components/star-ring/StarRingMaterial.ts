@@ -6,7 +6,7 @@ export function createStarMateril(starRingGUI: GUI,config:IStarRingGeometryConfi
     const uniforms = {
         time: { value: 1.0 },
         size: {
-            value: 12.2,
+            value: 12.5,
         },
         opacity: { value: 1.0 }, // 透明度
         glowIntensity: { value: 2.5 }, // 光晕强度
@@ -72,8 +72,9 @@ export function createStarMateril(starRingGUI: GUI,config:IStarRingGeometryConfi
             }
         `,
         blending: THREE.AdditiveBlending,
-        depthWrite: false,
+        side: THREE.DoubleSide,
         transparent: true,
+        depthWrite: true,
         vertexColors: true, // 使用顶点颜色
     });
     starRingGUI.add(uniforms.opacity,'value', 0, 1).name('opacity');

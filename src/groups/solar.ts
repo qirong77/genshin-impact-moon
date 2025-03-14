@@ -2,6 +2,7 @@ import { gui } from "../common/gui";
 import { scene, THREE } from "../common/main";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
+import { createRingItem } from "../components/ring-item/createRingItem";
 import { createStarRing } from "../components/star-ring";
 
 const axisStar = createAxisStars()
@@ -14,12 +15,16 @@ const startRing2 = createStarRing({
     outerRadius: 1.35,
 });
 const startRing3 = createStarRing({
-    innerRadius: 2,
+    innerRadius: 1.5,
     outerRadius: 2.3,
+    starCounts:5000,
+    opacity:0.45
 });
 const startRing4 = createStarRing({
-    innerRadius: 2.6,
+    innerRadius: 2.2,
     outerRadius: 3.0,
+    starCounts:5000,
+    opacity:0.45
 });
 const circle1 = createCircle("../public/circle/circle-A.png", "circle1", {
     circleSize: 2.4,
@@ -52,6 +57,18 @@ const circle5 = createCircle("../public/circle/circle-D.png", "circle5", {
 
 
 const galaxyGroup = new THREE.Group()
+const ringItem1 = createRingItem("../../../public/satellite.png",{
+    circleSize: 0.95,
+    xPosition:1.45,
+    yPosition:0
+})
+const ringItem2 = createRingItem("../../public/circle/circle-F.png",{
+    circleSize: 1.25,
+    xPosition:1.1,
+    yPosition:-1.9
+})
+galaxyGroup.add(ringItem1)
+galaxyGroup.add(ringItem2)
 galaxyGroup.add(startRing1)
 galaxyGroup.add(startRing2)
 galaxyGroup.add(startRing3)
@@ -61,7 +78,7 @@ galaxyGroup.add(circle2)
 galaxyGroup.add(circle3)
 galaxyGroup.add(circle4)
 galaxyGroup.add(circle5)
-// galaxyGroup.add(axisStar)
+galaxyGroup.add(axisStar)
 // 添加到场景
 scene.add(galaxyGroup)
 

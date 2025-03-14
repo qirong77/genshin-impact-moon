@@ -50,7 +50,7 @@ export class StarRingGeometry {
         starRingGUI.addColor(this.geometryConfig, 'color').onChange(update);
         starRingGUI.add(this.geometryConfig, "innerRadius", 0, 5).onChange(update);
         starRingGUI.add(this.geometryConfig, "outerRadius", 1, 10).onChange(update);
-        starRingGUI.add(this.geometryConfig, "starCounts", 0, 3000).onChange(update);
+        starRingGUI.add(this.geometryConfig, "starCounts", 1000, 8000).onChange(update);
         starRingGUI.add(this.geometryConfig, "randomness", 0, 1).name("位置随机性").onChange(update);
         starRingGUI.add(this.geometryConfig, "randomFrequency", 0, 2).name("闪烁频率随机性").onChange(update);
     }

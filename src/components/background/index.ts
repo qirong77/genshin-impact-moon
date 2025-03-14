@@ -13,7 +13,7 @@ export function createBackground() {
 
     // 创建纹理加载器
     const textureLoader = new TextureLoader();
-    const texture = textureLoader.load('/bg.png');
+    const texture = textureLoader.load('../../../public/background/bg.png');
 
     // 创建一个足够大的平面几何体
     const geometry = new PlaneGeometry(5, 5);
