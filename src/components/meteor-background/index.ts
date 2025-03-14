@@ -5,11 +5,11 @@ import { gui } from "../../common/gui";
 export function createMeteorBackground() {
     // GUI配置对象
     const config = {
-        opacity: 1.0,
-        positionX: -7.16,  // 默认位置在左侧
+        opacity: .5,
+        positionX: -8.4,  // 默认位置在左侧
         positionY: 2.92,   // 默认位置在上方
         rotationSpeed: 0.03,  // 旋转速度
-        scale: 7.33     // 缩放比例
+        scale: 10.33     // 缩放比例
     };
 
     // 创建纹理加载器
