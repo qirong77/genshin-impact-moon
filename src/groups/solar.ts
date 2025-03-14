@@ -60,12 +60,16 @@ const galaxyGroup = new THREE.Group()
 const ringItem1 = createRingItem("../../../public/satellite.png",{
     circleSize: 0.95,
     xPosition:1.45,
-    yPosition:0
+    yPosition:0,
+    rotationSpeed: 0.05,
+    opacity: 1.0
 })
 const ringItem2 = createRingItem("../../public/circle/circle-F.png",{
     circleSize: 1.25,
     xPosition:1.1,
-    yPosition:-1.9
+    yPosition:-1.9,
+    rotationSpeed: 0.05,
+    opacity: 0.4
 })
 galaxyGroup.add(ringItem1)
 galaxyGroup.add(ringItem2)
