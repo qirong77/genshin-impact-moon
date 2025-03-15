@@ -7,3 +7,12 @@ canvas {
   width: 100vw;
   height: 100vh;
 }
+.github-icon{
+  position: fixed;
+  top: 0;
+  width: 30px;
+  margin: 16px;
+  opacity: 0.5;
+  right: 0;
+  cursor: pointer;
+}
