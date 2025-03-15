@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/genshin-impact-moon/',
+  // base: '/genshin-impact-moon/',
 })
