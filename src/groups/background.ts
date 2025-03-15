@@ -1,14 +1,16 @@
 import { scene, THREE } from "../common/main";
 import { createBackground } from "../components/background";
 import { createStarRing } from "../components/star-ring";
+import { createMeteorBackground } from "../components/meteor-background";
 
+createMeteorBackground();
 
 const bgMain = createBackground({
-    brightness: 1.0,
-    opacity: 1.0,
+    brightness: 1.54,
+    opacity: .32,
     positionX: 0.55,
     positionY: 2.08,
-    positionZ: -5,
+    positionZ: -10,
     scale: 20,
     rotationX: -0.45,
     rotationY: 0,
@@ -16,14 +18,14 @@ const bgMain = createBackground({
     texture:'../../public/background/bg2.png'
 })
 const bg2 = createBackground({
-    brightness: 0.27,
-    opacity: 0.3,
+    brightness: 2.,
+    opacity: 1.,
     positionX: 0.55,
-    positionY: 2.08,
-    positionZ: -5,
-    scale: 6.6,
-    rotationX: -0.45,
-    rotationY: 0,
+    positionY: 1.31,
+    positionZ: -6.04,
+    scale: 6.9,
+    rotationX: -0.61,
+    rotationY: -0.21,
     rotationZ: 0,
     texture: '../../public/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png'
 });

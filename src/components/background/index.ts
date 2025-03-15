@@ -23,17 +23,21 @@ export function createBackground(config = {
     const material = new MeshBasicMaterial({
         map: texture,
         transparent: true,
-        opacity: config.opacity
+        opacity: config.opacity,
+        depthWrite: false, // 禁用深度写入以避免渲染问题
+        depthTest: true // 保持深度测试
     });
-    material.color.setRGB(config.brightness, config.brightness, config.brightness);
+    // material.color.setRGB(config.brightness, config.brightness, config.brightness);
     material.opacity = config.opacity;
 
     texture.colorSpace = THREE.SRGBColorSpace; // 设置为 sRGB 色彩空间
     
     // 创建网格
     const plane = new Mesh(geometry, material);
-    plane.scale.set(config.scale, config.scale, 1);
-
+    plane.scale.set(config.scale, config.scale, config.scale);
+    plane.position.set(config.positionX, config.positionY, config.positionZ);
+    plane.rotation.set(config.rotationX, config.rotationY, config.rotationZ);
+    material.color.setRGB(config.brightness, config.brightness, config.brightness);
     // 添加GUI控制
     const folder = gui.addFolder('背景设置');
     folder.add(config, 'brightness', 0, 2).name('亮度').onChange(() => {
@@ -52,7 +56,7 @@ export function createBackground(config = {
         plane.position.z = config.positionZ;
     });
     folder.add(config, 'scale', 1, 20).name('缩放比例').onChange(() => {
-        plane.scale.set(config.scale, config.scale, 1);
+        plane.scale.set(config.scale, config.scale, config.scale);
     })
     folder.add(config, 'rotationX', -Math.PI, Math.PI).name('X轴旋转').onChange(() => {
         plane.rotation.x = config.rotationX;
@@ -67,26 +71,6 @@ export function createBackground(config = {
     
     // 将平面放置在场景最后方
     plane.position.z = config.positionZ;
-
-    // 调整平面大小以适应屏幕
-    function updatePlaneSize() {
-        const distance = Math.abs(plane.position.z);
-        const vFov = (camera.fov * Math.PI) / 180;
-        const height = 2 * Math.tan(vFov / 2) * distance;
-        const width = height * (window.innerWidth / window.innerHeight);
-        plane.scale.set(width, height, 1);
-    }
-
-
-    // 添加动画更新
-    function animate() {
-        requestAnimationFrame(animate);
-    }
-    animate();
-
-    // 监听窗口大小变化
-    window.addEventListener('resize', updatePlaneSize);
-    updatePlaneSize();
 
     return plane;
 }
