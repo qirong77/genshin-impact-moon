@@ -4,7 +4,7 @@ import { createStarRing } from "../components/star-ring";
 import { createMeteorBackground } from "../components/meteor-background";
 
 createMeteorBackground();
-const imagePathBgMain = '@assets/background/bg2.png'
+import imagePathBgMain from '@assets/background/bg2.png'
 const bgMain = createBackground({
     brightness: 1.54,
     opacity: .32,
@@ -21,10 +21,22 @@ import imagePath from '@assets/background/1x1_广袤的深空背景_中间是较
 const bg2 = createBackground({
     brightness: 2.,
     opacity: 1.,
-    positionX: 0.55,
-    positionY: 1.31,
+    positionX: -0.22,
+    positionY: 0.55,
     positionZ: -6.04,
-    scale: 6.9,
+    scale: 9.3,
+    rotationX: -0.61,
+    rotationY: -0.21,
+    rotationZ: 0,
+    texture: imagePath
+});
+const bg3 = createBackground({
+    brightness: 1.8,
+    opacity: 0.6,
+    positionX: -0.22,
+    positionY: 0.55,
+    positionZ: -6.04,
+    scale: 5.5,
     rotationX: -0.61,
     rotationY: -0.21,
     rotationZ: 0,
@@ -39,3 +51,4 @@ const starBackground = createStarRing({
 scene.add(starBackground)
 scene.add(bgMain)
 scene.add(bg2)
+scene.add(bg3)
