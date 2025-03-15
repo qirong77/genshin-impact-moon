@@ -12,7 +12,16 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-
+    // 解析非相对模块名的基准目录
+    "baseUrl": "./",
+    // 模块名到基于 baseUrl 的路径映射的列表
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assets/*": ["./public/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@common/*": ["./src/common/*"],
+      "@groups/*": ["./src/groups/*"]
+    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
