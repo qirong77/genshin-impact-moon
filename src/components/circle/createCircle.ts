@@ -1,14 +1,16 @@
 import { gui } from "../../common/gui";
 import { clock, scene, THREE } from "../../common/main";
-const alphaTexture = new THREE.TextureLoader().load("../../../public/alpha.png"); //
+import AlphaPath from "@assets/item/alpha.png";
+const alphaTexture = new THREE.TextureLoader().load(AlphaPath); //
+import CirclePath from "@assets/circle/circle-A.png";
 export function createCircle(
-    imagePath = "../../public/circle-inside.png",
+    imagePath = CirclePath,
     circleName = "circlename",
     defaultValue = {
         circleSize: 3.5,
         rotationSpeed: 0.5, // 默认旋转速度
-        opacity:0.5,
-    } 
+        opacity: 0.5,
+    }
 ) {
     // 添加图片到圆环中心
     const textureLoader = new THREE.TextureLoader();
@@ -19,9 +21,9 @@ export function createCircle(
         map: circleTexture,
         transparent: true,
         side: THREE.DoubleSide,
-        alphaMap:alphaTexture,
-        opacity:defaultValue.opacity,
-        alphaTest:0.1,
+        alphaMap: alphaTexture,
+        opacity: defaultValue.opacity,
+        alphaTest: 0.1,
     });
     const circleMesh = new THREE.Mesh(circleGeometry, circleMaterial);
     circleMesh.scale.set(Number(defaultValue.circleSize), Number(defaultValue.circleSize), 1);

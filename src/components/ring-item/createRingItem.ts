@@ -1,9 +1,12 @@
 import { gui } from "../../common/gui";
 import { THREE } from "../../common/main";
-const alphaTexture = new THREE.TextureLoader().load("../../../public/alpha.png"); //
+import AlphaPath from "@assets/item/alpha.png";
+
+const alphaTexture = new THREE.TextureLoader().load(AlphaPath); //
 let index = 1;
+import SatelliteImagePath from '@assets/item/satellite.png'
 export function createRingItem(
-    imagePath = "../../../public/satellite.png",
+    imagePath = SatelliteImagePath,
     defaultValue = {
         circleSize: 1.0,
         xPosition:0,
