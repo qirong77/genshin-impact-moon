@@ -2,21 +2,24 @@ import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
 import { scene, camera, THREE } from "../../common/main";
 import { gui } from "../../common/gui";
 
-export function createBackground() {
-    // GUI配置对象
-    const config = {
-        brightness: 0.3,
-        opacity: 1.0,
-        positionX: 0,
-        positionY: 0
-    };
-
+export function createBackground(config = {
+    brightness: 0.27,
+    opacity: 0.3,
+    positionX: 0.55,
+    positionY: 2.08,
+    positionZ: -5,
+    scale: 6.6,
+    rotationX: -0.45,
+    rotationY: 0,
+    rotationZ: 0,
+    texture: ''
+}) {
     // 创建纹理加载器
     const textureLoader = new TextureLoader();
-    const texture = textureLoader.load('../../../public/background/bg.png');
+    const texture = textureLoader.load(config.texture);
 
     // 创建一个足够大的平面几何体
-    const geometry = new PlaneGeometry(5, 5);
+    const geometry = new PlaneGeometry(2, 2);
     const material = new MeshBasicMaterial({
         map: texture,
         transparent: true,
@@ -29,6 +32,7 @@ export function createBackground() {
     
     // 创建网格
     const plane = new Mesh(geometry, material);
+    plane.scale.set(config.scale, config.scale, 1);
 
     // 添加GUI控制
     const folder = gui.addFolder('背景设置');
@@ -38,19 +42,31 @@ export function createBackground() {
     folder.add(config, 'opacity', 0, 1).name('透明度').onChange(() => {
         material.opacity = config.opacity;
     });
-    folder.add(config, 'positionX', -2, 2).name('X轴位置').onChange(() => {
+    folder.add(config, 'positionX', -5, 5).name('X轴位置').onChange(() => {
         plane.position.x = config.positionX;
     });
-    folder.add(config, 'positionY', -2, 2).name('Y轴位置').onChange(() => {
+    folder.add(config, 'positionY', -5, 5).name('Y轴位置').onChange(() => {
         plane.position.y = config.positionY;
+    });
+    folder.add(config, 'positionZ', -10, 10).name('Z轴位置').onChange(() => {
+        plane.position.z = config.positionZ;
+    });
+    folder.add(config, 'scale', 1, 20).name('缩放比例').onChange(() => {
+        plane.scale.set(config.scale, config.scale, 1);
+    })
+    folder.add(config, 'rotationX', -Math.PI, Math.PI).name('X轴旋转').onChange(() => {
+        plane.rotation.x = config.rotationX;
+    });
+    folder.add(config, 'rotationY', -Math.PI, Math.PI).name('Y轴旋转').onChange(() => {
+        plane.rotation.y  =config.rotationY;
+    });
+    folder.add(config, 'rotationZ', -Math.PI, Math.PI).name('Z轴旋转').onChange(() => {
+        plane.rotation.z = config.rotationZ;
     });
     folder.open();
     
     // 将平面放置在场景最后方
-    plane.position.z = -5;
-    
-    // 添加到场景
-    scene.add(plane);
+    plane.position.z = config.positionZ;
 
     // 调整平面大小以适应屏幕
     function updatePlaneSize() {
@@ -58,18 +74,12 @@ export function createBackground() {
         const vFov = (camera.fov * Math.PI) / 180;
         const height = 2 * Math.tan(vFov / 2) * distance;
         const width = height * (window.innerWidth / window.innerHeight);
-
         plane.scale.set(width, height, 1);
     }
 
-    // 更新平面朝向
-    function updatePlaneOrientation() {
-        plane.lookAt(camera.position);
-    }
 
     // 添加动画更新
     function animate() {
-        updatePlaneOrientation();
         requestAnimationFrame(animate);
     }
     animate();

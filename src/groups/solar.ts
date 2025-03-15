@@ -9,22 +9,24 @@ const axisStar = createAxisStars()
 const startRing1 = createStarRing({
     innerRadius: 0.57,
     outerRadius: 0.9,
+    opacity:0.8
 });
 const startRing2 = createStarRing({
     innerRadius: 1.12,
     outerRadius: 1.35,
+    opacity:0.6
 });
 const startRing3 = createStarRing({
     innerRadius: 1.5,
     outerRadius: 2.3,
     starCounts:5000,
-    opacity:0.45
+    opacity:0.5
 });
 const startRing4 = createStarRing({
     innerRadius: 2.2,
     outerRadius: 3.0,
     starCounts:5000,
-    opacity:0.45
+    opacity:0.6
 });
 const circle1 = createCircle("../public/circle/circle-A.png", "circle1", {
     circleSize: 2.4,
