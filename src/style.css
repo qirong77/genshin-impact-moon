@@ -35,6 +35,11 @@ canvas {
   z-index: 1000;
 }
 
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 .overlay.fade-out {
   opacity: 0;
   pointer-events: none;
@@ -67,9 +72,9 @@ canvas {
 }
 
 .overlay img:first-child {
-  animation: rotate-clockwise 10s linear infinite;
+  animation: rotate-clockwise 15s linear infinite;
 }
 
 .overlay img:last-child {
-  animation: rotate-counterclockwise 15s linear infinite;
+  animation: rotate-counterclockwise 20s linear infinite;
 }
