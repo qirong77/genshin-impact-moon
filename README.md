@@ -1,7 +1,7 @@
 # Genshin Impact Moon
 
-预言已显，新月将至。
-The prophecy has been unveiled, and the new moon approaches.
+[预言已显，新月将至。
+The prophecy has been unveiled, and the new moon approaches.](https://qirong77.github.io/genshin-impact-moon/)
 
 ![预览图](./image.png)
 

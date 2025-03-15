@@ -8,7 +8,10 @@ import { gui } from "./common/gui";
 import { orbitCOntroler } from "./common/oribtControls";
 
 const isProd = window.location.href.includes("github");
-
+if (isProd) {
+    gui.destroy();
+    orbitCOntroler.dispose();
+}
 document.addEventListener("DOMContentLoaded", () => {
     const overlay = document.querySelector('.overlay');
     if (overlay) {
@@ -16,10 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
             overlay.classList.add('fade-out');
             addGitHubIcon();
             addAudio();
-            if (isProd) {
-                gui.destroy();
-                orbitCOntroler.dispose();
-            }
         });
     }
 });
