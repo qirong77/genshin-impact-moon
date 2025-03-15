@@ -6,18 +6,24 @@ import videoPath from "@assets/audio/bg.mp3";
 import GitHubPath from "@assets/item/github-mark-white.png";
 import { gui } from "./common/gui";
 import { orbitCOntroler } from "./common/oribtControls";
+
 const isProd = window.location.href.includes("github");
-gui.destroy();
-orbitCOntroler.dispose();
+
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('123')
-    addGitHubIcon()
-    addAudio()
-    if (isProd) {
-        gui.destroy();
-        orbitCOntroler.dispose();
+    const overlay = document.querySelector('.overlay');
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            overlay.classList.add('fade-out');
+            addGitHubIcon();
+            addAudio();
+            if (isProd) {
+                gui.destroy();
+                orbitCOntroler.dispose();
+            }
+        });
     }
 });
+
 function addGitHubIcon() {
     const github = document.createElement("img");
     github.src = GitHubPath;
@@ -30,6 +36,7 @@ function addGitHubIcon() {
 }
 
 function addAudio() {
+ 
     // 创建音频元素
     const audio = document.createElement("audio");
     audio.src = videoPath;
@@ -40,7 +47,4 @@ function addAudio() {
         console.error("音频加载失败:", e);
     };
     document.body.appendChild(audio);
-    setTimeout(() => {
-        audio.play();
-    }, 500);
 }
