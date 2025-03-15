@@ -30,7 +30,7 @@ const bg2 = createBackground({
     texture: '../../public/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png'
 });
 const starBackground = createStarRing({
-    starCounts: 80,
+    starCounts: 360,
     innerRadius:0.9,
     outerRadius:3.0,
     color: new THREE.Color(0xffffff),

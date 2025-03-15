@@ -5,8 +5,8 @@ import { gui } from "../../common/gui";
 export function createMeteorBackground() {
     // GUI配置对象
     const config = {
-        opacity: .7,
-        positionX: -8.4,  // 默认位置在左侧
+        opacity: .66,
+        positionX: -8.,  // 默认位置在左侧
         positionY: 2.92,   // 默认位置在上方
         rotationSpeed: 0.03,  // 旋转速度
         scale: 12.33     // 缩放比例
