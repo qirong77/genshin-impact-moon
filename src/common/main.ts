@@ -27,7 +27,8 @@ const cameraParams = {
     far: camera.far,
     lookAtX: 0,
     lookAtY: 0,
-    lookAtZ: 0
+    lookAtZ: 0,
+    isMove: true
 };
 
 viewFolder.add(cameraParams, "fov", 30, 120).name("视场角").onChange((value) => {
@@ -42,7 +43,9 @@ viewFolder.add(cameraParams, "far", 10, 1000).name("远平面").onChange((value)
     camera.far = value;
     camera.updateProjectionMatrix();
 });
-
+viewFolder.add(cameraParams, "isMove").name("相机移动").onChange((value) => {
+    
+})
 // 朝向控制
 const lookAtFolder = cameraGui.addFolder("朝向控制");
 lookAtFolder.add(cameraParams, "lookAtX", -10, 10).name("X轴朝向").onChange(() => {
@@ -54,7 +57,7 @@ lookAtFolder.add(cameraParams, "lookAtY", -10, 10).name("Y轴朝向").onChange((
 lookAtFolder.add(cameraParams, "lookAtZ", -10, 10).name("Z轴朝向").onChange(() => {
     camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
 });
-
+viewFolder.add
 viewFolder.open();
 positionFolder.open();
 lookAtFolder.open();
@@ -64,9 +67,9 @@ document.body.appendChild(renderer.domElement);
 renderer.render(scene, camera);
 // 设置了动画之后OribitController才支持拖动
 const clock = new THREE.Clock();
-const isProd = window.location.href.includes("github");
 function animation() {
     requestAnimationFrame(animation);
+    if(!cameraParams.isMove) return
     const time = clock.getElapsedTime();
 
     // 添加相机轻微摇摆动画
@@ -77,6 +80,5 @@ function animation() {
     camera.position.z = basePosition.z + Math.sin(time * frequency * 0.5) * amplitude * 0.5;
     renderer.render(scene, camera);
 }
-
-isProd && animation();
+animation()
 export { THREE, scene, camera, renderer, clock };
