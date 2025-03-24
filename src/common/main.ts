@@ -64,9 +64,11 @@ document.body.appendChild(renderer.domElement);
 renderer.render(scene, camera);
 // 设置了动画之后OribitController才支持拖动
 const clock = new THREE.Clock();
+const isProd = window.location.href.includes("github");
 function animation() {
     requestAnimationFrame(animation);
     const time = clock.getElapsedTime();
+
     // 添加相机轻微摇摆动画
     const amplitude = 0.1; // 振幅
     const frequency = 0.2; // 频率
@@ -75,5 +77,6 @@ function animation() {
     camera.position.z = basePosition.z + Math.sin(time * frequency * 0.5) * amplitude * 0.5;
     renderer.render(scene, camera);
 }
-animation();
+
+isProd && animation();
 export { THREE, scene, camera, renderer, clock };

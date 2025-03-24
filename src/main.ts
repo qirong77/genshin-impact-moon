@@ -6,11 +6,13 @@ import videoPath from "@assets/audio/bg.mp3";
 import GitHubPath from "@assets/item/github-mark-white.png";
 import { gui } from "./common/gui";
 import { orbitCOntroler } from "./common/oribtControls";
+import { axisHelper } from "./common/axisHelper";
 
 const isProd = window.location.href.includes("github");
 if (isProd) {
     gui.destroy();
     orbitCOntroler.dispose();
+    axisHelper.dispose();
 }
 document.addEventListener("DOMContentLoaded", () => {
     const overlay = document.querySelector('.overlay');
