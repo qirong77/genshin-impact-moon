@@ -6,7 +6,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 const basePosition = {
     x: -0.14,
     y: -1.18,
-    z: 3.66
+    z: 3.66,
 };
 camera.position.set(basePosition.x, basePosition.y, basePosition.z);
 camera.lookAt(0, 0, 0);
@@ -18,6 +18,7 @@ const positionFolder = cameraGui.addFolder("位置控制");
 positionFolder.add(camera.position, "x").min(-10).max(10).name("X轴位置");
 positionFolder.add(camera.position, "y").min(-10).max(10).name("Y轴位置");
 positionFolder.add(camera.position, "z").min(-10).max(10).name("Z轴位置");
+const isProd = import.meta.env.PROD;
 
 // 视角控制
 const viewFolder = cameraGui.addFolder("视角控制");
@@ -28,36 +29,55 @@ const cameraParams = {
     lookAtX: 0,
     lookAtY: 0,
     lookAtZ: 0,
-    isMove: true
+    isMove: isProd,
 };
 
-viewFolder.add(cameraParams, "fov", 30, 120).name("视场角").onChange((value) => {
-    camera.fov = value;
-    camera.updateProjectionMatrix();
-});
-viewFolder.add(cameraParams, "near", 0.1, 10).name("近平面").onChange((value) => {
-    camera.near = value;
-    camera.updateProjectionMatrix();
-});
-viewFolder.add(cameraParams, "far", 10, 1000).name("远平面").onChange((value) => {
-    camera.far = value;
-    camera.updateProjectionMatrix();
-});
-viewFolder.add(cameraParams, "isMove").name("相机移动").onChange((value) => {
-    
-})
+viewFolder
+    .add(cameraParams, "fov", 30, 120)
+    .name("视场角")
+    .onChange((value) => {
+        camera.fov = value;
+        camera.updateProjectionMatrix();
+    });
+viewFolder
+    .add(cameraParams, "near", 0.1, 10)
+    .name("近平面")
+    .onChange((value) => {
+        camera.near = value;
+        camera.updateProjectionMatrix();
+    });
+viewFolder
+    .add(cameraParams, "far", 10, 1000)
+    .name("远平面")
+    .onChange((value) => {
+        camera.far = value;
+        camera.updateProjectionMatrix();
+    });
+viewFolder
+    .add(cameraParams, "isMove")
+    .name("相机移动")
+    .onChange((value) => {});
 // 朝向控制
 const lookAtFolder = cameraGui.addFolder("朝向控制");
-lookAtFolder.add(cameraParams, "lookAtX", -10, 10).name("X轴朝向").onChange(() => {
-    camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
-});
-lookAtFolder.add(cameraParams, "lookAtY", -10, 10).name("Y轴朝向").onChange(() => {
-    camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
-});
-lookAtFolder.add(cameraParams, "lookAtZ", -10, 10).name("Z轴朝向").onChange(() => {
-    camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
-});
-viewFolder.add
+lookAtFolder
+    .add(cameraParams, "lookAtX", -10, 10)
+    .name("X轴朝向")
+    .onChange(() => {
+        camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
+    });
+lookAtFolder
+    .add(cameraParams, "lookAtY", -10, 10)
+    .name("Y轴朝向")
+    .onChange(() => {
+        camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
+    });
+lookAtFolder
+    .add(cameraParams, "lookAtZ", -10, 10)
+    .name("Z轴朝向")
+    .onChange(() => {
+        camera.lookAt(cameraParams.lookAtX, cameraParams.lookAtY, cameraParams.lookAtZ);
+    });
+viewFolder.add;
 viewFolder.open();
 positionFolder.open();
 lookAtFolder.open();
@@ -69,16 +89,17 @@ renderer.render(scene, camera);
 const clock = new THREE.Clock();
 function animation() {
     requestAnimationFrame(animation);
-    if(!cameraParams.isMove) return
-    const time = clock.getElapsedTime();
+    if (cameraParams.isMove) {
+        const time = clock.getElapsedTime();
+        // 添加相机轻微摇摆动画
+        const amplitude = 0.1; // 振幅
+        const frequency = 0.2; // 频率
+        camera.position.x = basePosition.x + Math.sin(time * frequency) * amplitude;
+        camera.position.y = basePosition.y + Math.cos(time * frequency) * amplitude;
+        camera.position.z = basePosition.z + Math.sin(time * frequency * 0.5) * amplitude * 0.5;
+    }
 
-    // 添加相机轻微摇摆动画
-    const amplitude = 0.1; // 振幅
-    const frequency = 0.2; // 频率
-    camera.position.x = basePosition.x + Math.sin(time * frequency) * amplitude;
-    camera.position.y = basePosition.y + Math.cos(time * frequency) * amplitude;
-    camera.position.z = basePosition.z + Math.sin(time * frequency * 0.5) * amplitude * 0.5;
     renderer.render(scene, camera);
 }
-animation()
+animation();
 export { THREE, scene, camera, renderer, clock };
