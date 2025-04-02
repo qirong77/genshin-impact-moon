@@ -45,6 +45,7 @@ export function createAxisStars() {
 
     // 添加GUI控制
     const folder = gui.addFolder('轴向星点设置');
+    folder.close(); // 默认收起面板
     folder.add(config, 'pointSize', 0.01, 0.05).onChange((value) => {
         material.size = value;
     });

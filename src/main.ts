@@ -7,11 +7,12 @@ import GitHubPath from "@assets/item/github-mark-white.png";
 import { gui } from "./common/gui";
 import { orbitCOntroler } from "./common/oribtControls";
 
-const isProd = window.location.href.includes("github");
+const isProd = import.meta.env.PROD;
 if (isProd) {
     gui.destroy();
     orbitCOntroler.dispose();
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     const overlay = document.querySelector('.overlay');
     if (overlay) {
