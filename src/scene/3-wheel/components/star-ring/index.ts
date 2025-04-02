@@ -1,5 +1,4 @@
-import { gui } from "../../../../common/gui";
-import { scene, THREE } from "../../../../common/main";
+import {  THREE } from "../../../../common/main";
 import { createSceneWheelGui } from "../../wheel-gui";
 import { IStarRingGeometryConfig, StarRingGeometry } from "./StarRingGeometry";
 import { createStarMateril } from "./StarRingMaterial";
