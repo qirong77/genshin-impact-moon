@@ -45,7 +45,7 @@ export function createAxisStars() {
     const points = new Points(geometry, material);
 
     // 添加GUI控制
-    const folder = createSceneWheelGui("轴向星点设置");
+    const folder = createSceneWheelGui("wheel-axis-stars");
     folder.close(); // 默认收起面板
     folder.add(config, "pointSize", 0.01, 0.05).onChange((value) => {
         material.size = value;

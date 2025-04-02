@@ -1,7 +1,7 @@
 import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
 import { scene, camera, THREE } from "../../../../common/main";
-import { gui } from "../../../../common/gui";
 import IMAGE_PATH from "@assets/item/meteor.png";
+import { createSceneWheelGui } from "../../wheel-gui";
 export function createMeteorBackground() {
     // GUI配置对象
     const config = {
@@ -37,7 +37,7 @@ export function createMeteorBackground() {
     plane.scale.set(config.scale, config.scale, 1);
 
     // 添加GUI控制
-    const folder = gui.addFolder("流星设置");
+    const folder = createSceneWheelGui("wheel-meteor-background");
 
     folder
         .add(config, "opacity", 0, 1)

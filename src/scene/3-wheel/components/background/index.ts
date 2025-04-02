@@ -1,6 +1,6 @@
 import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
-import { scene, camera, THREE } from "../../../../common/main";
-import { gui } from "../../../../common/gui";
+import { THREE } from "../../../../common/main";
+import { createSceneWheelGui } from "../../wheel-gui";
 
 export function createBackground(config = {
     brightness: 0.27,
@@ -39,7 +39,7 @@ export function createBackground(config = {
     plane.rotation.set(config.rotationX, config.rotationY, config.rotationZ);
     material.color.setRGB(config.brightness, config.brightness, config.brightness);
     // 添加GUI控制
-    const folder = gui.addFolder('背景设置');
+    const folder = createSceneWheelGui('wheel-background');
     folder.close(); // 默认收起面板
     folder.add(config, 'brightness', 0, 2).name('亮度').onChange(() => {
         material.color.setRGB(config.brightness, config.brightness, config.brightness);
