@@ -1,6 +1,6 @@
 import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
-import { scene, camera, THREE } from "../../common/main";
-import { gui } from "../../common/gui";
+import { scene, camera, THREE } from "../../../../common/main";
+import { gui } from "../../../../common/gui";
 
 export function createBackground(config = {
     brightness: 0.27,

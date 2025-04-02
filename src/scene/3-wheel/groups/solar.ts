@@ -1,5 +1,4 @@
-import { gui } from "../common/gui";
-import { scene, THREE } from "../common/main";
+
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
@@ -74,6 +73,8 @@ const ringItem1 = createRingItem(RingItemPathSatellite, {
     opacity: 1.0,
 });
 import CirclePathF from "@assets/circle/circle-F.png";
+import { scene, THREE } from "@/common/main";
+import { gui } from "@/common/gui";
 
 const ringItem2 = createRingItem(CirclePathF, {
     circleSize: 1.25,

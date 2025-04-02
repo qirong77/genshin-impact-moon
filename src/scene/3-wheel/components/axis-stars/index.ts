@@ -1,12 +1,13 @@
 import { BufferGeometry, Float32BufferAttribute, Points } from "three";
-import { scene, THREE } from "../../common/main";
-import { gui } from "../../common/gui";
+import { scene, THREE } from "../../../../common/main";
+import { gui } from "../../../../common/gui";
+import { createSceneWheelGui } from "../../wheel-gui";
 
 const config = {
     pointSize: 0.012,
     axisLength: 5.5,
     spacing: 0.02,
-    color: '#9b9b9b'
+    color: "#9b9b9b",
 };
 
 export function createAxisStars() {
@@ -19,13 +20,13 @@ export function createAxisStars() {
 
     // 创建顶点数组
     const vertices = [];
-    
+
     // 在每个轴上生成均匀分布的点
     for (let axis = 0; axis < 3; axis++) {
         const totalLength = config.axisLength;
         const starPos = -totalLength / 2;
         const pointCount = Math.floor(totalLength / config.spacing);
-        
+
         for (let i = 0; i < pointCount; i++) {
             const position = [0, 0, 0];
             const distance = starPos + i * config.spacing;
@@ -38,25 +39,25 @@ export function createAxisStars() {
     }
 
     // 将顶点添加到几何体中
-    geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute("position", new Float32BufferAttribute(vertices, 3));
 
     // 创建点对象
     const points = new Points(geometry, material);
 
     // 添加GUI控制
-    const folder = gui.addFolder('轴向星点设置');
+    const folder = createSceneWheelGui("轴向星点设置");
     folder.close(); // 默认收起面板
-    folder.add(config, 'pointSize', 0.01, 0.05).onChange((value) => {
+    folder.add(config, "pointSize", 0.01, 0.05).onChange((value) => {
         material.size = value;
     });
-    folder.add(config, 'axisLength', 5, 20).onChange(() => {
+    folder.add(config, "axisLength", 5, 20).onChange(() => {
         updateVertices();
     });
-    folder.add(config, 'spacing', 0.01, 0.2).onChange(() => {
+    folder.add(config, "spacing", 0.01, 0.2).onChange(() => {
         updateVertices();
     });
 
-    folder.addColor(config, 'color').onChange((value) => {
+    folder.addColor(config, "color").onChange((value) => {
         material.color.set(value);
     });
     folder.open();
@@ -68,7 +69,7 @@ export function createAxisStars() {
             const totalLength = config.axisLength;
             const starPos = -totalLength / 2;
             const pointCount = Math.floor(totalLength / config.spacing);
-            
+
             for (let i = 0; i < pointCount; i++) {
                 const position = [0, 0, 0];
                 const distance = starPos + i * config.spacing;
@@ -79,7 +80,7 @@ export function createAxisStars() {
                 }
             }
         }
-        geometry.setAttribute('position', new Float32BufferAttribute(newVertices, 3));
+        geometry.setAttribute("position", new Float32BufferAttribute(newVertices, 3));
         geometry.attributes.position.needsUpdate = true;
     }
     points.rotation.z = -0.2;

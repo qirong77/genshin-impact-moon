@@ -1,7 +1,7 @@
 import { scene, THREE } from "@/common/main";
 import { TextureLoader } from "three";
 import IMAGE_PATH from "@assets/item/moon-texture.png";
-import MOON_BG from '@assets/item/moon-bg.png'
+// import MOON_BG from '@assets/item/moon-bg.png'
 const createMoon = () => {
     // 创建球体几何体
     const geometry = new THREE.SphereGeometry(0.15, 32, 32);

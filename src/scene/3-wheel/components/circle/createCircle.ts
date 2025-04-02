@@ -1,5 +1,5 @@
-import { gui } from "../../common/gui";
-import { clock, scene, THREE } from "../../common/main";
+import { gui } from "../../../../common/gui";
+import { clock, scene, THREE } from "../../../../common/main";
 import AlphaPath from "@assets/item/alpha.png";
 const alphaTexture = new THREE.TextureLoader().load(AlphaPath); //
 import CirclePath from "@assets/circle/circle-A.png";

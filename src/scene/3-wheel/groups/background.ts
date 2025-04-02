@@ -1,8 +1,7 @@
-import { scene, THREE } from "../common/main";
+
 import { createBackground } from "../components/background";
 import { createStarRing } from "../components/star-ring";
 import { createMeteorBackground } from "../components/meteor-background";
-
 createMeteorBackground();
 import imagePathBgMain from '@assets/background/bg2.png'
 const bgMain = createBackground({
@@ -18,6 +17,7 @@ const bgMain = createBackground({
     texture: imagePathBgMain
 })
 import imagePath from '@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png'
+import { scene, THREE } from "@/common/main";
 const bg2 = createBackground({
     brightness: 2.,
     opacity: 1.,

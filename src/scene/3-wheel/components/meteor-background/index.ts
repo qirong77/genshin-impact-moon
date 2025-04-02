@@ -1,6 +1,6 @@
 import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
-import { scene, camera, THREE } from "../../common/main";
-import { gui } from "../../common/gui";
+import { scene, camera, THREE } from "../../../../common/main";
+import { gui } from "../../../../common/gui";
 import IMAGE_PATH from "@assets/item/meteor.png";
 export function createMeteorBackground() {
     // GUI配置对象

@@ -1,5 +1,5 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
-import { camera, clock, renderer, scene, THREE } from "../../common/main";
+import { camera, clock, renderer, scene, THREE } from "../../../../common/main";
 import { IStarRingGeometryConfig } from "./StarRingGeometry";
 
 export function createStarMateril(starRingGUI: GUI,config:IStarRingGeometryConfig) {
