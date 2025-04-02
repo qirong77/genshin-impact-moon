@@ -37,12 +37,10 @@ function addGitHubIcon() {
 
 function addAudio() {
  
-    // 创建音频元素
     const audio = document.createElement("audio");
     audio.src = videoPath;
     audio.loop = true;
     audio.autoplay = true;
-    // 添加错误处理
     audio.onerror = (e) => {
         console.error("音频加载失败:", e);
     };
