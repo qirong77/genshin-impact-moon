@@ -6,7 +6,7 @@ const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerH
 const basePosition = {
     x: 0,
     y: 0,
-    z: 4.66,
+    z: 3.7,
 };
 camera.position.set(basePosition.x, basePosition.y, basePosition.z);
 camera.lookAt(0, 0, 0);

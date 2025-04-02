@@ -1,5 +1,4 @@
 import { scene, THREE } from "@/common/main";
-import { gui } from "@/common/gui";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
@@ -102,22 +101,21 @@ const purpleDreamOverlay = createBackground({
     opacity: 0.95,
     positionX: -.55,
     positionY: 0.1,
-    positionZ: -1.1,
-    scale: 4.8,
-    rotationX: 0.15,
+    positionZ: -.35,
+    scale: 5.,
+    rotationX: 0.,
     rotationY: -0.,
     rotationZ: 0,
     texture: imagePathPurpleDream,
 });
 const purpleDreamOverlay2 = createBackground({
-    brightness: 1.8,
-    opacity: 0.6,
+    brightness: 2.,
+    opacity: 0.9,
     positionX: -.55,
     positionY: 0.1,
-    positionZ: -1.1,
-    scale: 2.5,
-    rotationX: 0.15,
-
+    positionZ: -.5,
+    scale: 2.8,
+    rotationX: 0.1,
     rotationY: -0.,
     rotationZ: 0,
     texture: imagePathPurpleDream,
@@ -143,7 +141,7 @@ scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
 const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");
-galaxyGroup.rotation.x = -1.;
+galaxyGroup.rotation.x = -1.1;
 galaxyGroup.rotation.y = -0.18;
 galaxyGroup.rotation.z = -0.18;
 
