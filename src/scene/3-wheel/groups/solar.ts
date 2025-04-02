@@ -1,4 +1,3 @@
-
 import { scene, THREE } from "@/common/main";
 import { gui } from "@/common/gui";
 import { createAxisStars } from "../components/axis-stars";
@@ -14,6 +13,7 @@ import CirclePathD from "@assets/circle/circle-D.png";
 import CirclePathF from "@assets/circle/circle-F.png";
 import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
+import { createSceneWheelGui } from "../wheel-gui";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -114,7 +114,7 @@ galaxyGroup.add(axisStar);
 scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
-const galaxyFolder = gui.addFolder("星系旋转控制");
+const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");
 galaxyGroup.rotation.x = -0.8;
 galaxyGroup.rotation.y = -0.21;
 galaxyGroup.rotation.z = -0.18;
