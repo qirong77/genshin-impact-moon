@@ -13,7 +13,7 @@ import CirclePathF from "@assets/circle/circle-F.png";
 import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
-import { createBackground } from "../components/background";
+import { createBackground } from "../../common/background";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -96,30 +96,36 @@ const decorativeRingItem = createRingItem(CirclePathF, {
     opacity: 0.4,
 });
 
-const purpleDreamOverlay = createBackground({
-    brightness: 2.8,
-    opacity: 0.95,
-    positionX: -.55,
-    positionY: 0.1,
-    positionZ: -.35,
-    scale: 5.,
-    rotationX: 0.,
-    rotationY: -0.,
-    rotationZ: 0,
-    texture: imagePathPurpleDream,
-});
-const purpleDreamOverlay2 = createBackground({
-    brightness: 2.,
-    opacity: 0.9,
-    positionX: -.55,
-    positionY: 0.1,
-    positionZ: -.5,
-    scale: 2.8,
-    rotationX: 0.1,
-    rotationY: -0.,
-    rotationZ: 0,
-    texture: imagePathPurpleDream,
-});
+const purpleDreamOverlay = createBackground(
+    {
+        brightness: 2.8,
+        opacity: 0.95,
+        positionX: -0.55,
+        positionY: 0.1,
+        positionZ: -0.35,
+        scale: 5,
+        rotationX: 0,
+        rotationY: -0,
+        rotationZ: 0,
+        texture: imagePathPurpleDream,
+    },
+    createSceneWheelGui("wheel-purpleDreamOverlay")
+);
+const purpleDreamOverlay2 = createBackground(
+    {
+        brightness: 2,
+        opacity: 0.9,
+        positionX: -0.55,
+        positionY: 0.1,
+        positionZ: -0.5,
+        scale: 2.8,
+        rotationX: 0.1,
+        rotationY: -0,
+        rotationZ: 0,
+        texture: imagePathPurpleDream,
+    },
+    createSceneWheelGui("wheel-purpleDreamOverlay2")
+);
 
 // Add all components to galaxy group
 galaxyGroup.add(satelliteRingItem);
@@ -134,7 +140,7 @@ galaxyGroup.add(outerGalaxyCircleA);
 galaxyGroup.add(outerGalaxyCircleB);
 galaxyGroup.add(outerDecorativeCircle);
 galaxyGroup.add(axisStar);
-galaxyGroup.add(purpleDreamOverlay);    
+galaxyGroup.add(purpleDreamOverlay);
 galaxyGroup.add(purpleDreamOverlay2);
 // Add galaxy group to scene
 scene.add(galaxyGroup);
