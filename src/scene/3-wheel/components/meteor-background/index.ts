@@ -2,7 +2,6 @@ import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
 import { scene, camera, THREE } from "../../../../common/main";
 import IMAGE_PATH from "@assets/item/meteor.png";
 import { createSceneWheelGui } from "../../wheel-gui";
-export function createMeteorBackground() {
     // GUI配置对象
     const config = {
         opacity: 0.66,
@@ -81,6 +80,3 @@ export function createMeteorBackground() {
         requestAnimationFrame(animate);
     }
     animate();
-
-    return plane;
-}
