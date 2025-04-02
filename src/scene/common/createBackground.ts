@@ -1,5 +1,5 @@
 import { PlaneGeometry, TextureLoader, Mesh, MeshBasicMaterial } from "three";
-import { THREE } from "../../../common/main";
+import { THREE } from "../../common/main";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 
 export function createBackground(

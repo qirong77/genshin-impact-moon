@@ -2,7 +2,7 @@
 import MOON_BG from "@assets/background/moon-bg.png";
 
 import { scene } from '@/common/main';
-import { createBackground } from '@/scene/common/background';
+import { createBackground } from '@/scene/common/createBackground';
 import { createSceneMoonGui } from "../moon-gui";
 const mainBackground = createBackground({
     brightness: 0.81,

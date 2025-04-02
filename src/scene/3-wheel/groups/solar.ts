@@ -13,7 +13,7 @@ import CirclePathF from "@assets/circle/circle-F.png";
 import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
-import { createBackground } from "../../common/background";
+import { createBackground } from "../../common/createBackground";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
