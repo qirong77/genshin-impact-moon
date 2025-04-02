@@ -1,11 +1,11 @@
-import { gui } from "../../common/gui";
-import { scene, THREE } from "../../common/main";
+import {  THREE } from "../../../../common/main";
+import { createSceneWheelGui } from "../../wheel-gui";
 import { IStarRingGeometryConfig, StarRingGeometry } from "./StarRingGeometry";
 import { createStarMateril } from "./StarRingMaterial";
-
+let index = 0;
 export function createStarRing(config: IStarRingGeometryConfig = {}) {
-    const folder = gui.addFolder("star-ring");
-    folder.close();
+    index++;
+    const folder = createSceneWheelGui("wheel-star-ring-" + index);
     const starRingGeometry = new StarRingGeometry(folder, config);
     const material = createStarMateril(folder, config);
     const geometry = starRingGeometry.getGeometry();

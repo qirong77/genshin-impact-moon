@@ -1,5 +1,5 @@
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
-import { THREE } from "../../common/main";
+import { THREE } from "../../../../common/main";
 export interface IStarRingGeometryConfig {
     starCounts?: number;
     innerRadius?: number;

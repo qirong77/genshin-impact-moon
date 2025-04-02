@@ -1,8 +1,9 @@
-import { gui } from "../../common/gui";
-import { clock, scene, THREE } from "../../common/main";
+import { gui } from "../../../../common/gui";
+import { clock, scene, THREE } from "../../../../common/main";
 import AlphaPath from "@assets/item/alpha.png";
 const alphaTexture = new THREE.TextureLoader().load(AlphaPath); //
 import CirclePath from "@assets/circle/circle-A.png";
+import { createSceneWheelGui } from "../../wheel-gui";
 export function createCircle(
     imagePath = CirclePath,
     circleName = "circlename",
@@ -30,7 +31,7 @@ export function createCircle(
 
     circleMesh.position.z = 0.1; // 稍微调整z轴避免与星星重叠
 
-    const folder = gui.addFolder(circleName);
+    const folder = createSceneWheelGui("wheel-" + circleName);
     folder.close(); // 默认收起面板
     const controls = {
         ...defaultValue,

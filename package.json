@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "npm run build && vite preview"
   },
   "devDependencies": {
     "@types/three": "^0.174.0",
