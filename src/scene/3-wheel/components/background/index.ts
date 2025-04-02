@@ -41,7 +41,7 @@ export function createBackground(config = {
     // 添加GUI控制
     const folder = createSceneWheelGui('wheel-background');
     folder.close(); // 默认收起面板
-    folder.add(config, 'brightness', 0, 2).name('亮度').onChange(() => {
+    folder.add(config, 'brightness', 0, 5).name('亮度').onChange(() => {
         material.color.setRGB(config.brightness, config.brightness, config.brightness);
     });
     folder.add(config, 'opacity', 0, 1).name('透明度').onChange(() => {
