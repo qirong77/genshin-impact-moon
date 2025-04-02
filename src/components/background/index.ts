@@ -40,6 +40,7 @@ export function createBackground(config = {
     material.color.setRGB(config.brightness, config.brightness, config.brightness);
     // 添加GUI控制
     const folder = gui.addFolder('背景设置');
+    folder.close(); // 默认收起面板
     folder.add(config, 'brightness', 0, 2).name('亮度').onChange(() => {
         material.color.setRGB(config.brightness, config.brightness, config.brightness);
     });

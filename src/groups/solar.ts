@@ -99,6 +99,7 @@ scene.add(galaxyGroup);
 
 // 创建 GUI 控制
 const galaxyFolder = gui.addFolder("星系旋转控制");
+galaxyFolder.close(); // 默认收起面板
 galaxyGroup.rotation.x = -0.8;
 galaxyGroup.rotation.y = -0.21;
 galaxyGroup.rotation.z = -0.18;
