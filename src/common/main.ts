@@ -4,9 +4,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 // 默认情况,面向屏幕的是z轴
 const basePosition = {
-    x: -0.14,
-    y: -1.18,
-    z: 3.66,
+    x: 0,
+    y: 0,
+    z: 3.7,
 };
 camera.position.set(basePosition.x, basePosition.y, basePosition.z);
 camera.lookAt(0, 0, 0);

@@ -1,48 +1,27 @@
-import { createBackground } from "../components/background";
+import { createBackground } from "../../common/createBackground";
 import { createStarRing } from "../components/star-ring";
 import "../components/meteor-background";
 import imagePathMainBackground from "@assets/background/bg2.png";
-import imagePathPurpleDream from "@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png";
+import MOON_BG from "@assets/background/moon-bg.png";
+
 import { scene, THREE } from "@/common/main";
+import { createSceneWheelGui } from "../wheel-gui";
 
-const mainBackground = createBackground({
-    brightness: 1.54,
-    opacity: 0.32,
-    positionX: 0.55,
-    positionY: 2.08,
-    positionZ: -10,
-    scale: 20,
-    rotationX: -0.45,
-    rotationY: 0,
-    rotationZ: 0,
-    texture: imagePathMainBackground,
-});
-
-const purpleDreamBackground = createBackground({
-    brightness: 2,
-    opacity: 1,
-    positionX: -0.22,
-    positionY: 0.55,
-    positionZ: -6.04,
-    scale: 9.3,
-    rotationX: -0.61,
-    rotationY: -0.21,
-    rotationZ: 0,
-    texture: imagePathPurpleDream,
-});
-
-const purpleDreamOverlay = createBackground({
-    brightness: 1.8,
-    opacity: 0.6,
-    positionX: -0.22,
-    positionY: 0.55,
-    positionZ: -6.04,
-    scale: 5.5,
-    rotationX: -0.61,
-    rotationY: -0.21,
-    rotationZ: 0,
-    texture: imagePathPurpleDream,
-});
+const mainBackground = createBackground(
+    {
+        brightness: 1.54,
+        opacity: 0.32,
+        positionX: 0.55,
+        positionY: 2.08,
+        positionZ: -10,
+        scale: 20,
+        rotationX: -0.45,
+        rotationY: 0,
+        rotationZ: 0,
+        texture: imagePathMainBackground,
+    },
+    createSceneWheelGui("wheel-main-background")
+);
 
 const starRingBackground = createStarRing({
     starCounts: 360,
@@ -51,7 +30,21 @@ const starRingBackground = createStarRing({
     color: new THREE.Color(0xffffff),
 });
 
+const galaxyBackground = createBackground(
+    {
+        brightness: 0.315,
+        opacity: .25,
+        positionX: -4.69,
+        positionY: -0.29,
+        positionZ: -10,
+        scale: 11.229,
+        rotationX: 0.23876,
+        rotationY: 0.32672,
+        rotationZ: -0.5277,
+        texture: MOON_BG,
+    },
+    createSceneWheelGui("wheel-galaxy-background")
+);
 scene.add(starRingBackground);
 scene.add(mainBackground);
-scene.add(purpleDreamBackground);
-scene.add(purpleDreamOverlay);
+scene.add(galaxyBackground);

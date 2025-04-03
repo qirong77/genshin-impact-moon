@@ -1,10 +1,9 @@
 import { scene, THREE } from "@/common/main";
-import { gui } from "@/common/gui";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
 import { createStarRing } from "../components/star-ring";
-
+import imagePathPurpleDream from "@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png";
 // Import circle textures
 import CirclePathA from "@assets/circle/circle-A.png";
 import CirclePathB from "@assets/circle/circle-B.png";
@@ -14,6 +13,7 @@ import CirclePathF from "@assets/circle/circle-F.png";
 import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
+import { createBackground } from "../../common/createBackground";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -96,6 +96,37 @@ const decorativeRingItem = createRingItem(CirclePathF, {
     opacity: 0.4,
 });
 
+const purpleDreamOverlay = createBackground(
+    {
+        brightness: 2.8,
+        opacity: 0.95,
+        positionX: -0.55,
+        positionY: 0.1,
+        positionZ: -0.35,
+        scale: 5,
+        rotationX: 0,
+        rotationY: -0,
+        rotationZ: 0,
+        texture: imagePathPurpleDream,
+    },
+    createSceneWheelGui("wheel-purpleDreamOverlay")
+);
+const purpleDreamOverlay2 = createBackground(
+    {
+        brightness: 2,
+        opacity: 0.9,
+        positionX: -0.55,
+        positionY: 0.1,
+        positionZ: -0.5,
+        scale: 2.8,
+        rotationX: 0.1,
+        rotationY: -0,
+        rotationZ: 0,
+        texture: imagePathPurpleDream,
+    },
+    createSceneWheelGui("wheel-purpleDreamOverlay2")
+);
+
 // Add all components to galaxy group
 galaxyGroup.add(satelliteRingItem);
 galaxyGroup.add(decorativeRingItem);
@@ -109,14 +140,15 @@ galaxyGroup.add(outerGalaxyCircleA);
 galaxyGroup.add(outerGalaxyCircleB);
 galaxyGroup.add(outerDecorativeCircle);
 galaxyGroup.add(axisStar);
-
+galaxyGroup.add(purpleDreamOverlay);
+galaxyGroup.add(purpleDreamOverlay2);
 // Add galaxy group to scene
 scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
 const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");
-galaxyGroup.rotation.x = -0.8;
-galaxyGroup.rotation.y = -0.21;
+galaxyGroup.rotation.x = -1.1;
+galaxyGroup.rotation.y = -0.18;
 galaxyGroup.rotation.z = -0.18;
 
 galaxyFolder.add(galaxyGroup.rotation, "x", -Math.PI, Math.PI).name("X轴旋转");
