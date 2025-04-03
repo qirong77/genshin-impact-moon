@@ -1,14 +1,25 @@
 import videoPath from "@assets/audio/bg.mp3";
 import GitHubPath from "@assets/item/github-mark-white.png";
+const overlay = document.createElement("div");
+overlay.classList.add("overlay");
+overlay.innerHTML = `
+<div style="display: flex;flex-direction: column;">
+  <div style="position: relative;height: 200px;">
+    <img style="position: absolute;width: 100px;height: 100px;" src="/assets/item/satellite.png" alt="">
+    <img style="position: absolute;width: 200px;height: 200px;;" src="/assets/circle/circle-E.png" alt="">
+  </div>
+  <div style="margin-top: 20px;font-family: 'HYWenHei', 'Microsoft YaHei', sans-serif;font-size: 16px;letter-spacing: 2px;animation: breathe 2s infinite ease-in-out;">
+    ★ 点击开始 ★
+  </div>
+</div>
+`;
+document.body.appendChild(overlay);
 document.addEventListener("DOMContentLoaded", () => {
-    const overlay = document.querySelector(".overlay");
-    if (overlay) {
-        overlay.addEventListener("click", () => {
-            overlay.classList.add("fade-out");
-            addGitHubIcon();
-            addAudio();
-        });
-    }
+    overlay.addEventListener("click", () => {
+        overlay.classList.add("fade-out");
+        addGitHubIcon();
+        addAudio();
+    });
 });
 
 function addGitHubIcon() {
