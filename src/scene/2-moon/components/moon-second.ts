@@ -5,7 +5,7 @@ import { createSceneMoonGui } from "../moon-gui";
 // 控制参数
 const controls = {
     scale: 1.67,
-    brightness: -0.2,
+    brightness: -0.1,
     opacity: 1.,
     rotationX: 1.5,
     rotationY: 3.0,

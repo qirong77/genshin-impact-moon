@@ -17,4 +17,24 @@ const mainBackground = createBackground({
     rotationZ: 0,
     texture: MOON_BG,
 },createSceneMoonGui('moon-main-bg'));
+import IMAGE_PATH from "@assets/item/meteor.png";
+const meteorBG = createBackground({
+    brightness: 1.,
+    opacity: 0.126,
+    positionX: -0.,
+    positionY: 5.,
+    positionZ: -8,
+    scale: 4.535,
+    rotationX: 0.,
+    rotationY: 0.,
+    rotationZ: 0,
+    texture: IMAGE_PATH,
+},createSceneMoonGui('moon-meteor-bg'));
+function animate() {
+    requestAnimationFrame(animate);
+    meteorBG.rotation.x = 0;
+    meteorBG.rotation.z += 0.001;
+}
+animate();
 scene.add(mainBackground);
+scene.add(meteorBG);

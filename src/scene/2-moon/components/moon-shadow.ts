@@ -17,7 +17,7 @@ const controls = {
 };
 
 // 创建球体几何体
-const geometry = new THREE.SphereGeometry(0.15, 32, 32);
+const geometry = new THREE.PlaneGeometry(1.5, 1.5, 1, 1);
 const gui = createSceneMoonGui('moon-shadow');
 // 加载月球纹理
 const textureLoader = new TextureLoader();
