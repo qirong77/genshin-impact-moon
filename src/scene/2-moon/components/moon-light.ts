@@ -6,7 +6,7 @@ import { createSceneMoonGui } from "../moon-gui";
 const mainBackground = createBackground(
     {
         brightness: 0.55,
-        opacity: 0.751,
+        opacity: 0.31,
         positionX: 0,
         positionY: 0,
         positionZ: -5.96,
@@ -21,7 +21,7 @@ const mainBackground = createBackground(
 const secondBackground  = createBackground(
     {
         brightness: 0.55,
-        opacity: 0.31,
+        opacity: 0.2,
         positionX: 0,
         positionY: 0,
         positionZ: -5.96,

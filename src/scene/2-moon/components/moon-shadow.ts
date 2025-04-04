@@ -32,7 +32,7 @@ const material = new THREE.ShaderMaterial({
         varying vec2 vUv;
         void main() {
             float dist = length(vUv - vec2(0.5));
-            float alpha = smoothstep(0.5, 0.3, dist);
+            float alpha = smoothstep(0.5, 0., dist);
             gl_FragColor = vec4(color, alpha);
         }
     `,

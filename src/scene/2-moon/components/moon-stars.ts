@@ -94,8 +94,8 @@ function animate() {
     // 更新时间，用于闪烁效果
     material.uniforms.uTime.value += 0.01 * material.uniforms.uTwinkleSpeed.value;
     // 缓慢旋转
-    mesh.rotation.x += 0.00003;
-    mesh.rotation.y += 0.00005;
+    mesh.rotation.x += 0.0001;
+    mesh.rotation.y += 0.0002;
     requestAnimationFrame(animate);
 }
 animate();
