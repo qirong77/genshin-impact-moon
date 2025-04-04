@@ -14,5 +14,6 @@ export function createStarRing(config: IStarRingGeometryConfig = {}) {
     starRingGeometry.onChangeConfig((geometry) => {
         points.geometry = geometry;
     });
+    points.name = 'star-ring' + index;
     return points;
 }

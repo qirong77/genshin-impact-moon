@@ -157,35 +157,36 @@ galaxyFolder.add(galaxyGroup.rotation, "z", -Math.PI, Math.PI).name("Z轴旋转"
 galaxyFolder.open();
 
 function animate() {
-    const TARGER_OPACITY = 0.;
     // 遍历所有子元素并设置透明度动画
     galaxyGroup.children.forEach((child) => {
-        console.log(child.name);
         if (child.name === "axis-stars") {
-            console.log(child.material.uniforms);
+            // @ts-ignore
             gsap.to(child.material.uniforms.opacity, {
-                value: 0.,
+                value: 0,
                 duration: 1,
                 ease: "power2.inOut",
             });
-            return
+            return;
         }
-        if (child.material) {
-            gsap.to(child.material, {
-                opacity: TARGER_OPACITY,
-                duration: 2,
-                ease: "power2.inOut",
-            });
-            return
-        }
-        // shader 类型的
-        if (child.material.uniforms) {
+        if (child.name.includes("star-ring")) {
+            // @ts-ignore
             gsap.to(child.material.uniforms.opacity, {
-                value: TARGER_OPACITY,
+                value: 0.05,
                 duration: 2,
                 ease: "power2.inOut",
             });
-            return
+            return;
+        }
+        // @ts-ignore
+        if (child.material) {
+            // @ts-ignore
+
+            gsap.to(child.material, {
+                opacity: 0.2,
+                duration: 2,
+                ease: "power2.inOut",
+            });
+            return;
         }
     });
 
