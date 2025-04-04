@@ -1,4 +1,4 @@
-import { scene, THREE } from "@/common/main";
+import { camera, scene, THREE } from "@/common/main";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
@@ -154,3 +154,25 @@ galaxyFolder.add(galaxyGroup.rotation, "x", -Math.PI, Math.PI).name("X轴旋转"
 galaxyFolder.add(galaxyGroup.rotation, "y", -Math.PI, Math.PI).name("Y轴旋转");
 galaxyFolder.add(galaxyGroup.rotation, "z", -Math.PI, Math.PI).name("Z轴旋转");
 galaxyFolder.open();
+
+import gsap from "gsap";
+
+// Animate galaxy rotation from current position to target position
+gsap.to(galaxyGroup.rotation, {
+    x: 0,
+    y: 0,
+    z: 0,
+    duration: 2,
+    ease: "power2.inOut",
+    onComplete: () => {
+        setTimeout(() => {
+            gsap.to(galaxyGroup.rotation, {
+                x: -1.1,
+                y: -0.18,
+                z: -0.18,
+                duration: 2,
+                ease: "power2.inOut"
+            });
+        }, 3000);
+    }
+});
