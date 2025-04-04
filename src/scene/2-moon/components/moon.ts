@@ -27,7 +27,7 @@ texture.colorSpace = THREE.SRGBColorSpace;
 // 创建材质
 const material = new THREE.MeshBasicMaterial({
     map: texture,
-    opacity: 0.8,
+    opacity: 1.,
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
@@ -36,7 +36,7 @@ const material = new THREE.MeshBasicMaterial({
 
 // 创建网格并添加到场景
 const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+
 // 初始化 gui 的值
 geometry.rotateX(controls.rotationX);
 material.color.setScalar(controls.brightness + 1);
@@ -76,4 +76,5 @@ const animate = () => {
     mesh.rotation.y += controls.rotationSpeed;
     requestAnimationFrame(animate);
 };
+scene.add(mesh);
 animate();

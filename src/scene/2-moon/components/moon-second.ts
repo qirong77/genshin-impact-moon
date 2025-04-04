@@ -12,7 +12,7 @@ const controls = {
     rotationZ: 0.1,
     positionX: 0,
     positionY: 0,
-    positionZ: -.5,
+    positionZ: -1.,
 };
 
 // 创建球体几何体
@@ -26,7 +26,7 @@ texture.colorSpace = THREE.SRGBColorSpace;
 // 创建材质
 const material = new THREE.MeshBasicMaterial({
     map: texture,
-    opacity: 0.8,
+    opacity: 1.,
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
