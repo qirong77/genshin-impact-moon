@@ -4,6 +4,7 @@ import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
 import { createStarRing } from "../components/star-ring";
 import imagePathPurpleDream from "@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png";
+import gsap from "gsap";
 // Import circle textures
 import CirclePathA from "@assets/circle/circle-A.png";
 import CirclePathB from "@assets/circle/circle-B.png";
@@ -155,24 +156,44 @@ galaxyFolder.add(galaxyGroup.rotation, "y", -Math.PI, Math.PI).name("Y轴旋转"
 galaxyFolder.add(galaxyGroup.rotation, "z", -Math.PI, Math.PI).name("Z轴旋转");
 galaxyFolder.open();
 
-import gsap from "gsap";
-
-// Animate galaxy rotation from current position to target position
-gsap.to(galaxyGroup.rotation, {
-    x: 0,
-    y: 0,
-    z: 0,
-    duration: 2,
-    ease: "power2.inOut",
-    onComplete: () => {
-        setTimeout(() => {
-            gsap.to(galaxyGroup.rotation, {
-                x: -1.1,
-                y: -0.18,
-                z: -0.18,
+function animate() {
+    const TARGER_OPACITY = 0.3;
+    // 遍历所有子元素并设置透明度动画
+    galaxyGroup.children.forEach((child) => {
+        if (child.material) {
+            gsap.to(child.material, {
+                opacity: TARGER_OPACITY,
                 duration: 2,
-                ease: "power2.inOut"
+                ease: "power2.inOut",
             });
-        }, 3000);
-    }
-});
+        }
+        // shader 类型的
+        if (child.material.uniforms) {
+            gsap.to(child.material.uniforms.opacity, {
+                value: TARGER_OPACITY,
+                duration: 2,
+                ease: "power2.inOut",
+            });
+        }
+    });
+
+    gsap.to(galaxyGroup.rotation, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 2,
+        ease: "power1",
+        onComplete: () => {
+            console.log("Animation complete");
+        },
+    });
+    gsap.to(galaxyGroup.position, {
+        x: 0,
+        y: 0,
+        z: -4,
+        duration: 2,
+        ease: "power2.inOut",
+    });
+}
+function animateBack() {}
+animate();

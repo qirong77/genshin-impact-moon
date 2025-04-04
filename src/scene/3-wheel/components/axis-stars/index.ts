@@ -83,6 +83,6 @@ export function createAxisStars() {
         geometry.setAttribute("position", new Float32BufferAttribute(newVertices, 3));
         geometry.attributes.position.needsUpdate = true;
     }
-    points.rotation.z = -0.2;
+    points.rotation.z = -0.2;;
     return points;
 }
