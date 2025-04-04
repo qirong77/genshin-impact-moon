@@ -5,11 +5,11 @@ import { createSceneMoonGui } from "../moon-gui";
 // 控制参数
 const controls = {
     scale: 1.67,
-    brightness: -0.7,
-    opacity: 0.8,
+    brightness: -0.2,
+    opacity: 1.,
     rotationX: 1.5,
     rotationY: 3.0,
-    rotationZ: -6.,
+    rotationZ: 6.2,
     positionX: 0,
     positionY: 0,
     positionZ: -1.,
@@ -65,12 +65,8 @@ gui.add(controls, 'positionX', -5, 5).onChange((value) => {
 gui.add(controls, 'positionY', -5, 5).onChange((value) => {
     mesh.position.y = value;
 });
-gui.add(controls, 'positionZ', -5, 5).onChange((value) => {
+gui.add(controls, 'positionZ', -10, 10).onChange((value) => {
     mesh.position.z = value;
 });
 
 scene.add(mesh);
-function animate() {
-    // 缓慢旋转
-    requestAnimationFrame(animate);
-}

@@ -4,8 +4,8 @@ import IMAGE_PATH from "@assets/item/moon-texture.png";
 import { createSceneMoonGui } from "../moon-gui";
 // 控制参数
 const controls = {
-    scale: 1,
-    brightness: -0.5,
+    scale: 1.1,
+    brightness: -0.1,
     opacity: 1,
     rotationX: 0.3,
     rotationY: 0,
@@ -24,6 +24,9 @@ const textureLoader = new TextureLoader();
 const texture = textureLoader.load(IMAGE_PATH);
 texture.colorSpace = THREE.SRGBColorSpace;
 
+
+
+
 // 创建材质
 const material = new THREE.MeshBasicMaterial({
     map: texture,
@@ -41,7 +44,7 @@ const mesh = new THREE.Mesh(geometry, material);
 // 初始化 gui 的值
 geometry.rotateX(controls.rotationX);
 material.color.setScalar(controls.brightness + 1);
-
+geometry.scale(controls.scale, controls.scale, controls.scale);
 // 添加 GUI 控制
 gui.add(controls, 'scale', 0.1, 5).onChange((value) => {
     mesh.scale.set(value, value, value);

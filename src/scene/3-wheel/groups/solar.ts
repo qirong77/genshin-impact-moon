@@ -17,7 +17,6 @@ import { createBackground } from "../../common/createBackground";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
-
 // Create axis stars
 const axisStar = createAxisStars();
 
