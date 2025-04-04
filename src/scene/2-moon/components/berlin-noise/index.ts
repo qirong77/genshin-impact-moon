@@ -2,14 +2,16 @@ import { gui } from "@/common/gui";
 import { scene, THREE } from "@/common/main";
 
 // 创建几何体
-const geometry = new THREE.PlaneGeometry();
+const geometry = new THREE.PlaneGeometry(20,20);
 // 创建材质
 const material = new THREE.ShaderMaterial({
+  transparent: true,
     uniforms: {
         time: { value: 0.0 },
-        frequency: { value: 3.0 }, // 频率
-        color1: { value: new THREE.Color(0x000033) }, // 深空颜色1
-        color2: { value: new THREE.Color(0x000080) }, // 深空颜色2
+        frequency: { value: 25.0 }, // 频率
+        color1: { value: new THREE.Color('#f00000') }, // 深空颜色1
+        color2: { value: new THREE.Color('#ffffff') }, // 深空颜色2
+        opacity: { value: 0.04 }, // 透明度
     },
     vertexShader: /* glsl */ `
       varying vec2 vUv;
@@ -23,6 +25,7 @@ const material = new THREE.ShaderMaterial({
       uniform float frequency;
       uniform vec3 color1;
       uniform vec3 color2;
+      uniform float opacity; // 添加透明度
       varying vec2 vUv;
 
       float random(vec2 st) {
@@ -49,26 +52,29 @@ const material = new THREE.ShaderMaterial({
           vec2 st = vUv * frequency; // 使用频率参数
           float n = noise(st + time * 0.1); // 动态噪音
           vec3 color = mix(color1, color2, n); // 颜色渐变
-          gl_FragColor = vec4(color, 1.0);
+          gl_FragColor = vec4(color, opacity); // 应用透明度
       }
     `,
 });
 
+
 const mesh = new THREE.Mesh(geometry, material);
+mesh.position.z = -5.5; // 设置位置
 scene.add(mesh);
 
 // 添加 GUI 控制
-gui.add(material.uniforms.frequency, 'value', 1.0, 10.0).name('Frequency');
+gui.add(material.uniforms.frequency, 'value', 10.0, 100.0).name('Frequency');
 gui.addColor({ color1: material.uniforms.color1.value.getStyle() }, 'color1')
    .onChange(value => material.uniforms.color1.value.set(value))
    .name('Color 1');
 gui.addColor({ color2: material.uniforms.color2.value.getStyle() }, 'color2')
    .onChange(value => material.uniforms.color2.value.set(value))
    .name('Color 2');
+gui.add(material.uniforms.opacity, 'value', 0.0, 1.0).name('Opacity'); // 添加透明度控制
 
 // 动画更新
 function animate() {
     requestAnimationFrame(animate);
-    material.uniforms.time.value += 0.01; // 更新时间
+    material.uniforms.time.value += 0.05; // 更新时间
 }
 animate();

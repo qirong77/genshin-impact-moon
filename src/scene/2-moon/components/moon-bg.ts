@@ -1,4 +1,3 @@
-// import MOON_BG from '@/assets/background/moon-bg.png';
 import MOON_BG from "@assets/background/moon-bg.png";
 
 
@@ -20,11 +19,11 @@ const mainBackground = createBackground({
 import IMAGE_PATH from "@assets/item/meteor.png";
 const meteorBG = createBackground({
     brightness: 1.,
-    opacity: 0.126,
+    opacity: 0.15,
     positionX: -0.,
-    positionY: 5.,
-    positionZ: -8,
-    scale: 4.535,
+    positionY: 15.,
+    positionZ: -15,
+    scale: 15,
     rotationX: 0.,
     rotationY: 0.,
     rotationZ: 0,
@@ -33,7 +32,7 @@ const meteorBG = createBackground({
 function animate() {
     requestAnimationFrame(animate);
     meteorBG.rotation.x = 0;
-    meteorBG.rotation.z += 0.001;
+    meteorBG.rotation.z += 0.0001;
 }
 animate();
 scene.add(mainBackground);
