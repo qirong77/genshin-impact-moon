@@ -30,7 +30,8 @@ const material = new THREE.MeshBasicMaterial({
     opacity: 1.,
     transparent: true,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
+
     side: THREE.FrontSide,
 });
 

@@ -9,7 +9,7 @@ const controls = {
     opacity: 0.8,
     rotationX: 1.5,
     rotationY: 3.0,
-    rotationZ: 0.1,
+    rotationZ: -6.,
     positionX: 0,
     positionY: 0,
     positionZ: -1.,
@@ -27,9 +27,9 @@ texture.colorSpace = THREE.SRGBColorSpace;
 const material = new THREE.MeshBasicMaterial({
     map: texture,
     opacity: 1.,
-    transparent: true,
+    transparent: false,
     depthWrite: false,
-    blending: THREE.AdditiveBlending,
+    blending: THREE.NormalBlending,
     side: THREE.FrontSide,
 });
 
