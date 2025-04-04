@@ -5,9 +5,9 @@ const plane = new THREE.PlaneGeometry(1, 1);
 const folder = createSceneMoonGui("moon-shadow");
 const config = {
     positionZ: -0.5,
-    positionX: 0,
+    positionX: .02,
     positionY: 0,
-    scale: 1,
+    scale: 0.45,
     rotationX: 0,
     rotationY: 0,
     rotationZ: 0,
@@ -32,7 +32,7 @@ const material = new THREE.ShaderMaterial({
         varying vec2 vUv;
         void main() {
             float dist = length(vUv - vec2(0.5));
-            float alpha = smoothstep(0.5, 0.0, dist);
+            float alpha = smoothstep(0.5, 0.3, dist);
             gl_FragColor = vec4(color, alpha);
         }
     `,
