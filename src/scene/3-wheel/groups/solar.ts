@@ -155,8 +155,8 @@ galaxyFolder.add(galaxyGroup.rotation, "x", -Math.PI, Math.PI).name("X轴旋转"
 galaxyFolder.add(galaxyGroup.rotation, "y", -Math.PI, Math.PI).name("Y轴旋转");
 galaxyFolder.add(galaxyGroup.rotation, "z", -Math.PI, Math.PI).name("Z轴旋转");
 galaxyFolder.open();
-
-function animate() {
+const ease: gsap.EaseString = "sine.inOut";
+function galaxyAnimation() {
     // 遍历所有子元素并设置透明度动画
     galaxyGroup.children.forEach((child) => {
         if (child.name === "axis-stars") {
@@ -164,7 +164,7 @@ function animate() {
             gsap.to(child.material.uniforms.opacity, {
                 value: 0,
                 duration: 1,
-                ease: "power2.inOut",
+                ease,
             });
             return;
         }
@@ -173,7 +173,7 @@ function animate() {
             gsap.to(child.material.uniforms.opacity, {
                 value: 0.05,
                 duration: 2,
-                ease: "power2.inOut",
+                ease,
             });
             return;
         }
@@ -184,7 +184,7 @@ function animate() {
             gsap.to(child.material, {
                 opacity: 0.2,
                 duration: 2,
-                ease: "power2.inOut",
+                ease,
             });
             return;
         }
@@ -195,18 +195,35 @@ function animate() {
         y: 0,
         z: 0,
         duration: 2,
-        ease: "power1",
-        onComplete: () => {
-            console.log("Animation complete");
-        },
+        ease,
     });
     gsap.to(galaxyGroup.position, {
         x: 0,
         y: 0,
-        z: -4,
+        z: -2,
         duration: 2,
-        ease: "power2.inOut",
+        ease,
     });
 }
 function animateBack() {}
-animate();
+function cameraAnimation() {
+    const { x, y, z } = camera.position;
+    gsap.to(camera.position, {
+        x,
+        y,
+        z: z - 2,
+        duration: 1,
+        ease,
+        onComplete: () => {
+            gsap.to(camera.position, {
+                x,
+                y,
+                z,
+                duration: 1,
+                ease,
+            });
+        },
+    });
+}
+galaxyAnimation();
+cameraAnimation();
