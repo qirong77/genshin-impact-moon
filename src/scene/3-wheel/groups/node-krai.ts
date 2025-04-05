@@ -24,9 +24,9 @@ function createFirstGroup() {
         mesh.position.set(item[0], item[1], item[2] );
         group.add(mesh);
     });
-    group.rotation.x = -1.1;
-    group.rotation.y = -0.18;
-    group.rotation.z = -0.18;
+    // group.rotation.x = -1.1;
+    // group.rotation.y = -0.18;
+    // group.rotation.z = -0.18;
     return group;
 }
 function createSencondGroup() {
@@ -40,15 +40,15 @@ function createSencondGroup() {
         mesh.position.set(item[0], item[1], item[2] );
         group.add(mesh);
     });
-    group.rotation.x = -1.1;
-    group.rotation.y = -0.18;
-    group.rotation.z = -0.18;
+    // group.rotation.x = -1.1;
+    // group.rotation.y = -0.18;
+    // group.rotation.z = -0.18;
     return group;
 }
 const firstGroup = createFirstGroup();
 const sencondGroup = createSencondGroup();
 scene.add(firstGroup);
-scene.add(sencondGroup);
+// scene.add(sencondGroup);
 function animate() {
 
 }

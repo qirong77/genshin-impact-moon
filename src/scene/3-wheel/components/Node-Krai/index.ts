@@ -6,7 +6,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     const texture = new THREE.TextureLoader().load(texturePath);
     const material = new THREE.ShaderMaterial({
         transparent: false,
-
+        side: THREE.DoubleSide,
         uniforms: {
             u_time: { value: 0 },
             u_borderWidth: { value: 0.04 },
@@ -102,6 +102,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
         requestAnimationFrame(animate);
         material.uniforms.u_time.value += 0.01;
     }
+
     animate();
     mesh.scale.set(0.4, 0.4, 0.4);
     return mesh;
