@@ -5,7 +5,9 @@ import { createMainImage } from "./createMainImage";
 import { createSatellitesBackground } from "./createSatelliteBackground";
 export function createSatellites(gui: GUI) {
     const mainImageMesh = createMainImage(gui);
-    const background = createSatellitesBackground()
-    scene.add(mainImageMesh);
-    scene.add(background);
+    // const background = createSatellitesBackground(gui);
+    const group = new THREE.Group();
+    group.add(mainImageMesh);
+    // group.add(background);
+    scene.add(group);
 }
