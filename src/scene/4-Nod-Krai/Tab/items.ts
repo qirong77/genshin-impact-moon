@@ -35,7 +35,7 @@ export const items: Array<{
             "一个专注于研究古老文字和神秘学的学者组织。他们对诺德克莱地区的古代文明遗迹特别感兴趣，尤其是那些与月之民有关的神秘符号。",
     },
     {
-        title: "克林克兰克饼铺",
+        title: "叮铃哐啷蛋卷工坊",
         titleEn: "ClinkClankKrumkakeCraftshop",
         description:
             "这家独特的工坊不仅制作美味的点心，还是一个秘密情报交换的场所。店主似乎知道许多不为人知的故事。",

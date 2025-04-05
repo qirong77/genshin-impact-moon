@@ -18,6 +18,7 @@ caption.appendChild(description);
 items.forEach((item, index) => {
     const tabItem = document.createElement("div");
     tabItem.className = "side-tab-item";
+    tabItem.innerText = item.title;
     tabItem.style.backgroundImage = `url(${NodKraiMap[item.titleEn]})`;
     
     // 点击事件处理

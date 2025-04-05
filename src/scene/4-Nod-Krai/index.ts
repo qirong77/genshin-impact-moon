@@ -2,7 +2,8 @@ import { scene, THREE } from "@/common/main";
 import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
-import './Tab/tab-ui'
+import "./Tab/tab-ui";
+import { NodKraiMap } from "./EnumNodKrai";
 export const NodeKraiState = {
     isAnimation: false,
 };
@@ -21,7 +22,7 @@ const initialPosition = { x: 0, y: 0, z: 0 };
 group.position.copy(new THREE.Vector3(initialPosition.x, initialPosition.y, initialPosition.z));
 
 // 消失动画
-const disappear = () => {
+const disappear = (imagePagh: string) => {
     NodeKraiState.isAnimation = true;
     gsap.to(group.position, {
         x: -2,
@@ -34,6 +35,7 @@ const disappear = () => {
         duration: 1,
         ease: "power2.inOut",
         onComplete: () => {
+            mainImageMesh.material.uniforms.u_texture.value = new THREE.TextureLoader().load(imagePagh);
             appear();
         },
     });
@@ -60,4 +62,9 @@ const appear = () => {
     });
 };
 
-disappear();
+window.addEventListener("tab-change", (e) => {
+    // @ts-ignore
+    const nextTab = e.detail.titleEn;
+    // @ts-ignore
+    disappear(NodKraiMap[nextTab]);
+});

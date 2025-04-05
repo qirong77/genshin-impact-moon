@@ -1,27 +1,29 @@
 .side-tab {
     position: fixed;
-    right: 20px;
+    right: 50px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     z-index: 100;
+    width: 80px;
+    font-size: small;
 }
 
 .side-tab-item {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     opacity: 0.6;
     border: 2px solid transparent;
+    color: #929292;
+    text-align: center;
+    font-size: 14px;
 }
 
 .side-tab-item:hover {
@@ -31,7 +33,7 @@
 
 .side-tab-item.active {
     opacity: 1;
-    border-color: #fff;
+    border-color: #969292;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
