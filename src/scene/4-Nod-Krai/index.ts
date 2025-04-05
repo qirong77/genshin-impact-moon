@@ -1,9 +1,6 @@
 import { scene, THREE } from "@/common/main";
 import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
-
-// import { createSatellitesBackground } from "./createSatelliteBackground";
-import Fatui from "@assets/Nuodekalai/Fatui.png";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
 export const NodeKraiState = {
     isAnimation: false,
@@ -28,12 +25,12 @@ const disappear = () => {
     gsap.to(group.position, {
         x: -2,
         z: -2,
-        duration: 1.5,
+        duration: 1,
         ease: "power2.inOut",
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 0,
-        duration: 1.5,
+        duration: 1,
         ease: "power2.inOut",
         onComplete: () => {
             appear();
@@ -49,12 +46,12 @@ const appear = () => {
         x: initialPosition.x,
         y: initialPosition.y,
         z: initialPosition.z,
-        duration: 1.5,
+        duration: 1,
         ease: "power2.inOut",
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 1,
-        duration: 1.5,
+        duration: 1,
         ease: "power2.inOut",
         onComplete: () => {
             NodeKraiState.isAnimation = false;
