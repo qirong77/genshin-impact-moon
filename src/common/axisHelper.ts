@@ -30,5 +30,5 @@ const createAxisHelper = () => {
     });
 };
 if (import.meta.env.DEV) {
-    // createAxisHelper();
+    createAxisHelper();
 }
