@@ -1,6 +1,7 @@
 import { scene, THREE } from "@/common/main";
 import TreasureHoaders from "@assets/Nod-Krai/ FrostmoonScions.png";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
+import { NodeKraiState } from "..";
 export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     const plane = new THREE.PlaneGeometry(1, 1);
     const texture = new THREE.TextureLoader().load(texturePath);
@@ -127,8 +128,9 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     // 更新动画
     function animate() {
         requestAnimationFrame(animate);
+        if (NodeKraiState.isAnimation) return;
         material.uniforms.u_time.value += 0.01;
-        material.uniforms.u_opacity.value = 1.5 + Math.sin(material.uniforms.u_time.value * 2) * 0.5; 
+        material.uniforms.u_opacity.value = 1.5 + Math.sin(material.uniforms.u_time.value * 2) * 0.5;
     }
     animate();
     return mesh;
