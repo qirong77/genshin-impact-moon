@@ -1,5 +1,5 @@
 import { scene, THREE } from "@/common/main";
-import TreasureHoaders from "@assets/Nuodekalai/TreasureHoarders.png";
+import TreasureHoaders from "@assets/Nod-Krai/ FrostmoonScions.png";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     const plane = new THREE.PlaneGeometry(1, 1);
