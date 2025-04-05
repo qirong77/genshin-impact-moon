@@ -13,50 +13,37 @@ function getPositionByRadius(radius: number, acount: number): Array<[number, num
     }
     return positions;
 }
-function createFirstGroup() {
-    const threePositions = getPositionByRadius(0.6, 3);
+function createGroup(radius: number, count: number, textureStartIndex: number, textureEndIndex?: number) {
+    const threePositions = getPositionByRadius(radius, count);
     const group = new THREE.Group();
-    const textures = Object.keys(NodKraiMap).slice(0, 3);
+    const textures = Object.keys(NodKraiMap).slice(textureStartIndex, textureEndIndex);
     threePositions.forEach((item, index) => {
-        // @ts-ignore
-        const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
-        mesh.rotation.x = Math.PI * 0.5;
-        mesh.position.set(item[0], item[1], item[2] );
-        group.add(mesh);
+        // 确保索引在textures范围内
+        if (index < textures.length) {
+            // @ts-ignore
+            const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
+            mesh.rotation.x = Math.PI * 0.5;
+            mesh.position.set(item[0], item[1], item[2]);
+            group.add(mesh);
+        }
     });
     return group;
 }
-function createSencondGroup() {
-    const threePositions = getPositionByRadius(1.5, 8);
-    const group = new THREE.Group();
-    const textures = Object.keys(NodKraiMap).slice(3);
-    threePositions.forEach((item, index) => {
-        // @ts-ignore
-        const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
-        mesh.rotation.x = Math.PI * 0.5;
-        mesh.position.set(item[0], item[1], item[2] );
-        group.add(mesh);
-    });
-    return group;
-}
-const firstGroup = createFirstGroup();
-const sencondGroup = createSencondGroup();
+const firstGroup = createGroup(0.6, 3, 0, 3);
+const sencondGroup = createGroup(1.5, 8, 3);
 scene.add(firstGroup);
 scene.add(sencondGroup);
 // 保存初始位置信息，用于计算旋转后的位置
 const initialPositions: Array<{mesh: THREE.Object3D, initialX: number, initialY: number}> = [];
-firstGroup.children.forEach(mesh => {
-  initialPositions.push({
-    mesh,
-    initialX: mesh.position.x,
-    initialY: mesh.position.y
-  });
-});
-sencondGroup.children.forEach(mesh => {
-  initialPositions.push({
-    mesh,
-    initialX: mesh.position.x,
-    initialY: mesh.position.y
+
+// 合并两个组的初始位置收集逻辑
+[firstGroup, sencondGroup].forEach(group => {
+  group.children.forEach(mesh => {
+    initialPositions.push({
+      mesh,
+      initialX: mesh.position.x,
+      initialY: mesh.position.y
+    });
   });
 });
 
