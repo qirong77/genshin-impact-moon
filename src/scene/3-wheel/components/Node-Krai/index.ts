@@ -10,7 +10,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
         uniforms: {
             u_time: { value: 0 },
             u_borderWidth: { value: 0.04 },
-            u_borderColor: { value: new THREE.Color('#ffffff') },
+            u_borderColor: { value: new THREE.Color('#e6e6e6') },
             u_borderSmoothness: { value: 0.01 },
             u_borderRadius: { value: 0.1 },
             u_texture: { value: texture },
@@ -32,7 +32,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
         uniform sampler2D u_texture;
         uniform float u_time;
         uniform float u_borderWidth;
-        uniform float u_borderColor;
+        uniform vec3 u_borderColor;
         uniform float u_borderSmoothness;
         uniform float u_borderRadius;
         uniform float u_rhombusSize;
@@ -69,8 +69,8 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
             );
             
             vec4 text_color = texture2D(u_texture, v_uv);
-            vec4 finalColor = mix(text_color, vec4(1.0), alpha);
-            finalColor = mix(finalColor, vec4(1.0), (1.0 - rhombusAlpha) * 0.8);
+            vec4 finalColor = mix(text_color, vec4(u_borderColor, 1.0), alpha);
+            finalColor = mix(finalColor, vec4(u_borderColor, 1.0), (1.0 - rhombusAlpha) * 0.8);
             if (distance > radius && rhombusAlpha == 1.0) {
                 discard;
             }

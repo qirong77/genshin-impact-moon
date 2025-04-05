@@ -3,7 +3,6 @@ import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
 const folder = createSceneWheelGui("wheel-nodeKrai");
-// const card1 = createNodeKrai(folder, NodKraiMap.AdventurersGuild);
 function getPositionByRadius(radius: number, acount: number): Array<[number, number, 0]> {
     const positions: Array<[number, number, 0]> = [];
     for (let i = 0; i < acount; i++) {
