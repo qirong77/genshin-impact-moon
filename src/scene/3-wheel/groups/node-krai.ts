@@ -58,7 +58,7 @@ let rotationAngle = 0;
 
 function animate() {
     // 增加旋转角度
-    rotationAngle += 0.01;
+    rotationAngle += 0.001;
 
     // 更新每个mesh的位置，而不是旋转整个group
     initialPositions.forEach((item) => {
