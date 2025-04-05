@@ -8,6 +8,18 @@ caption.className = "caption";
 const sideTab = document.createElement("div");
 sideTab.className = "side-tab";
 
+const backButton = document.createElement("div");
+backButton.className = "back-button";
+backButton.innerText = "返回";
+backButton.addEventListener("click", () => {
+    // 隐藏sideTab
+    sideTab.classList.add("hide");
+    // 隐藏caption
+    caption.classList.add("hide");
+    // 隐藏backButton
+    backButton.classList.add("hide");
+    window.dispatchEvent(new CustomEvent("custom-back"));
+})
 // 创建标题和描述元素
 const title = document.createElement("h2");
 const description = document.createElement("p");
@@ -60,3 +72,4 @@ if (firstTab) {
 
 document.body.appendChild(sideTab);
 document.body.appendChild(caption);
+document.body.appendChild(backButton);

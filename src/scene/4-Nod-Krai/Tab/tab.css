@@ -66,6 +66,24 @@
     animation: fadeIn 2.5s ease-in forwards;
 }
 
+.back-button {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #b6b6b6;
+    font-size: 14px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+.hide {
+    display: none;
+}
+
 .caption h2 {
     font-size: 24px;
     margin-bottom: 15px;

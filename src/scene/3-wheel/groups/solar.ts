@@ -205,7 +205,7 @@ function galaxyAnimation() {
         ease,
     });
 }
-function animateBack() {}
+
 function cameraAnimation() {
     const { x, y, z } = camera.position;
     gsap.to(camera.position, {
@@ -225,5 +225,10 @@ function cameraAnimation() {
         },
     });
 }
-galaxyAnimation();
-cameraAnimation();
+function animate() {
+    galaxyAnimation();
+    cameraAnimation();
+}
+
+function animateBack() {}
+export { animate, animateBack };
