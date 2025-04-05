@@ -1,5 +1,6 @@
+import { gui } from "@/common/gui";
 import { THREE } from "@/common/main";
-
+const folder = gui.addFolder("Satellites-background");
 export function createSatellitesBackground() {
     const vertexShader = /* glsl */ `
 varying vec2 vUv;
