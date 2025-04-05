@@ -37,6 +37,16 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
 .caption {
     position: fixed;
     left: 50%;
@@ -45,14 +55,15 @@
     max-width: 600px;
     padding: 30px;
     border-radius: 15px;
-    color: #fff;
+    color: #b6b6b6;
     text-align: center;
+    font-size: small;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    animation: fadeOut 0.5s ease forwards;
 }
 
 .caption.show {
-    opacity: 1;
+    animation: fadeIn 2.5s ease-in forwards;
 }
 
 .caption h2 {

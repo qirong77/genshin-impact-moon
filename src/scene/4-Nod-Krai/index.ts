@@ -27,12 +27,14 @@ const disappear = (imagePagh: string) => {
     gsap.to(group.position, {
         x: -2,
         z: -2,
-        duration: 1,
+        duration: 0.8,
+
         ease: "power2.inOut",
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 0,
-        duration: 1,
+        duration: 0.8,
+
         ease: "power2.inOut",
         onComplete: () => {
             mainImageMesh.material.uniforms.u_texture.value = new THREE.TextureLoader().load(imagePagh);
@@ -49,12 +51,12 @@ const appear = () => {
         x: initialPosition.x,
         y: initialPosition.y,
         z: initialPosition.z,
-        duration: 1,
+        duration: 0.8,
         ease: "power2.inOut",
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 1,
-        duration: 1,
+        duration: 0.8,
         ease: "power2.inOut",
         onComplete: () => {
             NodeKraiState.isAnimation = false;

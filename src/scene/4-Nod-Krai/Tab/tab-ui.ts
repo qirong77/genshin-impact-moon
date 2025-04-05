@@ -34,7 +34,11 @@ items.forEach((item, index) => {
         // 更新标题和描述
         title.textContent = item.title;
         description.textContent = item.description;
-        caption.classList.add("show");
+        caption.classList.remove("show");
+        // 使用 requestAnimationFrame 确保 DOM 更新后再添加 show 类
+        requestAnimationFrame(() => {
+            caption.classList.add("show");
+        });
         
         // 发送Tab切换事件
         window.dispatchEvent(new CustomEvent("tab-change", {
