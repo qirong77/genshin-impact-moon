@@ -2,6 +2,7 @@ import { scene, THREE } from "@/common/main";
 import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
+import './Tab/tab-ui'
 export const NodeKraiState = {
     isAnimation: false,
 };

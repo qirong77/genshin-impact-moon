@@ -1,5 +1,5 @@
 import { scene, THREE } from "@/common/main";
-import TreasureHoaders from "@assets/Nod-Krai/ FrostmoonScions.png";
+import TreasureHoaders from "@assets/Nod-Krai/FrostmoonScions.png";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { NodeKraiState } from "..";
 export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
