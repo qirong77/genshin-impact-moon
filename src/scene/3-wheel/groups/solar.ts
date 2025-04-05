@@ -147,9 +147,9 @@ scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
 const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");
-// galaxyGroup.rotation.x = -1.1;
-// galaxyGroup.rotation.y = -0.18;
-// galaxyGroup.rotation.z = -0.18;
+galaxyGroup.rotation.x = -1.1;
+galaxyGroup.rotation.y = -0.18;
+galaxyGroup.rotation.z = -0.18;
 
 galaxyFolder.add(galaxyGroup.rotation, "x", -Math.PI, Math.PI).name("X轴旋转");
 galaxyFolder.add(galaxyGroup.rotation, "y", -Math.PI, Math.PI).name("Y轴旋转");
