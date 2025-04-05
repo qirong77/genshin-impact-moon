@@ -3,13 +3,13 @@ import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
 const folder = createSceneWheelGui("wheel-nodeKrai");
-function getPositionByRadius(radius: number, acount: number): Array<[number, number, 0]> {
-    const positions: Array<[number, number, 0]> = [];
+function getPositionByRadius(radius: number, acount: number): Array<[number, number, number]> {
+    const positions: Array<[number, number, number]> = [];
     for (let i = 0; i < acount; i++) {
         const angle = (i / acount) * Math.PI * 2;
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius;
-        positions.push([x, y, 0]);
+        positions.push([x, y, 0.1]);
     }
     return positions;
 }
@@ -21,7 +21,7 @@ function createFirstGroup() {
         // @ts-ignore
         const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
         mesh.rotation.x = Math.PI * 0.5;
-        mesh.position.set(item[0], item[1], item[2] + 0.3);
+        mesh.position.set(item[0], item[1], item[2] );
         group.add(mesh);
     });
     group.rotation.x = -1.1;
@@ -37,7 +37,7 @@ function createSencondGroup() {
         // @ts-ignore
         const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
         mesh.rotation.x = Math.PI * 0.5;
-        mesh.position.set(item[0], item[1], item[2] + 0.3);
+        mesh.position.set(item[0], item[1], item[2] );
         group.add(mesh);
     });
     group.rotation.x = -1.1;
@@ -49,3 +49,7 @@ const firstGroup = createFirstGroup();
 const sencondGroup = createSencondGroup();
 scene.add(firstGroup);
 scene.add(sencondGroup);
+function animate() {
+
+}
+animate();
