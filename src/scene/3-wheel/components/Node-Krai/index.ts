@@ -6,10 +6,11 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     const texture = new THREE.TextureLoader().load(texturePath);
     const material = new THREE.ShaderMaterial({
         transparent: false,
+
         uniforms: {
             u_time: { value: 0 },
-            u_borderWidth: { value: 0.01 },
-            u_borderColor: { value: new THREE.Color(0xffffff) },
+            u_borderWidth: { value: 0.04 },
+            u_borderColor: { value: new THREE.Color('#ffffff') },
             u_borderSmoothness: { value: 0.01 },
             u_borderRadius: { value: 0.1 },
             u_texture: { value: texture },
@@ -102,7 +103,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
         material.uniforms.u_time.value += 0.01;
     }
     animate();
-    mesh.scale.set(0.5, 0.5, 0.5);
+    mesh.scale.set(0.4, 0.4, 0.4);
     return mesh;
     // 更新动画
 }

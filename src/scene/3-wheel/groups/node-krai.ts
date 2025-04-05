@@ -4,36 +4,26 @@ import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
 const folder = createSceneWheelGui("wheel-nodeKrai");
 // const card1 = createNodeKrai(folder, NodKraiMap.AdventurersGuild);
-function getPositionByRadius(radius: number, acount: number): Array<[number, 0, number]> {
-    const positions: Array<[number, 0, number]> = [];
+function getPositionByRadius(radius: number, acount: number): Array<[number, number, 0]> {
+    const positions: Array<[number, number, 0]> = [];
     for (let i = 0; i < acount; i++) {
         const angle = (i / acount) * Math.PI * 2;
         const x = Math.cos(angle) * radius;
-        const z = Math.sin(angle) * radius;
-        positions.push([x, 0, z]);
+        const y = Math.sin(angle) * radius;
+        positions.push([x, y, 0]);
     }
     return positions;
 }
-const threePositions = getPositionByRadius(1, 3);
+const threePositions = getPositionByRadius(1.5, 3);
 const group = new THREE.Group();
 threePositions.forEach((item, index) => {
     const mesh = createNodeKrai(folder, NodKraiMap.AdventurersGuild);
-    mesh.position.set(item[0], item[1], item[2]);
+    mesh.rotation.x = Math.PI * 0.5;
+    mesh.position.set(item[0], item[1], item[2] + 0.3);
     group.add(mesh);
 });
-const config = {
-    rotationX:0,
-    rotationY:0,
-    rotationZ:0,
-}
-const gui = createSceneWheelGui("wheel-nodeKrai-rotation");
-gui.add(config, "rotationX", -Math.PI, Math.PI).name("X轴旋转").onChange((value) => {
-    group.rotation.x = value;
-});
-gui.add(config, "rotationY", -Math.PI, Math.PI).name("Y轴旋转").onChange((value) => {
-    group.rotation.y = value;
-});
-gui.add(config, "rotationZ", -Math.PI, Math.PI).name("Z轴旋转").onChange((value) => {
-    group.rotation.z = value;
-});
+group.rotation.x = -1.1;
+group.rotation.y = -0.18;
+group.rotation.z = -0.18;
+
 scene.add(group);
