@@ -17,7 +17,7 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
             u_scanSpeed: { value: 0.32 },
             u_scanIntensity: { value: 1.2 },
             u_scanSmoothness: { value: 0.22 },
-            u_starCount: { value: 240 },
+            u_starCount: { value: 80 },
             u_starSize: { value: 0.005 },
             u_starBrightness: { value: 0.9 },
             u_twinkleSpeed: { value: 2.5 },
@@ -92,7 +92,7 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
         
         // 添加星星
         float starLight = 0.0;
-        for(float i = 0.0; i < 1000.0; i++) {
+        for(float i = 0.0; i < 100.0; i++) {
             if(i >= u_starCount) break; // 限制星星数量
             starLight += star(v_uv, i);
         }
