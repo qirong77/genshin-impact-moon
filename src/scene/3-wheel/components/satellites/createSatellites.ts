@@ -10,4 +10,5 @@ export function createSatellites(gui: GUI) {
     group.add(mainImageMesh);
     // group.add(background);
     scene.add(group);
+    group.scale.set(1.2, 1.2, 1.2)
 }

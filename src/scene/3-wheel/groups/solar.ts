@@ -225,5 +225,5 @@ function cameraAnimation() {
         },
     });
 }
-// galaxyAnimation();
-// cameraAnimation();
+galaxyAnimation();
+cameraAnimation();

@@ -17,11 +17,12 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
             u_scanSpeed: { value: 0.32 },
             u_scanIntensity: { value: 1.2 },
             u_scanSmoothness: { value: 0.22 },
-            u_starCount: { value: 80 },
+            u_starCount: { value: 10 },
             u_starSize: { value: 0.005 },
             u_starBrightness: { value: 0.9 },
             u_twinkleSpeed: { value: 2.5 },
             u_starMovementSpeed: { value: 0.12 },
+            u_movementRange: { value: 0.2 },
         },
         vertexShader: /* glsl */ `
     varying vec2 v_uv;
@@ -47,6 +48,7 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     uniform float u_starBrightness;
     uniform float u_twinkleSpeed;
     uniform float u_starMovementSpeed;
+    uniform float u_movementRange;
     
     // 简单的伪随机函数
     float random(vec2 st) {
@@ -59,9 +61,9 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
         float randomX = random(vec2(index, 0.5));
         float randomY = random(vec2(index, 0.8));
         
-        // 添加基于时间的移动
-        float moveX = sin(u_time * 0.1 * random(vec2(index, 0.3))) * u_starMovementSpeed;
-        float moveY = cos(u_time * 0.1 * random(vec2(index, 0.7))) * u_starMovementSpeed;
+        // 添加基于时间的移动，并使用u_movementRange限制移动范围
+        float moveX = sin(u_time * 0.1 * random(vec2(index, 0.3))) * u_starMovementSpeed * u_movementRange;
+        float moveY = cos(u_time * 0.1 * random(vec2(index, 0.7))) * u_starMovementSpeed * u_movementRange;
         
         // 星星位置
         vec2 starPos = vec2(randomX + moveX, randomY + moveY);
@@ -91,14 +93,14 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
                          smoothstep(scanEnd - u_scanSmoothness, scanEnd + u_scanSmoothness, v_uv.x);
         
         // 添加星星
-        float starLight = 0.0;
-        for(float i = 0.0; i < 100.0; i++) {
-            if(i >= u_starCount) break; // 限制星星数量
-            starLight += star(v_uv, i);
-        }
+        // float starLight = 0.0;
+        // for(float i = 0.0; i < 10.0; i++) {
+        //     if(i >= u_starCount) break; // 限制星星数量
+        //     starLight += star(v_uv, i);
+        // }
         
         // 混合原始纹理、扫描线和星星
-        vec3 finalColor = text_color.rgb + vec3(scanLine * u_scanIntensity) + vec3(starLight);
+        vec3 finalColor = text_color.rgb + vec3(scanLine * u_scanIntensity) /* + vec3(starLight) */;
         gl_FragColor = vec4(finalColor, text_color.a * u_opacity);
     }
     `,
@@ -120,12 +122,13 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     folder.add(material.uniforms.u_starBrightness, "value", 0.1, 2.0).name("星星亮度");
     folder.add(material.uniforms.u_twinkleSpeed, "value", 0.5, 5.0).name("闪烁速度");
     folder.add(material.uniforms.u_starMovementSpeed, "value", 0.0, 0.5).name("移动速度");
+    folder.add(material.uniforms.u_movementRange, "value", 0.0, 1.0).name("移动范围");
 
     // 更新动画
     function animate() {
         requestAnimationFrame(animate);
         material.uniforms.u_time.value += 0.01;
-        material.uniforms.u_opacity.value = 0.9 + Math.sin(material.uniforms.u_time.value * 2) * 0.1; 
+        material.uniforms.u_opacity.value = 1.5 + Math.sin(material.uniforms.u_time.value * 2) * 0.5; 
     }
     animate();
     return mesh;
