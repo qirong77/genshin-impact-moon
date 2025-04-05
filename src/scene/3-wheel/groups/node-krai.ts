@@ -13,16 +13,39 @@ function getPositionByRadius(radius: number, acount: number): Array<[number, num
     }
     return positions;
 }
-const threePositions = getPositionByRadius(1.5, 3);
-const group = new THREE.Group();
-threePositions.forEach((item, index) => {
-    const mesh = createNodeKrai(folder, NodKraiMap.AdventurersGuild);
-    mesh.rotation.x = Math.PI * 0.5;
-    mesh.position.set(item[0], item[1], item[2] + 0.3);
-    group.add(mesh);
-});
-group.rotation.x = -1.1;
-group.rotation.y = -0.18;
-group.rotation.z = -0.18;
-
-scene.add(group);
+function createFirstGroup() {
+    const threePositions = getPositionByRadius(0.6, 3);
+    const group = new THREE.Group();
+    const textures = Object.keys(NodKraiMap).slice(0, 3);
+    threePositions.forEach((item, index) => {
+        // @ts-ignore
+        const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
+        mesh.rotation.x = Math.PI * 0.5;
+        mesh.position.set(item[0], item[1], item[2] + 0.3);
+        group.add(mesh);
+    });
+    group.rotation.x = -1.1;
+    group.rotation.y = -0.18;
+    group.rotation.z = -0.18;
+    return group;
+}
+function createSencondGroup() {
+    const threePositions = getPositionByRadius(1.5, 8);
+    const group = new THREE.Group();
+    const textures = Object.keys(NodKraiMap).slice(3);
+    threePositions.forEach((item, index) => {
+        // @ts-ignore
+        const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
+        mesh.rotation.x = Math.PI * 0.5;
+        mesh.position.set(item[0], item[1], item[2] + 0.3);
+        group.add(mesh);
+    });
+    group.rotation.x = -1.1;
+    group.rotation.y = -0.18;
+    group.rotation.z = -0.18;
+    return group;
+}
+const firstGroup = createFirstGroup();
+const sencondGroup = createSencondGroup();
+scene.add(firstGroup);
+scene.add(sencondGroup);
