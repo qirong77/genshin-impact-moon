@@ -6,14 +6,17 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     const texture = new THREE.TextureLoader().load(texturePath);
     const folder = gui.addFolder("Satellites");
     const material = new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide,
         uniforms: {
             u_time: { value: 0 },
             u_opacity: { value: 0.5 },
             u_texture: { value: texture },
             u_scanWidth: { value: 0.05 },
             u_scanSpeed: { value: 0.32 },
-            u_scanIntensity: { value: 0.6 },
-            u_scanSmoothness: { value: 0.12 },
+            u_scanIntensity: { value: 1.2 },
+            u_scanSmoothness: { value: 0.22 },
             u_starCount: { value: 240 },
             u_starSize: { value: 0.005 },
             u_starBrightness: { value: 0.9 },
@@ -122,7 +125,7 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     function animate() {
         requestAnimationFrame(animate);
         material.uniforms.u_time.value += 0.01;
-        material.uniforms.u_opacity.value = Math.abs(Math.sin(material.uniforms.u_time.value * 1.5));
+        material.uniforms.u_opacity.value = 0.9 + Math.sin(material.uniforms.u_time.value * 2) * 0.1; 
     }
     animate();
     return mesh;
