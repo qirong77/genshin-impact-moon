@@ -42,8 +42,46 @@ function createSencondGroup() {
 const firstGroup = createFirstGroup();
 const sencondGroup = createSencondGroup();
 scene.add(firstGroup);
-// scene.add(sencondGroup);
-function animate() {
+scene.add(sencondGroup);
+// 保存初始位置信息，用于计算旋转后的位置
+const initialPositions: Array<{mesh: THREE.Object3D, initialX: number, initialY: number}> = [];
+firstGroup.children.forEach(mesh => {
+  initialPositions.push({
+    mesh,
+    initialX: mesh.position.x,
+    initialY: mesh.position.y
+  });
+});
+sencondGroup.children.forEach(mesh => {
+  initialPositions.push({
+    mesh,
+    initialX: mesh.position.x,
+    initialY: mesh.position.y
+  });
+});
 
+// 当前旋转角度
+let rotationAngle = 0;
+
+function animate() {
+  // 增加旋转角度
+  rotationAngle += 0.01;
+  
+  // 更新每个mesh的位置，而不是旋转整个group
+  initialPositions.forEach(item => {
+    // 使用旋转矩阵计算新的位置
+    const cos = Math.cos(rotationAngle);
+    const sin = Math.sin(rotationAngle);
+    
+    // 应用旋转变换到初始位置
+    const newX = item.initialX * cos - item.initialY * sin;
+    const newY = item.initialX * sin + item.initialY * cos;
+    
+    // 更新位置，保持z和朝向不变
+    item.mesh.position.set(newX, newY, item.mesh.position.z);
+  });
+  
+  // 使用requestAnimationFrame实现连续动画
+  requestAnimationFrame(animate);
 }
 animate();
