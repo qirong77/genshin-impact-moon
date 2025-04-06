@@ -129,15 +129,19 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     function highlight() {
         material.uniforms.u_borderColor.value = BorderHighlightColor;
         material.uniforms.u_backgroundColor.value = BackGroundHighlightColor;
-        gsap.to(mesh.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.0, ease: "power2.inOut" });
+        mesh.scale.set(1.2, 1.2, 1.2);
     }
 
     function unhighlight() {
         material.uniforms.u_borderColor.value = BorderNormalColor;
         material.uniforms.u_backgroundColor.value = BackGroundNormalColor;
-        gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.0, ease: "power2.inOut" });
+        mesh.scale.set(1, 1, 1);
     }
-
+    function animate(time: number) {
+        material.uniforms.u_time.value = time * 0.001;
+        requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
     return {
         mesh,
         highlight: debounce(highlight, 100),
