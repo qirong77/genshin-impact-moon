@@ -19,7 +19,9 @@ overlay.innerHTML = `
 document.body.appendChild(overlay);
 document.addEventListener("DOMContentLoaded", () => {
     overlay.addEventListener("click", () => {
-        MoonEvent.dispatchEvent("custom-click-global-mask", { detail: "click" });
+        setTimeout(() => {
+            MoonEvent.dispatchEvent("custom-click-global-mask", { detail: "click" });
+        }, 2500);
         overlay.classList.add("fade-out");
         addGitHubIcon();
         addAudio();
