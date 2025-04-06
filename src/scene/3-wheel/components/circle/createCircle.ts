@@ -4,6 +4,7 @@ import AlphaPath from "@assets/item/alpha.png";
 const alphaTexture = new THREE.TextureLoader().load(AlphaPath); //
 import CirclePath from "@assets/circle/circle-A.png";
 import { createSceneWheelGui } from "../../wheel-gui";
+import { MoonEvent } from "@/event";
 export function createCircle(
     imagePath = CirclePath,
     circleName = "circlename",
@@ -43,16 +44,27 @@ export function createCircle(
     });
     // 添加旋转速度控制
     folder.add(controls, "rotationSpeed", -0.1, 0.1).name("旋转速度");
-
+    let extraSpeed = 1;
     function animate() {
         // return
         requestAnimationFrame(animate);
         // 图片透明度随时间变化
 
         // 更新圆环旋转
-        circleMesh.rotation.z += controls.rotationSpeed * 0.01;
+        circleMesh.rotation.z += controls.rotationSpeed * 0.01 * extraSpeed;
     }
-
+    MoonEvent.addEventListener("custom-solar-animate", () => {
+        extraSpeed = 10;
+        setTimeout(() => {
+            extraSpeed = 1;
+        }, 1000);
+    });
+    MoonEvent.addEventListener("custom-solar-reset", () => {
+        extraSpeed = 10;
+        setTimeout(() => {
+            extraSpeed = 1;
+        }, 1000);
+    });
     animate();
     return circleMesh;
 }
