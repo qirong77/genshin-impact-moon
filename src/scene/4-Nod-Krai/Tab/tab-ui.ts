@@ -1,7 +1,7 @@
 import "./tab.css";
 import { items } from "./items";
 import { NodKraiMap } from "../EnumNodKrai";
-
+import TitleSvg from '@assets/Nod-Krai/title-decoration.svg'
 export const createTabUI = (config: { onClickReturn: () => void; onTabChange: (title: string) => void }) => {
     const caption = document.createElement("div");
     caption.className = "caption";
@@ -16,9 +16,25 @@ export const createTabUI = (config: { onClickReturn: () => void; onTabChange: (t
         config.onClickReturn();
     });
     // 创建标题和描述元素
+    const titleContainer = document.createElement("div");
+    titleContainer.className = "title-container";
+    
+    const leftDecoration = document.createElement("img");
+    leftDecoration.src =TitleSvg;
+    leftDecoration.className = "title-decoration left";
+    
     const title = document.createElement("h2");
+    
+    const rightDecoration = document.createElement("img");
+    rightDecoration.src =TitleSvg;
+    rightDecoration.className = "title-decoration right";
+    
+    titleContainer.appendChild(leftDecoration);
+    titleContainer.appendChild(title);
+    titleContainer.appendChild(rightDecoration);
+    
     const description = document.createElement("p");
-    caption.appendChild(title);
+    caption.appendChild(titleContainer);
     caption.appendChild(description);
 
     // 创建并添加所有Tab项
