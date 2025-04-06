@@ -33,7 +33,7 @@ const starRingBackground = createStarRing({
 const galaxyBackground = createBackground(
     {
         brightness: 0.315,
-        opacity: .2,
+        opacity: .3,
         positionX: -4.69,
         positionY: -0.29,
         positionZ: -5,

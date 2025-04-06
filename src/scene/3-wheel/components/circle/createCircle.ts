@@ -61,14 +61,14 @@ export function createCircle(
         targetSpeed = 10; // 设置目标速度
         setTimeout(() => {
             targetSpeed = 1; // 恢复目标速度
-        }, 1200);
+        }, 1000);
     });
 
     MoonEvent.addEventListener("custom-solar-reset", () => {
         targetSpeed = 10; // 设置目标速度
         setTimeout(() => {
             targetSpeed = 1; // 恢复目标速度
-        }, 1200);
+        }, 1000);
     });
     animate();
     return circleMesh;
