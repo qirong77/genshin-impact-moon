@@ -1,7 +1,7 @@
 import { createBackground } from "../../common/createBackground";
 import { createStarRing } from "../components/star-ring";
 import "../components/meteor-background";
-import imagePathMainBackground from "@assets/background/bg2.png";
+import imagePathMainBackground from "@assets/background/bg-gradient.png";
 import MOON_BG from "@assets/background/moon-bg.png";
 
 import { scene, THREE } from "@/common/main";

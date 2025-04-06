@@ -3,7 +3,7 @@ import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
 import { createStarRing } from "../components/star-ring";
-import imagePathPurpleDream from "@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png";
+import imagePathPurpleDream from "@assets/background/space-purple-dream.png";
 import gsap from "gsap";
 // Import circle textures
 import CirclePathA from "@assets/circle/circle-A.png";
