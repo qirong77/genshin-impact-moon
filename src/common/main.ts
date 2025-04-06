@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { gui } from "./gui";
+import { MoonEvent } from "@/event";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 // 默认情况,面向屏幕的是z轴
@@ -102,4 +103,10 @@ function animation() {
     renderer.render(scene, camera);
 }
 animation();
+MoonEvent.addEventListener('custom-solar-animate',()=>{
+    cameraParams.isMove = false;
+})
+MoonEvent.addEventListener('custom-solar-reset',()=>{
+    cameraParams.isMove = isProd;
+})
 export { THREE, scene, camera, renderer, clock };
