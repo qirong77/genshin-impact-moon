@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
 import { NodKraiMap } from "./EnumNodKrai";
 import { TabUI } from "./Tab/tab-ui";
+import { resetGalxy } from "../3-wheel/groups/solar";
 export const NodeKraiState = {
     isAnimation: false,
 };
@@ -76,3 +77,9 @@ window.addEventListener("custom-nod-krai-click", (e) => {
         TabUI.show();
     }, 1500);
 });
+
+window.addEventListener("custom-back", (e) => {
+    scene.remove(group);
+    resetGalxy();
+    TabUI.hide();
+})

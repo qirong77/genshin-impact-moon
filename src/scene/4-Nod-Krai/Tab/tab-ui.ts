@@ -1,6 +1,7 @@
 import "./tab.css";
 import { items } from "./items";
 import { NodKraiMap } from "../EnumNodKrai";
+import { resetGalxy } from "@/scene/3-wheel/groups/solar";
 
 const caption = document.createElement("div");
 caption.className = "caption";
@@ -83,4 +84,5 @@ export const TabUI = {
 };
 backButton.addEventListener("click", () => {
     TabUI.hide();
+    window.dispatchEvent(new CustomEvent("custom-back"));
 });

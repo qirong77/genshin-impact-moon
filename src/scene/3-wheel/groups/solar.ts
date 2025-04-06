@@ -230,5 +230,57 @@ function animateGalxy() {
     cameraAnimation();
 }
 
+function resetGalxy() {
+    // 遍历所有子元素并恢复透明度
+    galaxyGroup.children.forEach((child) => {
+        if (child.name === "axis-stars") {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: 1,
+                duration: 1,
+                ease,
+            });
+            return;
+        }
+        if (child.name.includes("star-ring")) {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: child === innerStarRing ? 0.8 :
+                       child === middleInnerStarRing ? 0.6 :
+                       child === middleOuterStarRing ? 0.5 : 0.6,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+        // @ts-ignore
+        if (child.material) {
+            // @ts-ignore
+            gsap.to(child.material, {
+                opacity: child === decorativeRingItem ? 0.4 :
+                         child === outerDecorativeCircle ? 0.8 : 1.0,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+    });
 
-export { animateGalxy };
+    // 恢复旋转和位置
+    gsap.to(galaxyGroup.rotation, {
+        x: -1.1,
+        y: -0.18,
+        z: -0.18,
+        duration: 2,
+        ease,
+    });
+    gsap.to(galaxyGroup.position, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 2,
+        ease,
+    });
+}
+
+export { animateGalxy, resetGalxy };
