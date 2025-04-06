@@ -225,10 +225,10 @@ function cameraAnimation() {
         },
     });
 }
-function animate() {
+function animateGalxy() {
     galaxyAnimation();
     cameraAnimation();
 }
 
-function animateBack() {}
-export { animate, animateBack };
+
+export { animateGalxy };

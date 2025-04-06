@@ -1,6 +1,6 @@
-import './tab.css'
-import { items } from './items'
-import { NodKraiMap } from '../EnumNodKrai'
+import "./tab.css";
+import { items } from "./items";
+import { NodKraiMap } from "../EnumNodKrai";
 
 const caption = document.createElement("div");
 caption.className = "caption";
@@ -11,15 +11,7 @@ sideTab.className = "side-tab";
 const backButton = document.createElement("div");
 backButton.className = "back-button";
 backButton.innerText = "返回";
-backButton.addEventListener("click", () => {
-    // 隐藏sideTab
-    sideTab.classList.add("hide");
-    // 隐藏caption
-    caption.classList.add("hide");
-    // 隐藏backButton
-    backButton.classList.add("hide");
-    window.dispatchEvent(new CustomEvent("custom-back"));
-})
+
 // 创建标题和描述元素
 const title = document.createElement("h2");
 const description = document.createElement("p");
@@ -32,17 +24,17 @@ items.forEach((item, index) => {
     tabItem.className = "side-tab-item";
     tabItem.innerText = item.title;
     tabItem.style.backgroundImage = `url(${NodKraiMap[item.titleEn]})`;
-    
+
     // 点击事件处理
     tabItem.addEventListener("click", () => {
         // 移除其他Tab的active状态
-        document.querySelectorAll(".side-tab-item").forEach(tab => {
+        document.querySelectorAll(".side-tab-item").forEach((tab) => {
             tab.classList.remove("active");
         });
-        
+
         // 添加当前Tab的active状态
         tabItem.classList.add("active");
-        
+
         // 更新标题和描述
         title.textContent = item.title;
         description.textContent = item.description;
@@ -51,16 +43,18 @@ items.forEach((item, index) => {
         requestAnimationFrame(() => {
             caption.classList.add("show");
         });
-        
+
         // 发送Tab切换事件
-        window.dispatchEvent(new CustomEvent("tab-change", {
-            detail: {
-                index,
-                titleEn: item.titleEn
-            }
-        }));
+        window.dispatchEvent(
+            new CustomEvent("tab-change", {
+                detail: {
+                    index,
+                    titleEn: item.titleEn,
+                },
+            })
+        );
     });
-    
+
     sideTab.appendChild(tabItem);
 });
 
@@ -73,3 +67,20 @@ if (firstTab) {
 document.body.appendChild(sideTab);
 document.body.appendChild(caption);
 document.body.appendChild(backButton);
+
+export const TabUI = {
+    hide() {
+        sideTab.classList.add("hide");
+        caption.classList.add("hide");
+        backButton.classList.add("hide");
+        window.dispatchEvent(new CustomEvent("custom-back"));
+    },
+    show() {
+        sideTab.classList.remove("hide");
+        caption.classList.remove("hide");
+        backButton.classList.remove("hide");
+    },
+};
+backButton.addEventListener("click", () => {
+    TabUI.hide();
+});

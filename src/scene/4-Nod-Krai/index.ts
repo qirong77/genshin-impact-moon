@@ -2,8 +2,8 @@ import { scene, THREE } from "@/common/main";
 import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
-import "./Tab/tab-ui";
 import { NodKraiMap } from "./EnumNodKrai";
+import { TabUI } from "./Tab/tab-ui";
 export const NodeKraiState = {
     isAnimation: false,
 };
@@ -34,7 +34,6 @@ const disappear = (imagePagh: string) => {
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 0,
         duration: 0.8,
-
         ease: "power2.inOut",
         onComplete: () => {
             mainImageMesh.material.uniforms.u_texture.value = new THREE.TextureLoader().load(imagePagh);
@@ -63,10 +62,17 @@ const appear = () => {
         },
     });
 };
-
+scene.remove(group);
+TabUI.hide();
 window.addEventListener("tab-change", (e) => {
     // @ts-ignore
     const nextTab = e.detail.titleEn;
     // @ts-ignore
     disappear(NodKraiMap[nextTab]);
+});
+window.addEventListener("custom-nod-krai-click", (e) => {
+    setTimeout(() => {
+        scene.add(group);
+        TabUI.show();
+    }, 1500);
 });
