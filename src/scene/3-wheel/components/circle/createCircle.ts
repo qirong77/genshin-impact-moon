@@ -45,25 +45,30 @@ export function createCircle(
     // 添加旋转速度控制
     folder.add(controls, "rotationSpeed", -0.1, 0.1).name("旋转速度");
     let extraSpeed = 1;
+    let targetSpeed = 1;
+    const speedLerpFactor = 0.1; // 线性插值因子
+
     function animate() {
-        // return
         requestAnimationFrame(animate);
-        // 图片透明度随时间变化
+        // 平滑更新 extraSpeed
+        extraSpeed += (targetSpeed - extraSpeed) * speedLerpFactor;
 
         // 更新圆环旋转
         circleMesh.rotation.z += controls.rotationSpeed * 0.01 * extraSpeed;
     }
+
     MoonEvent.addEventListener("custom-solar-animate", () => {
-        extraSpeed = 10;
+        targetSpeed = 10; // 设置目标速度
         setTimeout(() => {
-            extraSpeed = 1;
-        }, 1000);
+            targetSpeed = 1; // 恢复目标速度
+        }, 1200);
     });
+
     MoonEvent.addEventListener("custom-solar-reset", () => {
-        extraSpeed = 10;
+        targetSpeed = 10; // 设置目标速度
         setTimeout(() => {
-            extraSpeed = 1;
-        }, 1000);
+            targetSpeed = 1; // 恢复目标速度
+        }, 1200);
     });
     animate();
     return circleMesh;
