@@ -118,12 +118,12 @@ export function createMainImage(gui: GUI, texturePath = TreasureHoaders) {
     folder.add(material.uniforms.u_scanSmoothness, "value", 0, 0.5).name("扫描柔和度");
 
     // 星星控制
-    folder.add(material.uniforms.u_starCount, "value", 0, 500).name("星星数量");
-    folder.add(material.uniforms.u_starSize, "value", 0.001, 0.01).name("星星大小");
-    folder.add(material.uniforms.u_starBrightness, "value", 0.1, 2.0).name("星星亮度");
-    folder.add(material.uniforms.u_twinkleSpeed, "value", 0.5, 5.0).name("闪烁速度");
-    folder.add(material.uniforms.u_starMovementSpeed, "value", 0.0, 0.5).name("移动速度");
-    folder.add(material.uniforms.u_movementRange, "value", 0.0, 1.0).name("移动范围");
+    // folder.add(material.uniforms.u_starCount, "value", 0, 500).name("星星数量");
+    // folder.add(material.uniforms.u_starSize, "value", 0.001, 0.01).name("星星大小");
+    // folder.add(material.uniforms.u_starBrightness, "value", 0.1, 2.0).name("星星亮度");
+    // folder.add(material.uniforms.u_twinkleSpeed, "value", 0.5, 5.0).name("闪烁速度");
+    // folder.add(material.uniforms.u_starMovementSpeed, "value", 0.0, 0.5).name("移动速度");
+    // folder.add(material.uniforms.u_movementRange, "value", 0.0, 1.0).name("移动范围");
 
     // 更新动画
     function animate() {

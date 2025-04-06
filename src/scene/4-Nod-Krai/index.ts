@@ -3,8 +3,9 @@ import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
 import { NodKraiMap } from "./EnumNodKrai";
-import { createTabUI } from "./Tab/tab-ui";
+
 import { MoonEvent } from "@/event";
+import { createTabUI } from "./tab/tab-ui";
 
 export const NodeKraiState = {
     isAnimation: false,
@@ -21,7 +22,7 @@ scene.add(group);
 // 初始位置
 const initialPosition = { x: 0, y: 0, z: 0 };
 group.position.copy(new THREE.Vector3(initialPosition.x, initialPosition.y, initialPosition.z));
-
+let isFirstShow = true
 // 消失动画
 const disappear = (imagePagh: string) => {
     NodeKraiState.isAnimation = true;
@@ -29,7 +30,6 @@ const disappear = (imagePagh: string) => {
         x: -2,
         z: -2,
         duration: 0.8,
-
         ease: "power2.inOut",
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
@@ -56,10 +56,11 @@ const appear = () => {
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 1,
-        duration: 0.8,
-        ease: "power2.inOut",
+        duration: isFirstShow ? 5 : 1,
+        ease: isFirstShow ? 'circ.in' :'power1.inOut',
         onComplete: () => {
             NodeKraiState.isAnimation = false;
+            isFirstShow = false
         },
     });
 };
@@ -77,11 +78,11 @@ const TabUI = createTabUI({
 });
 
 MoonEvent.addEventListener("custom-solar-node-krai-click", () => {
+    isFirstShow = true
     setTimeout(() => {
         scene.add(group);
         TabUI.show();
     }, 1500);
 });
-
 TabUI.hide();
 scene.remove(group);

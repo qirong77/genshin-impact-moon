@@ -1,6 +1,6 @@
 .side-tab {
     position: fixed;
-    right: 50px;
+    right: 70px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -9,8 +9,7 @@
     padding: 15px;
     border-radius: 10px;
     z-index: 100;
-    width: 80px;
-    font-size: small;
+    width: 60px;
 }
 
 .side-tab-item {
@@ -23,7 +22,7 @@
     border: 2px solid transparent;
     color: #929292;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .side-tab-item:hover {
