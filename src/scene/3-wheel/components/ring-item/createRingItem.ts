@@ -32,7 +32,7 @@ export function createRingItem(
     mesh.scale.set(Number(defaultValue.circleSize), Number(defaultValue.circleSize), 1);
     mesh.position.x = defaultValue.xPosition;
     mesh.position.y = defaultValue.yPosition;
-    mesh.position.z = 0.2; // 稍微调整z轴避免与星星重叠
+    mesh.position.z = 0.05; // 稍微调整z轴避免与星星重叠
     const folder = createSceneWheelGui("wheel-" + "ringitem-" + index++);
     folder.close(); // 默认收起面板
     const controls = {

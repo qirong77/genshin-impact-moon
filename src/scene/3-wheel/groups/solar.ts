@@ -1,9 +1,10 @@
-import { scene, THREE } from "@/common/main";
+import { camera, scene, THREE } from "@/common/main";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
 import { createStarRing } from "../components/star-ring";
-import imagePathPurpleDream from "@assets/background/1x1_广袤的深空背景_中间是较大区域的暗色无法窥视_四周渐现淡紫色梦幻.png";
+import imagePathPurpleDream from "@assets/background/space-purple-dream.png";
+import gsap from "gsap";
 // Import circle textures
 import CirclePathA from "@assets/circle/circle-A.png";
 import CirclePathB from "@assets/circle/circle-B.png";
@@ -14,10 +15,10 @@ import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
 import { createBackground } from "../../common/createBackground";
+import { MoonEvent } from "@/event";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
-
 // Create axis stars
 const axisStar = createAxisStars();
 
@@ -155,3 +156,136 @@ galaxyFolder.add(galaxyGroup.rotation, "x", -Math.PI, Math.PI).name("X轴旋转"
 galaxyFolder.add(galaxyGroup.rotation, "y", -Math.PI, Math.PI).name("Y轴旋转");
 galaxyFolder.add(galaxyGroup.rotation, "z", -Math.PI, Math.PI).name("Z轴旋转");
 galaxyFolder.open();
+const ease: gsap.EaseString = "sine.inOut";
+function galaxyAnimation() {
+    // 遍历所有子元素并设置透明度动画
+    galaxyGroup.children.forEach((child) => {
+        if (child.name === "axis-stars") {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: 0,
+                duration: 1,
+                ease,
+            });
+            return;
+        }
+        if (child.name.includes("star-ring")) {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: 0.05,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+        // @ts-ignore
+        if (child.material) {
+            // @ts-ignore
+            gsap.to(child.material, {
+                opacity: 0.2,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+    });
+
+    gsap.to(galaxyGroup.rotation, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 2,
+        ease,
+    });
+    gsap.to(galaxyGroup.position, {
+        x: 0,
+        y: 0,
+        z: -2,
+        duration: 2,
+        ease,
+    });
+}
+
+function cameraAnimation() {
+    const { x, y, z } = camera.position;
+    gsap.to(camera.position, {
+        x,
+        y,
+        z: z - 2,
+        duration: 1,
+        ease,
+        onComplete: () => {
+            gsap.to(camera.position, {
+                x,
+                y,
+                z,
+                duration: 1,
+                ease,
+            });
+        },
+    });
+}
+function animateGalxy() {
+    galaxyAnimation();
+    cameraAnimation();
+}
+
+function resetGalxy() {
+    // 遍历所有子元素并恢复透明度
+    galaxyGroup.children.forEach((child) => {
+        if (child.name === "axis-stars") {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: 1,
+                duration: 1,
+                ease,
+            });
+            return;
+        }
+        if (child.name.includes("star-ring")) {
+            // @ts-ignore
+            gsap.to(child.material.uniforms.opacity, {
+                value: child === innerStarRing ? 0.8 : child === middleInnerStarRing ? 0.6 : child === middleOuterStarRing ? 0.5 : 0.6,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+        // @ts-ignore
+        if (child.material) {
+            // @ts-ignore
+            gsap.to(child.material, {
+                opacity: child === decorativeRingItem ? 0.4 : child === outerDecorativeCircle ? 0.8 : 1.0,
+                duration: 2,
+                ease,
+            });
+            return;
+        }
+    });
+
+    // 恢复旋转和位置
+    gsap.to(galaxyGroup.rotation, {
+        x: -1.1,
+        y: -0.18,
+        z: -0.18,
+        duration: 2,
+        ease,
+    });
+    gsap.to(galaxyGroup.position, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 2,
+        ease,
+    });
+}
+let isAnimated = false;
+MoonEvent.addEventListener("custom-solar-animate", () => {
+    if (isAnimated) return;
+    animateGalxy();
+    isAnimated = true;
+});
+MoonEvent.addEventListener("custom-solar-reset", () => {
+    resetGalxy();
+    isAnimated = false;
+});

@@ -7,9 +7,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: resolve(__dirname, 'src') },
       { find: '@assets', replacement: resolve(__dirname, 'public/assets') },
-      { find: '@components', replacement: resolve(__dirname, 'src/components') },
       { find: '@common', replacement: resolve(__dirname, 'src/common') },
-      { find: '@groups', replacement: resolve(__dirname, 'src/groups') }
     ],
   },
 })

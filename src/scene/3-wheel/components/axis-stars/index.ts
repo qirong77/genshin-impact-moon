@@ -1,10 +1,9 @@
 import { BufferGeometry, Float32BufferAttribute, Points } from "three";
 import { scene, THREE } from "../../../../common/main";
-import { gui } from "../../../../common/gui";
 import { createSceneWheelGui } from "../../wheel-gui";
 
 const config = {
-    pointSize: 0.012,
+    pointSize: 3.,
     axisLength: 5.5,
     spacing: 0.02,
     color: "#9b9b9b",
@@ -12,11 +11,35 @@ const config = {
 
 export function createAxisStars() {
     const geometry = new BufferGeometry();
-    const material = new THREE.PointsMaterial();
-    material.size = config.pointSize;
-    material.sizeAttenuation = true;
-    material.vertexColors = false;
-    material.color = new THREE.Color(config.color);
+    
+    // 创建ShaderMaterial
+    const material = new THREE.ShaderMaterial({
+        uniforms: {
+            uPointSize: { value: config.pointSize },
+            uColor: { value: new THREE.Color(config.color) },
+            opacity: { value: 1.0 },
+        },
+        vertexShader: `
+            uniform float uPointSize;
+            
+            void main() {
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                gl_Position = projectionMatrix * mvPosition;
+                
+                // 根据距离计算点的大小
+                float distance = length(mvPosition.xyz);
+                gl_PointSize = uPointSize;
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 uColor;
+            uniform float opacity;
+            void main() {
+                gl_FragColor = vec4(uColor, opacity);
+            }
+        `,
+        transparent: true,
+    });
 
     // 创建顶点数组
     const vertices = [];
@@ -48,7 +71,7 @@ export function createAxisStars() {
     const folder = createSceneWheelGui("wheel-axis-stars");
     folder.close(); // 默认收起面板
     folder.add(config, "pointSize", 0.01, 0.05).onChange((value) => {
-        material.size = value;
+        material.uniforms.uPointSize.value = value;
     });
     folder.add(config, "axisLength", 5, 20).onChange(() => {
         updateVertices();
@@ -58,7 +81,7 @@ export function createAxisStars() {
     });
 
     folder.addColor(config, "color").onChange((value) => {
-        material.color.set(value);
+        material.uniforms.uColor.value.setStyle(value);
     });
     folder.open();
 
@@ -84,5 +107,6 @@ export function createAxisStars() {
         geometry.attributes.position.needsUpdate = true;
     }
     points.rotation.z = -0.2;
+    points.name = 'axis-stars'
     return points;
 }

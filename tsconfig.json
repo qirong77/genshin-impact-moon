@@ -18,9 +18,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./public/assets/*"],
-      "@components/*": ["src/scene/3-wheel/components/*"],
       "@common/*": ["./src/common/*"],
-      "@groups/*": ["./src/groups/*"]
     },
     /* Linting */
     "strict": true,

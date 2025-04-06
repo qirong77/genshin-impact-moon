@@ -1,7 +1,7 @@
 import { createBackground } from "../../common/createBackground";
 import { createStarRing } from "../components/star-ring";
 import "../components/meteor-background";
-import imagePathMainBackground from "@assets/background/bg2.png";
+import imagePathMainBackground from "@assets/background/bg-gradient.png";
 import MOON_BG from "@assets/background/moon-bg.png";
 
 import { scene, THREE } from "@/common/main";
@@ -33,10 +33,10 @@ const starRingBackground = createStarRing({
 const galaxyBackground = createBackground(
     {
         brightness: 0.315,
-        opacity: .25,
+        opacity: .3,
         positionX: -4.69,
         positionY: -0.29,
-        positionZ: -10,
+        positionZ: -5,
         scale: 11.229,
         rotationX: 0.23876,
         rotationY: 0.32672,
