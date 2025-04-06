@@ -33,8 +33,9 @@
 
 .side-tab-item.active {
     opacity: 1;
-    border-color: #969292;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border: none;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.05) 100%);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 @keyframes fadeIn {
