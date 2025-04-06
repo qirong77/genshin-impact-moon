@@ -5,7 +5,7 @@ import { createSceneWheelGui } from "../3-wheel/wheel-gui";
 import { NodKraiMap } from "./EnumNodKrai";
 
 import { MoonEvent } from "@/event";
-import { createTabUI } from "./tab/tab-ui";
+import { createTabUI } from "./Tab/tab-ui";
 
 export const NodeKraiState = {
     isAnimation: false,
