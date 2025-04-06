@@ -1,9 +1,10 @@
-import { NodKraiMap } from "@/scene/4-Nod-Krai/EnumNodKrai";
+
 import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
 import { threeIntersectionObserver } from "@/common/ThreeIntersectionObserver";
 import { MoonEvent } from "@/event";
+import { NodKraiFullMap } from "@/scene/4-Nod-Krai/EnumNodKraiFull";
 const folder = createSceneWheelGui("wheel-nodeKrai");
 function getPositionByRadius(radius: number, acount: number): Array<[number, number, number]> {
     const positions: Array<[number, number, number]> = [];
@@ -18,12 +19,12 @@ function getPositionByRadius(radius: number, acount: number): Array<[number, num
 function createGroup(radius: number, count: number, textureStartIndex: number, textureEndIndex?: number) {
     const threePositions = getPositionByRadius(radius, count);
     const group = new THREE.Group();
-    const textures = Object.keys(NodKraiMap).slice(textureStartIndex, textureEndIndex);
+    const textures = Object.keys(NodKraiFullMap).slice(textureStartIndex, textureEndIndex);
     threePositions.forEach((item, index) => {
         // 确保索引在textures范围内
         if (index < textures.length) {
             // @ts-ignore
-            const { mesh, highlight, unhighlight } = createNodeKrai(folder, NodKraiMap[textures[index]]);
+            const { mesh, highlight, unhighlight } = createNodeKrai(folder, NodKraiFullMap[textures[index]]);
             mesh.name = textures[index];
             threeIntersectionObserver.addCube({
                 cube: mesh,

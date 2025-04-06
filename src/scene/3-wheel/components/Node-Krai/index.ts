@@ -1,12 +1,11 @@
 import { THREE } from "@/common/main";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
-import gsap from "gsap";
 import debounce from "debounce";
 export function createNodeKrai(gui: GUI, texturePath: string) {
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(texturePath);
     const BorderNormalColor = new THREE.Color("#c9c5c5");
-    const BackGroundNormalColor = new THREE.Color("#120e16");
+    const BackGroundNormalColor = new THREE.Color("#1e1e25");
     const BorderHighlightColor = new THREE.Color("#f5f5f5");
     const BackGroundHighlightColor = new THREE.Color("black");
     const material = new THREE.ShaderMaterial({
@@ -90,7 +89,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
             
             // 应用颜色
             vec4 text_color = texture2D(u_texture, v_uv);
-            
+            text_color.a -= 0.2; 
             // 如果在边框或菱形内，直接返回边框颜色
             if(isInBorder || isInRhombus) {
                 gl_FragColor = vec4(u_borderColor, 1.0);

@@ -9,7 +9,6 @@ import Lightkeepers from "@assets/Nod-Krai/Lightkeepers.png";
 import SnowlandFae from "@assets/Nod-Krai/SnowlandFae.png";
 import TheWildHunt from "@assets/Nod-Krai/TheWildHunt.png";
 import TreasureHoarders from "@assets/Nod-Krai/TreasureHoarders.png";
-
 export const NodKraiMap = {
     FrostmoonScions,
     VoynichGuild,
