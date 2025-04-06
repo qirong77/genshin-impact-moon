@@ -106,5 +106,4 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     animate();
     mesh.scale.set(0.4, 0.4, 0.4);
     return mesh;
-    // 更新动画
 }

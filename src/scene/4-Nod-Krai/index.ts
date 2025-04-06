@@ -3,8 +3,9 @@ import { createMainImage } from "./card/createMainImage";
 import gsap from "gsap";
 import { createSceneWheelGui } from "../3-wheel/wheel-gui";
 import { NodKraiMap } from "./EnumNodKrai";
-import { TabUI } from "./Tab/tab-ui";
-import { resetGalxy } from "../3-wheel/groups/solar";
+import { createTabUI } from "./Tab/tab-ui";
+import { MoonEvent } from "@/event";
+
 export const NodeKraiState = {
     isAnimation: false,
 };
@@ -17,7 +18,6 @@ mainImageMesh.material.uniforms.u_time;
 // group.add(background);
 group.scale.set(1.2, 1.2, 1.2);
 scene.add(group);
-
 // 初始位置
 const initialPosition = { x: 0, y: 0, z: 0 };
 group.position.copy(new THREE.Vector3(initialPosition.x, initialPosition.y, initialPosition.z));
@@ -63,23 +63,25 @@ const appear = () => {
         },
     });
 };
-scene.remove(group);
-TabUI.hide();
-window.addEventListener("tab-change", (e) => {
-    // @ts-ignore
-    const nextTab = e.detail.titleEn;
-    // @ts-ignore
-    disappear(NodKraiMap[nextTab]);
+
+const TabUI = createTabUI({
+    onClickReturn: () => {
+        scene.remove(group);
+        MoonEvent.dispatchEvent("custom-solar-reset", { detail: "reset" });
+        TabUI.hide();
+    },
+    onTabChange: (title: string) => {
+        // @ts-ignore
+        disappear(NodKraiMap[title]);
+    },
 });
-window.addEventListener("custom-nod-krai-click", (e) => {
+
+MoonEvent.addEventListener("custom-solar-node-krai-click", () => {
     setTimeout(() => {
         scene.add(group);
         TabUI.show();
     }, 1500);
 });
 
-window.addEventListener("custom-back", (e) => {
-    scene.remove(group);
-    resetGalxy();
-    TabUI.hide();
-})
+TabUI.hide();
+scene.remove(group);

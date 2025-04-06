@@ -15,6 +15,7 @@ import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
 import { createBackground } from "../../common/createBackground";
+import { MoonEvent } from "@/event";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -180,7 +181,6 @@ function galaxyAnimation() {
         // @ts-ignore
         if (child.material) {
             // @ts-ignore
-
             gsap.to(child.material, {
                 opacity: 0.2,
                 duration: 2,
@@ -245,9 +245,7 @@ function resetGalxy() {
         if (child.name.includes("star-ring")) {
             // @ts-ignore
             gsap.to(child.material.uniforms.opacity, {
-                value: child === innerStarRing ? 0.8 :
-                       child === middleInnerStarRing ? 0.6 :
-                       child === middleOuterStarRing ? 0.5 : 0.6,
+                value: child === innerStarRing ? 0.8 : child === middleInnerStarRing ? 0.6 : child === middleOuterStarRing ? 0.5 : 0.6,
                 duration: 2,
                 ease,
             });
@@ -257,8 +255,7 @@ function resetGalxy() {
         if (child.material) {
             // @ts-ignore
             gsap.to(child.material, {
-                opacity: child === decorativeRingItem ? 0.4 :
-                         child === outerDecorativeCircle ? 0.8 : 1.0,
+                opacity: child === decorativeRingItem ? 0.4 : child === outerDecorativeCircle ? 0.8 : 1.0,
                 duration: 2,
                 ease,
             });
@@ -283,4 +280,9 @@ function resetGalxy() {
     });
 }
 
-export { animateGalxy, resetGalxy };
+MoonEvent.addEventListener("custom-solar-animate", () => {
+    animateGalxy();
+});
+MoonEvent.addEventListener("custom-solar-reset", () => {
+    resetGalxy();
+});

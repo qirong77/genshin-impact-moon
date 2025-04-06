@@ -3,7 +3,7 @@ import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
 import { threeIntersectionObserver } from "@/common/ThreeIntersectionObserver";
-import { animateGalxy } from "./solar";
+import { MoonEvent } from "@/event";
 const folder = createSceneWheelGui("wheel-nodeKrai");
 function getPositionByRadius(radius: number, acount: number): Array<[number, number, number]> {
     const positions: Array<[number, number, number]> = [];
@@ -26,12 +26,10 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
             const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
             mesh.name = textures[index];
             threeIntersectionObserver.addCube({
-                cube:mesh,
+                cube: mesh,
                 onClick() {
-                    scene.remove(firstGroup);
-                    scene.remove(sencondGroup);
-                    animateGalxy()
-                    window.dispatchEvent(new CustomEvent("custom-nod-krai-click", { detail: mesh.name }));
+                    MoonEvent.dispatchEvent("custom-solar-animate", { detail: mesh.name });
+                    MoonEvent.dispatchEvent("custom-solar-node-krai-click", { detail: mesh.name });
                 },
                 onHover() {
                     console.log(mesh.name);
@@ -94,3 +92,13 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+MoonEvent.addEventListener("custom-solar-animate", () => {
+    scene.remove(firstGroup);
+    scene.remove(sencondGroup);
+});
+MoonEvent.addEventListener("custom-solar-reset", () => {
+    setTimeout(() => {
+        scene.add(firstGroup);
+        scene.add(sencondGroup);
+    }, 1500);
+});
