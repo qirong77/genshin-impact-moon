@@ -23,7 +23,7 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
         // 确保索引在textures范围内
         if (index < textures.length) {
             // @ts-ignore
-            const mesh = createNodeKrai(folder, NodKraiMap[textures[index]]);
+            const { mesh, highlight, unhighlight } = createNodeKrai(folder, NodKraiMap[textures[index]]);
             mesh.name = textures[index];
             threeIntersectionObserver.addCube({
                 cube: mesh,
@@ -32,7 +32,7 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
                     MoonEvent.dispatchEvent("custom-solar-node-krai-click", { detail: mesh.name });
                 },
                 onHover() {
-                    console.log(mesh.name);
+                    highlight();
                 },
                 pointer: true,
             });

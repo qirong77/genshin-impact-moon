@@ -7,7 +7,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     const BorderNormalColor = new THREE.Color("#c9c5c5");
     const BackGroundNormalColor = new THREE.Color("#120e16");
     const BorderHighlightColor = new THREE.Color("#f5f5f5");
-    const BackGroundHighlightColor = new THREE.Color('black');
+    const BackGroundHighlightColor = new THREE.Color("black");
     const material = new THREE.ShaderMaterial({
         transparent: false,
         uniforms: {
@@ -126,24 +126,20 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     folder.addColor(material.uniforms.u_borderColor, "value").name("边框颜色");
     folder.addColor(material.uniforms.u_backgroundColor, "value").name("背景颜色");
     function highlight() {
-        material.uniforms.u_borderColor.value.set(BorderHighlightColor);
-        material.uniforms.u_backgroundColor.value.set(BackGroundHighlightColor);
-        gsap.to(mesh.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.5, ease: "power2.inOut" });
+        material.uniforms.u_borderColor.value = BorderHighlightColor;
+        material.uniforms.u_backgroundColor.value = BackGroundHighlightColor;
+        gsap.to(mesh.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.5, ease: "power2.inOut" });
     }
 
     function unhighlight() {
-        material.uniforms.u_borderColor.value.set(BorderNormalColor);
-        material.uniforms.u_backgroundColor.value.set(BackGroundNormalColor);
+        material.uniforms.u_borderColor.value = BorderNormalColor;
+        material.uniforms.u_backgroundColor.value = BackGroundNormalColor;
         gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "power2.inOut" });
     }
-    let isHighlight = false;
-    setInterval(() => {
-        if (!isHighlight) {
-            highlight();
-        } else {
-            unhighlight();
-        }
-        isHighlight = !isHighlight;
-    }, 4000);
-    return mesh;
+
+    return {
+        mesh,
+        highlight,
+        unhighlight,
+    };
 }

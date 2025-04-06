@@ -24,8 +24,10 @@ class ThreeIntersectionObserver {
                 // 计算射线与场景中物体的交点
                 const intersects = raycaster.intersectObjects(this._cubes);
                 let pointer = false;
+                const set = new Set();
                 intersects.forEach((intersect) => {
                     const cube = intersect.object as THREE.Mesh;
+                    set.add(cube.name);
                     const cubeConfig = this._cubesMap.get(cube.name);
                     if (cubeConfig) {
                         cubeConfig.onHover && cubeConfig.onHover();
@@ -34,6 +36,7 @@ class ThreeIntersectionObserver {
                         }
                     }
                 });
+
                 if (pointer) {
                     document.body.style.cursor = "pointer";
                 } else {
