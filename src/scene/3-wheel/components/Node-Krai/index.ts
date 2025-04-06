@@ -1,21 +1,20 @@
 import { THREE } from "@/common/main";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
-
 export function createNodeKrai(gui: GUI, texturePath: string) {
-    const plane = new THREE.PlaneGeometry(0.5, 0.5);
-    const texture = new THREE.TextureLoader().load(texturePath);
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(texturePath);
     const material = new THREE.ShaderMaterial({
         transparent: false,
-        side: THREE.DoubleSide,
         uniforms: {
             u_time: { value: 0 },
-            u_borderWidth: { value: 0.04 },
-            u_borderColor: { value: new THREE.Color('#e6e6e6') },
+            u_borderWidth: { value: 0.01 },
+            u_borderColor: { value: new THREE.Color('#c9c5c5') },
             u_borderSmoothness: { value: 0.01 },
             u_borderRadius: { value: 0.1 },
             u_texture: { value: texture },
             u_rhombusSize: { value: 0.1 },
-            u_rhombusOffset: { value: 1 },
+            u_rhombusOffset: { value: 0.9 },
+            u_backgroundColor: { value: new THREE.Color("#120e16") },
         },
         vertexShader: /* glsl */ `
         varying vec2 v_uv;
@@ -37,6 +36,7 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
         uniform float u_borderRadius;
         uniform float u_rhombusSize;
         uniform float u_rhombusOffset;
+        uniform vec3 u_backgroundColor;
     
         float rhombusSDF(vec2 st) {
             float x = abs(st.x);
@@ -45,41 +45,72 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
             return isInside ? 0.0 : 1.0;
         }
     
+        // 计算圆形SDF
+        float circleSDF(vec2 st, float radius) {
+            return length(st) - radius;
+        }
+    
         void main(){
             vec2 st = v_uv;
             st = st * 2.0 - 1.0;  // 将坐标范围调整为[-1,1]
             
-            // 计算距离中心点的距离
-            float distance = length(st);
-            // 判断是否在边框内
+            // 计算圆形边框
             float radius = 1.0 - u_borderRadius;
-            float borderStart = radius - u_borderWidth;
-            float alpha = smoothstep(radius + u_borderSmoothness, radius, distance) * 
-                         smoothstep(borderStart - u_borderSmoothness, borderStart, distance);
+            float circleDist = circleSDF(st, radius);
             
-            // 在四个方向添加菱形
-            vec2 rhombusTop = vec2(st.x, st.y - u_rhombusOffset);
-            vec2 rhombusBottom = vec2(st.x, st.y + u_rhombusOffset);
-            vec2 rhombusLeft = vec2(st.x + u_rhombusOffset, st.y);
-            vec2 rhombusRight = vec2(st.x - u_rhombusOffset, st.y);
+            // 边框内外判断
+            bool isInBorder = abs(circleDist) < u_borderWidth;
             
-            float rhombusAlpha = min(
-                min(rhombusSDF(rhombusTop), rhombusSDF(rhombusBottom)),
-                min(rhombusSDF(rhombusLeft), rhombusSDF(rhombusRight))
-            );
+            // 平滑边框
+            float borderMask = 1.0 - smoothstep(0.0, u_borderSmoothness, abs(circleDist) - u_borderWidth);
             
-            vec4 text_color = texture2D(u_texture, v_uv);
-            vec4 finalColor = mix(text_color, vec4(u_borderColor, 1.0), alpha);
-            finalColor = mix(finalColor, vec4(u_borderColor, 1.0), (1.0 - rhombusAlpha) * 0.8);
-            if (distance > radius && rhombusAlpha == 1.0) {
-                discard;
+            // 计算四个菱形指针的位置
+            vec2 rhombusPositions[4];
+            rhombusPositions[0] = vec2(0.0, u_rhombusOffset);  // 上
+            rhombusPositions[1] = vec2(0.0, -u_rhombusOffset); // 下
+            rhombusPositions[2] = vec2(u_rhombusOffset, 0.0);  // 右
+            rhombusPositions[3] = vec2(-u_rhombusOffset, 0.0); // 左
+            
+            // 判断是否在菱形内
+            bool isInRhombus = false;
+            for(int i = 0; i < 4; i++) {
+                vec2 rhombusSt = st - rhombusPositions[i];
+                float rhombusDist = rhombusSDF(rhombusSt);
+                if(rhombusDist < 0.01) {
+                    isInRhombus = true;
+                    break;
+                }
             }
-            gl_FragColor = finalColor;
+            
+            // 应用颜色
+            vec4 text_color = texture2D(u_texture, v_uv);
+            
+            // 如果在边框或菱形内，直接返回边框颜色
+            if(isInBorder || isInRhombus) {
+                gl_FragColor = vec4(u_borderColor, 1.0);
+                return;
+            }
+            
+            // 如果在圆外，返回透明
+            if(circleDist > 0.0) {
+                discard; // 丢弃圆形外的片元
+                gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+                return;
+            }
+            
+            // 在圆内，根据纹理透明度决定显示纹理或背景色
+            if(text_color.a < 0.2) {
+                gl_FragColor = vec4(u_backgroundColor, 1.0);
+                return;
+            }
+            
+            gl_FragColor = text_color;
         }
         `,
 
         blending: THREE.AdditiveBlending,
     });
+    const plane = new THREE.PlaneGeometry(0.2, 0.2);
     const mesh = new THREE.Mesh(plane, material);
     const folder = gui.addFolder("texture-border");
     folder.add(material.uniforms.u_borderWidth, "value", 0.01, 0.1, 0.01).name("边框宽度");
@@ -87,23 +118,9 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     folder.add(material.uniforms.u_borderRadius, "value", 0, 0.5, 0.01).name("圆角半径");
     folder.add(material.uniforms.u_rhombusSize, "value", 0.05, 0.2, 0.01).name("菱形大小");
     folder.add(material.uniforms.u_rhombusOffset, "value", 0.1, 2.5, 0.01).name("菱形位置");
-    const borderColorController = folder
-        .addColor(
-            {
-                color: "#ffffff",
-            },
-            "color"
-        )
-        .name("边框颜色");
-    borderColorController.onChange((value) => {
-        material.uniforms.u_borderColor.value = new THREE.Color(value);
-    });
-    function animate() {
-        requestAnimationFrame(animate);
-        material.uniforms.u_time.value += 0.01;
+    folder.addColor(material.uniforms.u_borderColor, "value").name("边框颜色");
+    folder.addColor(material.uniforms.u_backgroundColor, "value").name("背景颜色");
+    function highlight() {
     }
-
-    animate();
-    mesh.scale.set(0.4, 0.4, 0.4);
     return mesh;
 }
