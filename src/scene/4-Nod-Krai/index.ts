@@ -9,6 +9,7 @@ import { createTabUI } from "./tab/tab-ui";
 
 export const NodeKraiState = {
     isAnimation: false,
+    isFirstShow: true,
 };
 const gui = createSceneWheelGui("Nod-Krai");
 const mainImageMesh = createMainImage(gui);
@@ -22,10 +23,11 @@ scene.add(group);
 // 初始位置
 const initialPosition = { x: 0, y: 0, z: 0 };
 group.position.copy(new THREE.Vector3(initialPosition.x, initialPosition.y, initialPosition.z));
-let isFirstShow = true
+
 // 消失动画
 const disappear = (imagePagh: string) => {
     NodeKraiState.isAnimation = true;
+    NodeKraiState.isFirstShow = false;
     gsap.to(group.position, {
         x: -2,
         z: -2,
@@ -56,11 +58,10 @@ const appear = () => {
     });
     gsap.to(mainImageMesh.material.uniforms.u_opacity, {
         value: 1,
-        duration: isFirstShow ? 5 : 1,
-        ease: isFirstShow ? 'circ.in' :'power1.inOut',
+        duration: NodeKraiState.isFirstShow ? 5 : 1,
+        ease: NodeKraiState.isFirstShow ? "circ.in" : "power1.inOut",
         onComplete: () => {
             NodeKraiState.isAnimation = false;
-            isFirstShow = false
         },
     });
 };
@@ -78,7 +79,7 @@ const TabUI = createTabUI({
 });
 
 MoonEvent.addEventListener("custom-solar-node-krai-click", () => {
-    isFirstShow = true
+    NodeKraiState.isFirstShow = true;
     setTimeout(() => {
         scene.add(group);
         TabUI.show();
