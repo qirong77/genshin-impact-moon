@@ -9,7 +9,7 @@ function getPositionByRadius(radius: number, acount: number): Array<[number, num
         const angle = (i / acount) * Math.PI * 2;
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius;
-        positions.push([x, y, 0.1]);
+        positions.push([x, y, 0.15]);
     }
     return positions;
 }
