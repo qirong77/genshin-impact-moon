@@ -1,6 +1,7 @@
 import { THREE } from "@/common/main";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
 import gsap from "gsap";
+import debounce from "debounce";
 export function createNodeKrai(gui: GUI, texturePath: string) {
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(texturePath);
@@ -128,18 +129,18 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     function highlight() {
         material.uniforms.u_borderColor.value = BorderHighlightColor;
         material.uniforms.u_backgroundColor.value = BackGroundHighlightColor;
-        gsap.to(mesh.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.5, ease: "power2.inOut" });
+        gsap.to(mesh.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.0, ease: "power2.inOut" });
     }
 
     function unhighlight() {
         material.uniforms.u_borderColor.value = BorderNormalColor;
         material.uniforms.u_backgroundColor.value = BackGroundNormalColor;
-        gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "power2.inOut" });
+        gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.0, ease: "power2.inOut" });
     }
 
     return {
         mesh,
-        highlight,
-        unhighlight,
+        highlight: debounce(highlight, 100),
+        unhighlight: debounce(unhighlight, 100),
     };
 }

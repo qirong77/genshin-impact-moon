@@ -34,6 +34,9 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
                 onHover() {
                     highlight();
                 },
+                onUnhover() {
+                    unhighlight();
+                },
                 pointer: true,
             });
             mesh.rotation.x = Math.PI * 0.5;
