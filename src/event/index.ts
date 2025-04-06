@@ -1,4 +1,4 @@
-type MoonEventType = "custom-solar-node-krai-click" | "custom-solar-animate" | "custom-solar-reset";
+type MoonEventType = "custom-solar-node-krai-click" | "custom-solar-animate" | "custom-solar-reset" | "custom-click-global-mask";
 export const MoonEvent = {
     dispatchEvent(eventName: MoonEventType, detail: any) {
         const event = new CustomEvent(eventName, { detail });

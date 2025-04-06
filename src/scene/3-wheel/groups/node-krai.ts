@@ -1,4 +1,3 @@
-
 import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
@@ -6,6 +5,7 @@ import { threeIntersectionObserver } from "@/common/ThreeIntersectionObserver";
 import { MoonEvent } from "@/event";
 import { NodKraiFullMap } from "@/scene/4-Nod-Krai/EnumNodKraiFull";
 const folder = createSceneWheelGui("wheel-nodeKrai");
+let isReady = false;
 function getPositionByRadius(radius: number, acount: number): Array<[number, number, number]> {
     const positions: Array<[number, number, number]> = [];
     for (let i = 0; i < acount; i++) {
@@ -29,6 +29,7 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
             threeIntersectionObserver.addCube({
                 cube: mesh,
                 onClick() {
+                    if (!isReady) return;
                     MoonEvent.dispatchEvent("custom-solar-animate", { detail: mesh.name });
                     MoonEvent.dispatchEvent("custom-solar-node-krai-click", { detail: mesh.name });
                 },
@@ -105,4 +106,7 @@ MoonEvent.addEventListener("custom-solar-reset", () => {
         scene.add(firstGroup);
         scene.add(sencondGroup);
     }, 1500);
+});
+MoonEvent.addEventListener("custom-click-global-mask", () => {
+    isReady = true;
 });

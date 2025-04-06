@@ -3,6 +3,7 @@ import GitHubPath from "@assets/item/github-mark-white.png";
 const overlay = document.createElement("div");
 import SATELLITE_PATH from "@assets/item/satellite.png";
 import CIRCLE_PATH from "@assets/circle/circle-E.png";
+import { MoonEvent } from "@/event";
 overlay.classList.add("overlay");
 overlay.innerHTML = `
 <div style="display: flex;flex-direction: column;">
@@ -18,6 +19,7 @@ overlay.innerHTML = `
 document.body.appendChild(overlay);
 document.addEventListener("DOMContentLoaded", () => {
     overlay.addEventListener("click", () => {
+        MoonEvent.dispatchEvent("custom-click-global-mask", { detail: "click" });
         overlay.classList.add("fade-out");
         addGitHubIcon();
         addAudio();
