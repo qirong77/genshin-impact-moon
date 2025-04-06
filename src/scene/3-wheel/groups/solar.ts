@@ -279,10 +279,13 @@ function resetGalxy() {
         ease,
     });
 }
-
+let isAnimated = false;
 MoonEvent.addEventListener("custom-solar-animate", () => {
+    if (isAnimated) return;
     animateGalxy();
+    isAnimated = true;
 });
 MoonEvent.addEventListener("custom-solar-reset", () => {
     resetGalxy();
+    isAnimated = false;
 });
