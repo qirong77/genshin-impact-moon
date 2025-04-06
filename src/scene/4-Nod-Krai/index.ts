@@ -13,11 +13,9 @@ export const NodeKraiState = {
 };
 const gui = createSceneWheelGui("Nod-Krai");
 const mainImageMesh = createMainImage(gui);
-// const background = createSatellitesBackground(gui);
 const group = new THREE.Group();
 group.add(mainImageMesh);
 mainImageMesh.material.uniforms.u_time;
-// group.add(background);
 group.scale.set(1.2, 1.2, 1.2);
 scene.add(group);
 // 初始位置
