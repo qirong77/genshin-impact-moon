@@ -1,20 +1,25 @@
 import { THREE } from "@/common/main";
 import GUI from "three/examples/jsm/libs/lil-gui.module.min.js";
+import gsap from "gsap";
 export function createNodeKrai(gui: GUI, texturePath: string) {
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(texturePath);
+    const BorderNormalColor = new THREE.Color("#c9c5c5");
+    const BackGroundNormalColor = new THREE.Color("#120e16");
+    const BorderHighlightColor = new THREE.Color("#f5f5f5");
+    const BackGroundHighlightColor = new THREE.Color('black');
     const material = new THREE.ShaderMaterial({
         transparent: false,
         uniforms: {
             u_time: { value: 0 },
             u_borderWidth: { value: 0.01 },
-            u_borderColor: { value: new THREE.Color('#c9c5c5') },
+            u_borderColor: { value: BorderNormalColor },
             u_borderSmoothness: { value: 0.01 },
             u_borderRadius: { value: 0.1 },
             u_texture: { value: texture },
             u_rhombusSize: { value: 0.1 },
             u_rhombusOffset: { value: 0.9 },
-            u_backgroundColor: { value: new THREE.Color("#120e16") },
+            u_backgroundColor: { value: BackGroundNormalColor },
         },
         vertexShader: /* glsl */ `
         varying vec2 v_uv;
@@ -121,6 +126,24 @@ export function createNodeKrai(gui: GUI, texturePath: string) {
     folder.addColor(material.uniforms.u_borderColor, "value").name("边框颜色");
     folder.addColor(material.uniforms.u_backgroundColor, "value").name("背景颜色");
     function highlight() {
+        material.uniforms.u_borderColor.value.set(BorderHighlightColor);
+        material.uniforms.u_backgroundColor.value.set(BackGroundHighlightColor);
+        gsap.to(mesh.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.5, ease: "power2.inOut" });
     }
+
+    function unhighlight() {
+        material.uniforms.u_borderColor.value.set(BorderNormalColor);
+        material.uniforms.u_backgroundColor.value.set(BackGroundNormalColor);
+        gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "power2.inOut" });
+    }
+    let isHighlight = false;
+    setInterval(() => {
+        if (!isHighlight) {
+            highlight();
+        } else {
+            unhighlight();
+        }
+        isHighlight = !isHighlight;
+    }, 4000);
     return mesh;
 }
