@@ -1,7 +1,10 @@
-import './components/moon'
-import './components/moon-second'
-import './components/moon-shadow'
-import './components/moon-light'
-import './components/moon-bg'
-import './components/moon-stars'
-import './components/berlin-noise-background'
+import "./components/moon";
+import "./components/moon-second";
+import "./components/moon-shadow";
+import "./components/moon-light";
+import "./components/moon-bg";
+import "./components/moon-stars";
+import "./components/berlin-noise-background";
+import { scene } from "@/common/main";
+import { moonGroup } from "./moon-group";
+scene.add(moonGroup);

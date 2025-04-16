@@ -1,5 +1,6 @@
-import { scene, THREE } from "@/common/main";
+import {  THREE } from "@/common/main";
 import { createSceneMoonGui } from "../moon-gui";
+import { moonGroup } from "../moon-group";
 
 const plane = new THREE.PlaneGeometry(1, 1);
 const folder = createSceneMoonGui("moon-shadow");
@@ -42,7 +43,6 @@ mesh.scale.set(config.scale, config.scale, config.scale);
 mesh.position.set(config.positionX, config.positionY, config.positionZ);
 mesh.rotation.set(config.rotationX, config.rotationY, config.rotationZ);
 material.uniforms.time.value = 0;
-scene.add(mesh);
 
 // GUI controls
 folder.addColor({ color: "#000000" }, "color").onChange((value) => {
@@ -72,3 +72,5 @@ folder.add(config, "rotationZ", 0, Math.PI * 2).onChange((value) => {
 folder.add({ opacity: 1 }, "opacity", 0, 1).onChange((value) => {
     material.opacity = value;
 });
+
+moonGroup.add(mesh)

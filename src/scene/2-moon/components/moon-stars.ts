@@ -1,10 +1,6 @@
-/**
- * @file starBox.ts
- * @description 3D星星盒子
- */
-
-import { scene, THREE } from "@/common/main";
+import {  THREE } from "@/common/main";
 import { createSceneMoonGui } from "../moon-gui";
+import { moonGroup } from "../moon-group";
 
 // 创建 GUI 文件夹
 const folder = createSceneMoonGui("moon-stars");
@@ -30,11 +26,11 @@ const material = new THREE.ShaderMaterial({
     uniforms: {
         uTime: { value: 0 },
         uStarSize: { value: 4.55 }, // 设置为截图中的默认值
-        uStarColor: { value: new THREE.Color('#75d1ff') }, // 设置为截图中的默认颜色
+        uStarColor: { value: new THREE.Color("#75d1ff") }, // 设置为截图中的默认颜色
         uTwinkleSpeed: { value: 1.0 }, // 保持默认值
         uTwinkleIntensity: { value: 0.071 }, // 设置为截图中的默认值
     },
-    vertexShader: `
+    vertexShader: /* glsl */ `
         uniform float uTime;
         uniform float uStarSize;
         uniform float uTwinkleIntensity;
@@ -58,7 +54,7 @@ const material = new THREE.ShaderMaterial({
             gl_PointSize = uStarSize * size * vBrightness;
         }
     `,
-    fragmentShader: `
+    fragmentShader: /* glsl */ `
         uniform vec3 uStarColor;
         varying float vBrightness;
         
@@ -76,7 +72,6 @@ const material = new THREE.ShaderMaterial({
 
 // 创建 Mesh 并添加到场景
 const mesh = new THREE.Points(geometry, material);
-scene.add(mesh);
 
 // 添加 GUI 控制
 folder.add(material.uniforms.uStarSize, "value", 1, 15.0).name("基础星星大小");
@@ -99,3 +94,5 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
+moonGroup.add(mesh)

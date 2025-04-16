@@ -1,5 +1,6 @@
 import { gui } from "@/common/gui";
-import { scene, THREE } from "@/common/main";
+import { THREE } from "@/common/main";
+import { moonGroup } from "../moon-group";
 
 // 创建几何体
 const geometry = new THREE.PlaneGeometry(20,20);
@@ -60,7 +61,6 @@ const material = new THREE.ShaderMaterial({
 
 const mesh = new THREE.Mesh(geometry, material);
 mesh.position.z = -5.5; // 设置位置
-scene.add(mesh);
 
 // 添加 GUI 控制
 gui.add(material.uniforms.frequency, 'value', 10.0, 100.0).name('Frequency');
@@ -78,3 +78,5 @@ function animate() {
     material.uniforms.time.value += 0.05; // 更新时间
 }
 animate();
+
+moonGroup.add(mesh)

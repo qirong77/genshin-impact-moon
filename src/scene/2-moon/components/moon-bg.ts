@@ -1,7 +1,4 @@
 import MOON_BG from "@assets/background/moon-bg.png";
-
-
-import { scene } from '@/common/main';
 import { createBackground } from '@/scene/common/createBackground';
 import { createSceneMoonGui } from "../moon-gui";
 const mainBackground = createBackground({
@@ -17,6 +14,7 @@ const mainBackground = createBackground({
     texture: MOON_BG,
 },createSceneMoonGui('moon-main-bg'));
 import IMAGE_PATH from "@assets/item/meteor.png";
+import { moonGroup } from "../moon-group";
 const meteorBG = createBackground({
     brightness: 1.,
     opacity: 0.15,
@@ -35,5 +33,5 @@ function animate() {
     meteorBG.rotation.z += 0.0001;
 }
 animate();
-scene.add(mainBackground);
-scene.add(meteorBG);
+moonGroup.add(mainBackground)
+moonGroup.add(meteorBG)

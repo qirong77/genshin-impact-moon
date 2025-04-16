@@ -1,8 +1,9 @@
-import { scene, THREE } from "@/common/main";
+import { THREE } from "@/common/main";
 import { TextureLoader } from "three";
 import IMAGE_PATH from "@assets/item/moon-2.png";
 
 import { createSceneMoonGui } from "../moon-gui";
+import { moonGroup } from "../moon-group";
 // 控制参数
 const controls = {
     scale: 1.67,
@@ -69,5 +70,4 @@ gui.add(controls, 'positionY', -5, 5).onChange((value) => {
 gui.add(controls, 'positionZ', -10, 10).onChange((value) => {
     mesh.position.z = value;
 });
-
-scene.add(mesh);
+moonGroup.add(mesh)
