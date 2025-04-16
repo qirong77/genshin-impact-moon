@@ -1,6 +1,5 @@
 import {  THREE } from "@/common/main";
 import { createSceneMoonGui } from "../moon-gui";
-import { moonGroup } from "../moon-group";
 
 // 创建 GUI 文件夹
 const folder = createSceneMoonGui("moon-stars");
@@ -95,4 +94,4 @@ function animate() {
 }
 animate();
 
-moonGroup.add(mesh)
+export default mesh

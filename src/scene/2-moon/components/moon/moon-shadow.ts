@@ -1,6 +1,5 @@
 import {  THREE } from "@/common/main";
-import { createSceneMoonGui } from "../moon-gui";
-import { moonGroup } from "../moon-group";
+import { createSceneMoonGui } from "../../moon-gui";
 
 const plane = new THREE.PlaneGeometry(1, 1);
 const folder = createSceneMoonGui("moon-shadow");
@@ -73,4 +72,4 @@ folder.add({ opacity: 1 }, "opacity", 0, 1).onChange((value) => {
     material.opacity = value;
 });
 
-moonGroup.add(mesh)
+export default mesh

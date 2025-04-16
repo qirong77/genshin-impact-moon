@@ -1,6 +1,5 @@
 import { gui } from "@/common/gui";
 import { THREE } from "@/common/main";
-import { moonGroup } from "../moon-group";
 
 // 创建几何体
 const geometry = new THREE.PlaneGeometry(20,20);
@@ -79,4 +78,4 @@ function animate() {
 }
 animate();
 
-moonGroup.add(mesh)
+export default mesh

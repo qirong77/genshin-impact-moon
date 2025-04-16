@@ -1,7 +1,7 @@
 import MOON_BG from "@assets/item/light.png";
 import { createBackground } from "@/scene/common/createBackground";
-import { createSceneMoonGui } from "../moon-gui";
-import { moonGroup } from "../moon-group";
+import { createSceneMoonGui } from "../../moon-gui";
+import { THREE } from "@/common/main";
 const mainBackground = createBackground(
     {
         brightness: 0.55,
@@ -17,7 +17,7 @@ const mainBackground = createBackground(
     },
     createSceneMoonGui("moon-light")
 );
-const secondBackground  = createBackground(
+const secondBackground = createBackground(
     {
         brightness: 0.55,
         opacity: 0.2,
@@ -32,6 +32,7 @@ const secondBackground  = createBackground(
     },
     createSceneMoonGui("moon-light")
 );
-
-moonGroup.add(secondBackground)
-moonGroup.add(mainBackground)
+const group = new THREE.Group();
+group.add(mainBackground);
+group.add(secondBackground);
+export default group;

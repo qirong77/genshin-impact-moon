@@ -14,7 +14,7 @@ const mainBackground = createBackground({
     texture: MOON_BG,
 },createSceneMoonGui('moon-main-bg'));
 import IMAGE_PATH from "@assets/item/meteor.png";
-import { moonGroup } from "../moon-group";
+import { THREE } from "@/common/main";
 const meteorBG = createBackground({
     brightness: 1.,
     opacity: 0.15,
@@ -33,5 +33,7 @@ function animate() {
     meteorBG.rotation.z += 0.0001;
 }
 animate();
-moonGroup.add(mainBackground)
-moonGroup.add(meteorBG)
+const group = new THREE.Group();
+group.add(mainBackground);
+group.add(meteorBG);
+export default group;
