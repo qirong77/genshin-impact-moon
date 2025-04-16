@@ -1,8 +1,8 @@
 import videoPath from "@assets/audio/bg.mp3";
 import GitHubPath from "@assets/item/github-mark-white.png";
-const overlay = document.createElement("div");
 import SATELLITE_PATH from "@assets/item/satellite.png";
 import CIRCLE_PATH from "@assets/circle/circle-E.png";
+const overlay = document.createElement("div");
 overlay.classList.add("overlay");
 overlay.innerHTML = `
 <div style="display: flex;flex-direction: column;">
