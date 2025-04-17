@@ -4,19 +4,19 @@ import { createSceneMoonGui } from "../../moon-gui";
 const plane = new THREE.PlaneGeometry(1, 1);
 const folder = createSceneMoonGui("moon-shadow");
 const config = {
-    positionZ: -0.5,
+    positionZ: -0.01,
     positionX: .02,
     positionY: 0,
-    scale: 0.45,
+    scale: 0.5,
     rotationX: 0,
     rotationY: 0,
     rotationZ: 0,
-    color: "#000000",
+    color: "#575757",
 };
 const material = new THREE.ShaderMaterial({
     uniforms: {
         time: { value: 0 },
-        color: { value: new THREE.Color(0x000000) },
+        color: { value: new THREE.Color(config.color) },
     },
     transparent: true,
     vertexShader: `
@@ -44,7 +44,7 @@ mesh.rotation.set(config.rotationX, config.rotationY, config.rotationZ);
 material.uniforms.time.value = 0;
 
 // GUI controls
-folder.addColor({ color: "#000000" }, "color").onChange((value) => {
+folder.addColor({ color: config.color }, "color").onChange((value) => {
     material.uniforms.color.value.set(value);
 });
 folder.add(config, "scale", 0.1, 5).onChange((value) => {

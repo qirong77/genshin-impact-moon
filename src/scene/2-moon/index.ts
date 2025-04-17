@@ -26,4 +26,4 @@ function dispear() {
 scene.add(group);
 setTimeout(() => {
     dispear();
-}, 3000);
+}, 1000);

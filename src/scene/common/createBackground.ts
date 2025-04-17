@@ -74,7 +74,7 @@ export function createBackground(
             plane.position.z = config.positionZ;
         });
     folder
-        .add(config, "scale", 1, 20)
+        .add(config, "scale", 0.1, 20)
         .name("缩放比例")
         .onChange(() => {
             plane.scale.set(config.scale, config.scale, config.scale);

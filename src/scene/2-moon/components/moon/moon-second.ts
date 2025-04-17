@@ -4,7 +4,7 @@ import IMAGE_PATH from "@assets/item/moon-2.png";
 import { createSceneMoonGui } from "../../moon-gui";
 // 控制参数
 const controls = {
-    scale: 1.67,
+    scale: 1.40,
     brightness: -0.1,
     opacity: 1.,
     rotationX: 1.5,
@@ -12,7 +12,7 @@ const controls = {
     rotationZ: 6.2,
     positionX: 0,
     positionY: 0,
-    positionZ: -1.,
+    positionZ: -0.02,
 };
 
 // 创建球体几何体
