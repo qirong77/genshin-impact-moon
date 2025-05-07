@@ -1,13 +1,13 @@
 # Genshin Impact Moon
 
-[预言已显，新月将至。  
-The prophecy has been unveiled, and the new moon approaches.](https://qirong77.github.io/genshin-impact-moon/)
+
+[Song of the Welkin Moon - 空月之歌](https://qirong77.github.io/genshin-impact-moon/)
 
 ![预览图](./image.png)
 
 ## 项目简介
 
-**Genshin Impact Moon** 是一个基于 Three.js 构建的 3D 场景展示项目，灵感来源于《原神》的月亮主题。项目通过丰富的星环、流星背景、卫星等元素，营造出梦幻般的深空场景。
+**Genshin Impact Moon** 是一个基于 Three.js 构建的 3D 场景展示项目，灵感来源于《原神》的空月之歌场景。项目通过丰富的星环、流星背景、卫星等元素，营造出梦幻般的深空场景。
 
 ## 功能特性
 
@@ -69,9 +69,6 @@ src/
   └── main.ts      # 项目入口文件
 ```
 
-## 部署到 GitHub Pages
-
-项目已配置 GitHub Actions 自动部署到 GitHub Pages。每次推送到 `main` 分支时，项目会自动构建并发布到 [项目页面](https://qirong77.github.io/genshin-impact-moon/)。
 
 ## 许可证
 
