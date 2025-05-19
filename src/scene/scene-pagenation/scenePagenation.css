@@ -1,0 +1,22 @@
+.scene-pagenation-container {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+.scene-pagenation-tab {
+    padding: 10px 32px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #888;
+    transition: background 0.2s, color 0.2s;
+}
+.scene-pagenation-tab.active {
+    background: #409eff;
+    color: #fff;
+}

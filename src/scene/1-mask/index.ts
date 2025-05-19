@@ -15,14 +15,6 @@ overlay.innerHTML = `
   </div>
 </div>
 `;
-document.body.appendChild(overlay);
-document.addEventListener("DOMContentLoaded", () => {
-    overlay.addEventListener("click", () => {
-        overlay.classList.add("fade-out");
-        addGitHubIcon();
-        addAudio();
-    });
-});
 
 function addGitHubIcon() {
     const github = document.createElement("img");
@@ -47,3 +39,22 @@ function addAudio() {
     };
     document.body.appendChild(audio);
 }
+const onClickHandlers: Function[] = [];
+export const sceneMask = {
+    show() {
+        document.body.appendChild(overlay);
+        document.addEventListener("DOMContentLoaded", () => {
+            overlay.addEventListener("click", () => {
+                overlay.classList.add("fade-out");
+                onClickHandlers.forEach((handler) => {
+                    handler();
+                });
+                addGitHubIcon();
+                addAudio();
+            });
+        });
+    },
+    onClick(fn: Function) {
+        onClickHandlers.push(fn);
+    },
+};

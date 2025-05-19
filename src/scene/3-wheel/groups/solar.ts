@@ -15,7 +15,6 @@ import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
 import { createBackground } from "../../common/createBackground";
-import { MoonEvent } from "@/event";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -280,12 +279,21 @@ function resetGalxy() {
     });
 }
 let isAnimated = false;
-MoonEvent.addEventListener("custom-solar-animate", () => {
-    if (isAnimated) return;
-    animateGalxy();
-    isAnimated = true;
-});
-MoonEvent.addEventListener("custom-solar-reset", () => {
-    resetGalxy();
-    isAnimated = false;
-});
+
+export const sceneWheelSolar = {
+    show() {
+        scene.add(galaxyGroup);
+    },
+    dispear() {
+        scene.remove(galaxyGroup);
+    },
+    animate() {
+        if (isAnimated) return;
+        animateGalxy();
+        isAnimated = true;
+    },
+    reset() {
+        resetGalxy();
+        isAnimated = false;
+    },
+};

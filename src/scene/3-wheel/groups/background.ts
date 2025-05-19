@@ -33,7 +33,7 @@ const starRingBackground = createStarRing({
 const galaxyBackground = createBackground(
     {
         brightness: 0.315,
-        opacity: .3,
+        opacity: 0.3,
         positionX: -4.69,
         positionY: -0.29,
         positionZ: -5,
@@ -45,6 +45,15 @@ const galaxyBackground = createBackground(
     },
     createSceneWheelGui("wheel-galaxy-background")
 );
-scene.add(starRingBackground);
-scene.add(mainBackground);
-scene.add(galaxyBackground);
+export const sceneWheelBackground = {
+    show() {
+        scene.add(mainBackground);
+        scene.add(starRingBackground);
+        scene.add(galaxyBackground);
+    },
+    dispear() {
+        scene.remove(mainBackground);
+        scene.remove(starRingBackground);
+        scene.remove(galaxyBackground);
+    },
+};

@@ -1,4 +1,3 @@
-
 import { createNodeKrai } from "../components/Node-Krai";
 import { createSceneWheelGui } from "../wheel-gui";
 import { scene, THREE } from "@/common/main";
@@ -96,13 +95,17 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
-MoonEvent.addEventListener("custom-solar-animate", () => {
+
+function scenenodeKraiShow() {
+    scene.add(firstGroup);
+    scene.add(sencondGroup);
+}
+function nodeKraiDispear() {
     scene.remove(firstGroup);
     scene.remove(sencondGroup);
-});
-MoonEvent.addEventListener("custom-solar-reset", () => {
-    setTimeout(() => {
-        scene.add(firstGroup);
-        scene.add(sencondGroup);
-    }, 1500);
-});
+}
+
+export const sceneWheelNodeKrai = {
+    show: scenenodeKraiShow,
+    dispear: nodeKraiDispear,
+};
