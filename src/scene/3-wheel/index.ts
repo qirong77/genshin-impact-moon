@@ -36,4 +36,7 @@ export const sceneWheel = {
             }, 2500);
         });
     },
+    hide() {
+        
+    }
 };

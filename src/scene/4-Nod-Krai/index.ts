@@ -76,7 +76,7 @@ const TabUI = createTabUI({
     },
 });
 
-MoonEvent.addEventListener("custom-solar-node-krai-click", () => {
+MoonEvent.addEventListener("custom-solar-node-krai-click", (e) => {
     NodeKraiState.isFirstShow = true;
     setTimeout(() => {
         scene.add(group);

@@ -17,23 +17,14 @@ sceneMask.onClick(() => {
     scenePagenation.show();
     sceneMoon.show();
 });
-
 scenePagenation.onClick((tab, before) => {
     if (tab === 'page2' && before === 'page1') {
         sceneMoon.dispear();
         setTimeout(() => {
             sceneWheel.show();
         }, 2000);
-        // sceneWheel.sceneWheelBackground.show();
-
-        // sceneMoon.show();
-        // sceneWheel.sceneWheelBackground.dispear();
-        // sceneWheel.sceneWheelNodeKrai.dispear();
     }
     if (tab === 'page1' && before === 'page2') {
         sceneMoon.show();
-        // sceneMoon.dispear();
-        // sceneWheel.sceneWheelBackground.show();
-        // sceneWheel.sceneWheelNodeKrai.show();
     }
 });

@@ -15,6 +15,7 @@ import CirclePathG from "@assets/circle/circle-G.png";
 import RingItemPathSatellite from "@assets/item/satellite.png";
 import { createSceneWheelGui } from "../wheel-gui";
 import { createBackground } from "../../common/createBackground";
+import { MoonEvent } from "@/event";
 
 // Create galaxy group
 const galaxyGroup = new THREE.Group();
@@ -290,3 +291,9 @@ export const sceneWheelSolar = {
         isAnimated = false;
     },
 };
+MoonEvent.addEventListener('custom-solar-animate', () => {
+    sceneWheelSolar.animate();
+});
+MoonEvent.addEventListener('custom-solar-reset', () => {
+    sceneWheelSolar.reset();
+})

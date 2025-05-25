@@ -101,4 +101,18 @@ group.add(sencondGroup);
 
 export const sceneWheelNodeKrai = {
     item: group,
+    hide() {
+        scene.remove(group);
+    },
+    show() {
+        scene.add(group);
+    }
 };
+MoonEvent.addEventListener('custom-solar-node-krai-click', (e) => {
+    sceneWheelNodeKrai.hide();
+})
+MoonEvent.addEventListener('custom-solar-reset', (e) => {
+    setTimeout(() => {
+        sceneWheelNodeKrai.show();
+    }, 2500);
+})

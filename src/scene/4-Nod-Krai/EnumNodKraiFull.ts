@@ -1,4 +1,4 @@
-import FrostmoonScions from "@assets/Nod-Krai-Full/ FrostmoonScions.png";
+import FrostmoonScions from "@assets/Nod-Krai-Full/FrostmoonScions.png";
 import VoynichGuild from "@assets/Nod-Krai-Full/VoynichGuild.png";
 import AdventurersGuild from "@assets/Nod-Krai-Full/AdventurersGuild.png";
 import ClinkClankKrumkakeCraftshop from "@assets/Nod-Krai-Full/Clink-ClankKrumkakeCraftshop.png";
