@@ -1,0 +1,9 @@
+.scene-next {
+    position: fixed;
+    bottom: 5rem;
+    color: rgb(172, 172, 172);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    cursor: pointer
+}

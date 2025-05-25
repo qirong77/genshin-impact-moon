@@ -7,12 +7,12 @@ const overlay = document.createElement("div");
 overlay.classList.add("overlay");
 overlay.innerHTML = `
 <div style="display: flex;flex-direction: column;">
-  <div style="position: relative;height: 200px;">
-    <img style="position: absolute;width: 100px;height: 100px;" src="${SATELLITE_PATH}" alt="">
-    <img style="position: absolute;width: 200px;height: 200px;;" src="${CIRCLE_PATH}" alt="">
+  <div style="position: relative;height: 12.5rem;"> 
+    <img style="position: absolute;width: 5rem;height: 5rem;" src="${SATELLITE_PATH}" alt=""> 
+    <img style="position: absolute;width: 10.5rem;height: 10rem;" src="${CIRCLE_PATH}" alt=""> 
   </div>
-  <div style="margin-top: 20px;font-family: 'HYWenHei', 'Microsoft YaHei', sans-serif;font-size: 16px;letter-spacing: 2px;animation: breathe 2s infinite ease-in-out;">
-    ★ 点击开始 ★
+  <div style="margin-top: 1.25rem;font-family: 'cursive', sans-serif;font-size: 0.8rem;letter-spacing: 0.125rem;animation: breathe 2s infinite ease-in-out;">
+    🌟 点击开始 🌟
   </div>
 </div>
 `;

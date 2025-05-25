@@ -5,8 +5,8 @@ import { gui } from './common/gui';
 import { orbitCOntroler } from './common/oribtControls';
 import { sceneMoon } from './scene/2-moon/index';
 import { sceneMask } from './scene/1-mask';
-import { scenePagenation } from './scene/scene-pagenation/scenePagenation';
 import { sceneWheel } from './scene/3-wheel';
+import { sceneNext } from './scene/scene-next/scene-next';
 const isProd = import.meta.env.PROD;
 if (isProd) {
     gui.destroy();
@@ -14,17 +14,15 @@ if (isProd) {
 }
 sceneMask.show();
 sceneMask.onClick(() => {
-    scenePagenation.show();
+    setTimeout(() => {
+        sceneNext.show();
+        sceneNext.onClick(() => {
+            sceneNext.hide();
+            sceneMoon.dispear();
+            setTimeout(() => {
+                sceneWheel.show();
+            }, 2000);
+        });
+    }, 10000);
     sceneMoon.show();
-});
-scenePagenation.onClick((tab, before) => {
-    if (tab === 'page2' && before === 'page1') {
-        sceneMoon.dispear();
-        setTimeout(() => {
-            sceneWheel.show();
-        }, 2000);
-    }
-    if (tab === 'page1' && before === 'page2') {
-        sceneMoon.show();
-    }
 });
