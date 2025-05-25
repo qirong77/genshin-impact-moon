@@ -1,6 +1,6 @@
 .scene-pagenation-container {
     position: fixed;
-    bottom: 40px;
+    top: 0%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;

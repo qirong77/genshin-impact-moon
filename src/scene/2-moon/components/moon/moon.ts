@@ -2,6 +2,9 @@ import { THREE } from "@/common/main";
 import { TextureLoader } from "three";
 import IMAGE_PATH from "@assets/item/moon-texture.png";
 import { createSceneMoonGui } from "../../moon-gui";
+import { GIMSceneItem } from "@/type";
+import gsap from 'gsap';
+
 // 控制参数
 const controls = {
     scale: 1.1,
@@ -79,4 +82,23 @@ const animate = () => {
 };
 animate();
 
-export default mesh;
+
+export const GIMSceneItemMoon: GIMSceneItem = {
+    name: "moon",
+    item: mesh,
+    opacityShow: (ease: string, duration: number, opacity: number = 1.0) => {
+        mesh.material.opacity = 0.7;
+        gsap.to(mesh.material, {
+            opacity,
+            duration,
+            ease,
+        });
+    },
+    opacityHide: (ease: string, duration: number, opacity: number = 0.0) => {
+        gsap.to(mesh.material, {
+            opacity,
+            duration,
+            ease,
+        });
+    },
+};

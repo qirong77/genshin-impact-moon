@@ -3,7 +3,7 @@ const container = document.createElement("div");
 const page1 = document.createElement("div");
 const page2 = document.createElement("div");
 const handleClickFns: Array<(tab: 'page1' | 'page2', before: 'page1' | 'page2') => void> = [];
-
+import './scenePagenation.css'
 // 设置基础样式
 container.className = "scene-pagenation-container";
 page1.className = "scene-pagenation-tab active";
@@ -33,9 +33,12 @@ page2.onclick = () => setActive('page2');
 // 挂载到页面
 container.appendChild(page1);
 container.appendChild(page2);
-document.body.appendChild(container);
+
 
 export const scenePagenation = {
+    show() {
+        document.body.appendChild(container);
+    },
     onClick(fn: (tab: 'page1' | 'page2', before: 'page1' | 'page2') => void) {
         handleClickFns.push(fn);
     }

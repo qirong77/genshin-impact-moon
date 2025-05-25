@@ -1,42 +1,41 @@
-import moon from "./components/moon/group";
-import moonBackground from "./components/moon-bg";
-import moonStars from "./components/moon-stars";
-import gsap from "gsap";
-import { scene, THREE } from "@/common/main";
+import { GIMSceneItemMoonBg } from './components/moon-bg';
+import { GIMSceneItemMoonStars } from './components/moon-stars';
+import gsap from 'gsap';
+import { scene, THREE } from '@/common/main';
+import { GIMSceneItemMoonGroup } from './components/moon/group';
 
 const group = new THREE.Group();
-group.add(moon);
-group.add(moonBackground);
-group.add(moonStars);
+const moveY = 5;
+group.position.setY(moveY);
+group.add(GIMSceneItemMoonGroup.item);
+group.add(GIMSceneItemMoonBg.item);
+group.add(GIMSceneItemMoonStars.item);
 function dispear() {
+    const duration = 8;
     gsap.to(group.position, {
-        y: group.position.y + 5, // 向上移动 10 个单位
-        duration: 5, // 动画持续时间 2 秒
-        ease: "power2.out",
+        y: group.position.y + moveY,
+        duration,
+        ease: 'power2.out',
     });
     gsap.to(group, {
         opacity: 0, // 逐渐消失
-        duration: 5, // 动画持续时间 2 秒
-        ease: "power2.out",
-        onComplete: () => {
-            scene.remove(group); // 动画完成后从场景中移除
-        },
+        duration,
+        ease: 'power2.out',
     });
 }
 function show() {
     scene.add(group); // 将组添加到场景中
+    const duration = 6;
     gsap.to(group.position, {
-        y: group.position.y - 5, // 向下移动 10 个单位
-        duration: 5, // 动画持续时间 2 秒
-        ease: "power2.out",
+        y: group.position.y - moveY,
+        duration,
+        ease: 'power2.out',
     });
-    gsap.to(group, {
-        opacity: 1, // 逐渐出现
-        duration: 5, // 动画持续时间 2 秒
-        ease: "power2.out",
-    });
+    GIMSceneItemMoonGroup.opacityShow('power2.out', duration, 1.0);
+    GIMSceneItemMoonBg.opacityShow('power2.out', duration, 1.0);
+    GIMSceneItemMoonStars.opacityShow('power2.out', duration, 1.0);
 }
 export const sceneMoon = {
     dispear,
-    show
+    show,
 };
