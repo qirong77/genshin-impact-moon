@@ -1,4 +1,4 @@
-import { camera, scene, THREE } from "@/common/main";
+import { camera, THREE } from "@/common/main";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
@@ -143,8 +143,6 @@ galaxyGroup.add(outerDecorativeCircle);
 galaxyGroup.add(axisStar);
 galaxyGroup.add(purpleDreamOverlay);
 galaxyGroup.add(purpleDreamOverlay2);
-// Add galaxy group to scene
-scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
 const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");
@@ -280,12 +278,22 @@ function resetGalxy() {
     });
 }
 let isAnimated = false;
-MoonEvent.addEventListener("custom-solar-animate", () => {
-    if (isAnimated) return;
-    animateGalxy();
-    isAnimated = true;
+
+export const sceneWheelSolar = {
+    item: galaxyGroup,
+    animate() {
+        if (isAnimated) return;
+        animateGalxy();
+        isAnimated = true;
+    },
+    reset() {
+        resetGalxy();
+        isAnimated = false;
+    },
+};
+MoonEvent.addEventListener('custom-solar-animate', () => {
+    sceneWheelSolar.animate();
 });
-MoonEvent.addEventListener("custom-solar-reset", () => {
-    resetGalxy();
-    isAnimated = false;
-});
+MoonEvent.addEventListener('custom-solar-reset', () => {
+    sceneWheelSolar.reset();
+})

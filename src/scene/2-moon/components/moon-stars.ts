@@ -1,17 +1,14 @@
-/**
- * @file starBox.ts
- * @description 3D星星盒子
- */
-
-import { scene, THREE } from "@/common/main";
-import { createSceneMoonGui } from "../moon-gui";
+import { THREE } from '@/common/main';
+import { createSceneMoonGui } from '../moon-gui';
+import { GIMSceneItem } from '@/type';
+import gsap from 'gsap';
 
 // 创建 GUI 文件夹
-const folder = createSceneMoonGui("moon-stars");
+const folder = createSceneMoonGui('moon-stars');
 
 // 定义盒子尺寸和星星数量
-const boxSize = 10;
-const starCount = 1000;
+const boxSize = 20;
+const starCount = 2000;
 
 // 创建 BufferGeometry 并随机分布星星
 const geometry = new THREE.BufferGeometry();
@@ -23,18 +20,19 @@ for (let i = 0; i < starCount; i++) {
     positions[i * 3 + 2] = (Math.random() - 0.5) * boxSize; // z
     sizes[i] = Math.random() * 2.0 + 0.5; // 随机大小 0.5-2.5
 }
-geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
 const material = new THREE.ShaderMaterial({
     uniforms: {
+        opacity: { value: 1.0 },
         uTime: { value: 0 },
-        uStarSize: { value: 4.55 }, // 设置为截图中的默认值
-        uStarColor: { value: new THREE.Color('#75d1ff') }, // 设置为截图中的默认颜色
-        uTwinkleSpeed: { value: 1.0 }, // 保持默认值
-        uTwinkleIntensity: { value: 0.071 }, // 设置为截图中的默认值
+        uStarSize: { value: 4.55 },
+        uStarColor: { value: new THREE.Color('#75d1ff') },
+        uTwinkleSpeed: { value: 1.0 },
+        uTwinkleIntensity: { value: 0.071 },
     },
-    vertexShader: `
+    vertexShader: /* glsl */ `
         uniform float uTime;
         uniform float uStarSize;
         uniform float uTwinkleIntensity;
@@ -58,8 +56,9 @@ const material = new THREE.ShaderMaterial({
             gl_PointSize = uStarSize * size * vBrightness;
         }
     `,
-    fragmentShader: `
+    fragmentShader: /* glsl */ `
         uniform vec3 uStarColor;
+        uniform float opacity;
         varying float vBrightness;
         
         void main() {
@@ -68,7 +67,7 @@ const material = new THREE.ShaderMaterial({
             
             // 应用亮度变化
             vec3 finalColor = uStarColor * vBrightness;
-            gl_FragColor = vec4(finalColor, alpha);
+            gl_FragColor = vec4(finalColor, alpha * opacity);
         }
     `,
     transparent: true,
@@ -76,15 +75,14 @@ const material = new THREE.ShaderMaterial({
 
 // 创建 Mesh 并添加到场景
 const mesh = new THREE.Points(geometry, material);
-scene.add(mesh);
 
 // 添加 GUI 控制
-folder.add(material.uniforms.uStarSize, "value", 1, 15.0).name("基础星星大小");
-folder.add(material.uniforms.uTwinkleSpeed, "value", 0.1, 5.0).name("闪烁速度");
-folder.add(material.uniforms.uTwinkleIntensity, "value", 0, 1.0).name("闪烁强度");
+folder.add(material.uniforms.uStarSize, 'value', 1, 15.0).name('基础星星大小');
+folder.add(material.uniforms.uTwinkleSpeed, 'value', 0.1, 5.0).name('闪烁速度');
+folder.add(material.uniforms.uTwinkleIntensity, 'value', 0, 1.0).name('闪烁强度');
 folder
-    .addColor({ color: "#ffffff" }, "color")
-    .name("星星颜色")
+    .addColor({ color: '#ffffff' }, 'color')
+    .name('星星颜色')
     .onChange((value) => {
         material.uniforms.uStarColor.value.setStyle(value);
     });
@@ -99,3 +97,23 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
+export const GIMSceneItemMoonStars: GIMSceneItem = {
+    name: 'GIMSceneItemMoonStars',
+    item: mesh,
+    opacityShow(ease, duration, opacity) {
+        mesh.material.uniforms.opacity = { value: 0 };
+        gsap.to(mesh.material.uniforms.opacity, {
+            value: opacity,
+            duration: duration,
+            ease: ease,
+        });
+    },
+    opacityHide(ease, duration, _opacity) {
+        gsap.to(mesh.material.uniforms.opacity, {
+            value: 0,
+            duration: duration,
+            ease: ease,
+        });
+    },
+};

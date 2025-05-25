@@ -1,7 +1,40 @@
-import './components/moon'
-import './components/moon-second'
-import './components/moon-shadow'
-import './components/moon-light'
-import './components/moon-bg'
-import './components/moon-stars'
-import './components/berlin-noise-background'
+import { GIMSceneItemMoonBg } from './components/moon-bg';
+import { GIMSceneItemMoonStars } from './components/moon-stars';
+import gsap from 'gsap';
+import { scene, THREE } from '@/common/main';
+import { GIMSceneItemMoonGroup } from './components/moon/group';
+
+const group = new THREE.Group();
+const moveY = 5;
+group.position.setY(moveY);
+group.add(GIMSceneItemMoonGroup.item);
+group.add(GIMSceneItemMoonBg.item);
+group.add(GIMSceneItemMoonStars.item);
+function dispear() {
+    const duration = 3;
+    gsap.to(group.position, {
+        y: group.position.y + moveY,
+        duration,
+        ease: 'power2.in', // 由慢到快
+    });
+    GIMSceneItemMoonGroup.opacityHide('power2.in', duration * 1.5, 0.0);
+    GIMSceneItemMoonBg.opacityHide('power2.in', duration * 1.5, 0.0);
+    GIMSceneItemMoonStars.opacityHide('power2.in', duration * 1.5, 0.0);
+}
+function show() {
+    group.position.setY(moveY);
+    scene.add(group); // 将组添加到场景中
+    const duration = 5;
+    gsap.to(group.position, {
+        y: group.position.y - moveY,
+        duration,
+        ease: 'power2.out',
+    });
+    GIMSceneItemMoonGroup.opacityShow('power2.out', duration, 1.0);
+    GIMSceneItemMoonBg.opacityShow('power2.out', duration, 1.0);
+    GIMSceneItemMoonStars.opacityShow('power2.out', duration, 1.0);
+}
+export const sceneMoon = {
+    dispear,
+    show,
+};

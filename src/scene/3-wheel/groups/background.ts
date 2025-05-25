@@ -6,11 +6,12 @@ import MOON_BG from "@assets/background/moon-bg.png";
 
 import { scene, THREE } from "@/common/main";
 import { createSceneWheelGui } from "../wheel-gui";
-
+import gsap from "gsap";
+const mainBackgroundOpacity = 0.3;
 const mainBackground = createBackground(
     {
         brightness: 1.54,
-        opacity: 0.32,
+        opacity: mainBackgroundOpacity,
         positionX: 0.55,
         positionY: 2.08,
         positionZ: -10,
@@ -29,11 +30,11 @@ const starRingBackground = createStarRing({
     outerRadius: 3.0,
     color: new THREE.Color(0xffffff),
 });
-
+const galaxyBackgroundOpacity = 0.3;
 const galaxyBackground = createBackground(
     {
         brightness: 0.315,
-        opacity: .3,
+        opacity: galaxyBackgroundOpacity,
         positionX: -4.69,
         positionY: -0.29,
         positionZ: -5,
@@ -45,6 +46,29 @@ const galaxyBackground = createBackground(
     },
     createSceneWheelGui("wheel-galaxy-background")
 );
-scene.add(starRingBackground);
-scene.add(mainBackground);
-scene.add(galaxyBackground);
+const group = new THREE.Group();
+group.add(mainBackground);
+group.add(starRingBackground);
+group.add(galaxyBackground);
+export const sceneWheelBackground = {
+    item: group,
+    show(){
+        scene.add(group);
+        group.position.setY(10);
+        gsap.to(group.position, {
+            y: group.position.y - 10,
+            duration: 3,
+            ease: 'power1.out', 
+
+        });
+        [mainBackground, galaxyBackground].forEach((item) => {
+            item.material.opacity = 0.;
+            gsap.to(item.material, {
+                opacity: 0.3,
+                value: 0.3,
+                duration: 3,
+                ease: 'power1.out',
+            });
+        });
+    }
+};

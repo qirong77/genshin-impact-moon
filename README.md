@@ -1,7 +1,7 @@
 # Genshin Impact Moon
 
-[预言已显，新月将至。  
-The prophecy has been unveiled, and the new moon approaches.](https://qirong77.github.io/genshin-impact-moon/)
+
+[Song of the Welkin Moon - 空月之歌](https://qirong77.github.io/genshin-impact-moon/)
 
 ![预览图](./image.png)
 
@@ -70,9 +70,6 @@ src/
   └── main.ts      # 项目的入口文件
 ```
 
-## 部署到 GitHub Pages
-
-项目已配置 GitHub Actions 自动部署到 GitHub Pages。每次推送到 `main` 分支时，项目会自动构建并发布到 [项目页面](https://qirong77.github.io/genshin-impact-moon/)。
 
 ## 许可证
 
