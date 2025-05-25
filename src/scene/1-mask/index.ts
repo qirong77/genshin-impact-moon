@@ -2,6 +2,7 @@ import videoPath from "@assets/audio/bg.mp3";
 import GitHubPath from "@assets/item/github-mark-white.png";
 import SATELLITE_PATH from "@assets/item/satellite.png";
 import CIRCLE_PATH from "@assets/circle/circle-E.png";
+import './mask.css'
 const overlay = document.createElement("div");
 overlay.classList.add("overlay");
 overlay.innerHTML = `
