@@ -1,4 +1,4 @@
-import { camera, scene, THREE } from "@/common/main";
+import { camera, THREE } from "@/common/main";
 import { createAxisStars } from "../components/axis-stars";
 import { createCircle } from "../components/circle/createCircle";
 import { createRingItem } from "../components/ring-item/createRingItem";
