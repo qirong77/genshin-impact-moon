@@ -36,6 +36,6 @@ sceneMask.onClick(() => {
                 sceneWheel.show();
             }, 2000);
         });
-    }, 10000);
+    }, 8000);
     sceneMoon.show();
 });
