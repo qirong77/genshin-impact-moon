@@ -3984,7 +3984,7 @@ void main() {
     <img style="position: absolute;width: 5rem;height: 5rem;" src="${nh}" alt=""> 
     <img style="position: absolute;width: 9rem;height: 9rem;" src="${IM}" alt=""> 
   </div>
-  <div style="margin-top: 1.25rem;font-family: 'cursive', sans-serif;font-size: 0.7rem;letter-spacing: 0.125rem;animation: breathe 2s infinite ease-in-out;">
+  <div style="margin-top: 1.25rem;font-family: 'cursive', sans-serif;font-size: 1rem;letter-spacing: 0.125rem;animation: breathe 2s infinite ease-in-out;">
     🌟 点击开始 🌟
   </div>
 </div>
