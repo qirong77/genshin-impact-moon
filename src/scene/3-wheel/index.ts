@@ -1,4 +1,4 @@
-import { scene } from '@/common/main';
+import { camera, scene } from '@/common/main';
 import { sceneWheelBackground } from './groups/background';
 import { sceneWheelNodeKrai } from './groups/node-krai';
 import { sceneWheelSolar } from './groups/solar';
@@ -9,6 +9,19 @@ export const sceneWheel = {
     sceneWheelSolar,
     show() {
         const groups = [sceneWheelSolar.item, sceneWheelNodeKrai.item];
+        const beforeCameraPosition = camera.position.clone();
+        const tl = gsap.timeline();
+        tl.to(camera.position, {
+            z: beforeCameraPosition.z - 0.5,
+            duration: 2,
+            ease: 'power2.out', 
+        })
+        .to(camera.position, {
+            z: beforeCameraPosition.z,
+            duration: 5,
+            ease: 'none', 
+        });
+        
         scene.add(...groups);
         groups.forEach((group) => {
             group.scale.set(0, 0, 0);
