@@ -32,7 +32,7 @@ canvas {
   color: white;
   font-size: 24px;
   cursor: pointer;
-  transition: opacity 5s ease;
+  transition: opacity 3s ease;
   z-index: 1000;
 }
 

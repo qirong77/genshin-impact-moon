@@ -12,25 +12,26 @@ if (isProd) {
     gui.destroy();
     orbitCOntroler.dispose();
 }
-// sceneMask.show();
-// sceneMask.onClick(() => {
-//     scenePagenation.show();
-//     sceneMoon.show();
-// });
-sceneMoon.show();
+sceneMask.show();
+sceneMask.onClick(() => {
+    scenePagenation.show();
+    sceneMoon.show();
+});
 
 scenePagenation.onClick((tab, before) => {
-    sceneMoon.dispear();
-    // if (tab === "page2" && before === "page1") {
-    //     sceneMoon.show();
-    //     sceneWheel.sceneWheelBackground.dispear();
-    //     sceneWheel.sceneWheelNodeKrai.dispear();
-    //     sceneWheel.sceneWheelBackground.dispear();
-    // }
-    // if (tab === "page1" && before === "page2") {
-    //     sceneMoon.dispear();
-    //     sceneWheel.sceneWheelBackground.show();
-    //     sceneWheel.sceneWheelNodeKrai.show();
-    //     sceneWheel.sceneWheelBackground.show();
-    // }
+    if (tab === 'page2' && before === 'page1') {
+        sceneMoon.dispear();
+        // sceneWheel.sceneWheelBackground.show();
+        sceneWheel.sceneWheelSolar.show();
+        console.log('123')
+        // sceneMoon.show();
+        // sceneWheel.sceneWheelBackground.dispear();
+        // sceneWheel.sceneWheelNodeKrai.dispear();
+    }
+    if (tab === 'page1' && before === 'page2') {
+        sceneMoon.show();
+        // sceneMoon.dispear();
+        // sceneWheel.sceneWheelBackground.show();
+        // sceneWheel.sceneWheelNodeKrai.show();
+    }
 });

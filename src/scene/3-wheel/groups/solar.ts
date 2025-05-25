@@ -142,8 +142,6 @@ galaxyGroup.add(outerDecorativeCircle);
 galaxyGroup.add(axisStar);
 galaxyGroup.add(purpleDreamOverlay);
 galaxyGroup.add(purpleDreamOverlay2);
-// Add galaxy group to scene
-scene.add(galaxyGroup);
 
 // Create GUI controls for galaxy rotation
 const galaxyFolder = createSceneWheelGui("wheel-galaxy-rotation");

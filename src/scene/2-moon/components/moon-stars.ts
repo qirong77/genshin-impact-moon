@@ -110,7 +110,6 @@ export const GIMSceneItemMoonStars: GIMSceneItem = {
         });
     },
     opacityHide(ease, duration, opacity) {
-        mesh.material.uniforms.opacity = { value: opacity };
         gsap.to(mesh.material.uniforms.opacity, {
             value: 0,
             duration: duration,

@@ -11,21 +11,20 @@ group.add(GIMSceneItemMoonGroup.item);
 group.add(GIMSceneItemMoonBg.item);
 group.add(GIMSceneItemMoonStars.item);
 function dispear() {
-    const duration = 8;
+    const duration = 6;
     gsap.to(group.position, {
         y: group.position.y + moveY,
         duration,
         ease: 'power2.out',
     });
-    gsap.to(group, {
-        opacity: 0, // 逐渐消失
-        duration,
-        ease: 'power2.out',
-    });
+    GIMSceneItemMoonGroup.opacityHide('power2.out', duration, 0.0);
+    GIMSceneItemMoonBg.opacityHide('power2.out', duration, 0.0);
+    GIMSceneItemMoonStars.opacityHide('power2.out', duration, 0.0);
 }
 function show() {
+    group.position.setY(moveY);
     scene.add(group); // 将组添加到场景中
-    const duration = 6;
+    const duration = 5;
     gsap.to(group.position, {
         y: group.position.y - moveY,
         duration,
