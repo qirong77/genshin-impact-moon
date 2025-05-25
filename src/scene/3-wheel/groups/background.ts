@@ -58,7 +58,7 @@ export const sceneWheelBackground = {
         gsap.to(group.position, {
             y: group.position.y - 10,
             duration: 3,
-            ease: 'power1.in', // 使用elastic.out增强弹性感
+            ease: 'power1.out', 
 
         });
         [mainBackground, galaxyBackground].forEach((item) => {
@@ -67,7 +67,7 @@ export const sceneWheelBackground = {
                 opacity: 0.3,
                 value: 0.3,
                 duration: 3,
-                ease: 'power1.in', // 使用elastic.out增强弹性感
+                ease: 'power1.out',
             });
         });
     }

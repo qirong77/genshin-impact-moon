@@ -12,28 +12,28 @@ export const sceneWheel = {
         const beforeCameraPosition = camera.position.clone();
         const tl = gsap.timeline();
         tl.to(camera.position, {
-            z: beforeCameraPosition.z - 0.5,
-            duration: 2,
-            ease: 'power2.out', 
-        })
-        .to(camera.position, {
+            z: beforeCameraPosition.z - 1,
+            duration: 3,
+            ease: 'none',
+        }).to(camera.position, {
             z: beforeCameraPosition.z,
-            duration: 5,
-            ease: 'none', 
+            duration: 10,
+            ease: 'none',
         });
-        
+        sceneWheelBackground.show();
         scene.add(...groups);
         groups.forEach((group) => {
             group.scale.set(0, 0, 0);
-            // 创建弹性放大动画
-            gsap.timeline().to(group.scale, {
-                x: 1, // 放大到1.2倍
-                y: 1,
-                z: 1,
-                duration: 5,
-                ease: 'elastic.out(0.2)', // 使用elastic.out增强弹性感
-            });
+            setTimeout(() => {
+                // 创建弹性放大动画
+                gsap.timeline().to(group.scale, {
+                    x: 1, // 放大到1.2倍
+                    y: 1,
+                    z: 1,
+                    duration: 5,
+                    ease: 'elastic.out(0.1)', // 使用elastic.out增强弹性感
+                });
+            }, 2500);
         });
-        sceneWheelBackground.show();
     },
 };
