@@ -11,15 +11,15 @@ group.add(GIMSceneItemMoonGroup.item);
 group.add(GIMSceneItemMoonBg.item);
 group.add(GIMSceneItemMoonStars.item);
 function dispear() {
-    const duration = 6;
+    const duration = 3;
     gsap.to(group.position, {
         y: group.position.y + moveY,
         duration,
-        ease: 'power2.out',
+        ease: 'power2.in', // 由慢到快
     });
-    GIMSceneItemMoonGroup.opacityHide('power2.out', duration, 0.0);
-    GIMSceneItemMoonBg.opacityHide('power2.out', duration, 0.0);
-    GIMSceneItemMoonStars.opacityHide('power2.out', duration, 0.0);
+    GIMSceneItemMoonGroup.opacityHide('power2.in', duration * 1.5, 0.0);
+    GIMSceneItemMoonBg.opacityHide('power2.in', duration * 1.5, 0.0);
+    GIMSceneItemMoonStars.opacityHide('power2.in', duration * 1.5, 0.0);
 }
 function show() {
     group.position.setY(moveY);

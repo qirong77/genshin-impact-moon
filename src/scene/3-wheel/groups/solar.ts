@@ -279,12 +279,7 @@ function resetGalxy() {
 let isAnimated = false;
 
 export const sceneWheelSolar = {
-    show() {
-        scene.add(galaxyGroup);
-    },
-    dispear() {
-        scene.remove(galaxyGroup);
-    },
+    item: galaxyGroup,
     animate() {
         if (isAnimated) return;
         animateGalxy();

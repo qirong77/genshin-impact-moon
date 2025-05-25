@@ -7,8 +7,8 @@ import gsap from 'gsap';
 const folder = createSceneMoonGui('moon-stars');
 
 // 定义盒子尺寸和星星数量
-const boxSize = 10;
-const starCount = 1000;
+const boxSize = 20;
+const starCount = 2000;
 
 // 创建 BufferGeometry 并随机分布星星
 const geometry = new THREE.BufferGeometry();

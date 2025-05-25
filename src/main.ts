@@ -21,9 +21,11 @@ sceneMask.onClick(() => {
 scenePagenation.onClick((tab, before) => {
     if (tab === 'page2' && before === 'page1') {
         sceneMoon.dispear();
+        setTimeout(() => {
+            sceneWheel.show();
+        }, 2000);
         // sceneWheel.sceneWheelBackground.show();
-        sceneWheel.sceneWheelSolar.show();
-        console.log('123')
+
         // sceneMoon.show();
         // sceneWheel.sceneWheelBackground.dispear();
         // sceneWheel.sceneWheelNodeKrai.dispear();

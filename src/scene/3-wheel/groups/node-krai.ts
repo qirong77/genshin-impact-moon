@@ -1,10 +1,10 @@
-import { createNodeKrai } from "../components/Node-Krai";
-import { createSceneWheelGui } from "../wheel-gui";
-import { scene, THREE } from "@/common/main";
-import { threeIntersectionObserver } from "@/common/ThreeIntersectionObserver";
-import { MoonEvent } from "@/event";
-import { NodKraiFullMap } from "@/scene/4-Nod-Krai/EnumNodKraiFull";
-const folder = createSceneWheelGui("wheel-nodeKrai");
+import { createNodeKrai } from '../components/Node-Krai';
+import { createSceneWheelGui } from '../wheel-gui';
+import { scene, THREE } from '@/common/main';
+import { threeIntersectionObserver } from '@/common/ThreeIntersectionObserver';
+import { MoonEvent } from '@/event';
+import { NodKraiFullMap } from '@/scene/4-Nod-Krai/EnumNodKraiFull';
+const folder = createSceneWheelGui('wheel-nodeKrai');
 function getPositionByRadius(radius: number, acount: number): Array<[number, number, number]> {
     const positions: Array<[number, number, number]> = [];
     for (let i = 0; i < acount; i++) {
@@ -28,8 +28,8 @@ function createGroup(radius: number, count: number, textureStartIndex: number, t
             threeIntersectionObserver.addCube({
                 cube: mesh,
                 onClick() {
-                    MoonEvent.dispatchEvent("custom-solar-animate", { detail: mesh.name });
-                    MoonEvent.dispatchEvent("custom-solar-node-krai-click", { detail: mesh.name });
+                    MoonEvent.dispatchEvent('custom-solar-animate', { detail: mesh.name });
+                    MoonEvent.dispatchEvent('custom-solar-node-krai-click', { detail: mesh.name });
                 },
                 onHover() {
                     highlight();
@@ -95,17 +95,10 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
-
-function scenenodeKraiShow() {
-    scene.add(firstGroup);
-    scene.add(sencondGroup);
-}
-function nodeKraiDispear() {
-    scene.remove(firstGroup);
-    scene.remove(sencondGroup);
-}
+const group = new THREE.Group();
+group.add(firstGroup);
+group.add(sencondGroup);
 
 export const sceneWheelNodeKrai = {
-    show: scenenodeKraiShow,
-    dispear: nodeKraiDispear,
+    item: group,
 };
