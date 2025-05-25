@@ -8,7 +8,9 @@ import { sceneMask } from './scene/1-mask';
 import { sceneWheel } from './scene/3-wheel';
 import { sceneNext } from './scene/scene-next/scene-next';
 import gsap from 'gsap';
-import { camera } from './common/main';
+import {  camera,  } from './common/main';
+import { MoonEvent } from './event';
+import { cameraAnimation } from './scene/cameraAnimation';
 const isProd = import.meta.env.PROD;
 if (isProd) {
     gui.destroy();
@@ -34,8 +36,20 @@ sceneMask.onClick(() => {
             sceneMoon.dispear();
             setTimeout(() => {
                 sceneWheel.show();
+                setTimeout(() => {
+                    cameraAnimation.animate();
+                }, 12000);
             }, 2000);
         });
     }, 8000);
     sceneMoon.show();
+});
+
+MoonEvent.addEventListener('custom-solar-animate', (e) => {
+    cameraAnimation.stop();
+});
+MoonEvent.addEventListener('custom-solar-reset', (e) => {
+    setTimeout(() => {
+        cameraAnimation.animate();
+    }, 5000);
 });

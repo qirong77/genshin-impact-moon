@@ -1,16 +1,16 @@
 import * as THREE from "three";
 import { gui } from "./gui";
-import { MoonEvent } from "@/event";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 // 默认情况,面向屏幕的是z轴
-const basePosition = {
+export const basePosition = {
     x: 0,
     y: 0,
     z: 3.7,
 };
 camera.position.set(basePosition.x, basePosition.y, basePosition.z);
 camera.lookAt(0, 0, 0);
+export const clock = new THREE.Clock();
 export const cameraGui = gui.addFolder("camera");
 cameraGui.close(); // 默认收起面板
 
@@ -19,7 +19,6 @@ const positionFolder = cameraGui.addFolder("位置控制");
 positionFolder.add(camera.position, "x").min(-10).max(10).name("X轴位置");
 positionFolder.add(camera.position, "y").min(-10).max(10).name("Y轴位置");
 positionFolder.add(camera.position, "z").min(-10).max(10).name("Z轴位置");
-const isProd = import.meta.env.PROD;
 
 // 视角控制
 const viewFolder = cameraGui.addFolder("视角控制");
@@ -30,7 +29,6 @@ const cameraParams = {
     lookAtX: 0,
     lookAtY: 0,
     lookAtZ: 0,
-    isMove: isProd,
 };
 
 viewFolder
@@ -54,10 +52,6 @@ viewFolder
         camera.far = value;
         camera.updateProjectionMatrix();
     });
-viewFolder
-    .add(cameraParams, "isMove")
-    .name("相机移动")
-    .onChange((value) => {});
 // 朝向控制
 const lookAtFolder = cameraGui.addFolder("朝向控制");
 lookAtFolder
@@ -86,27 +80,5 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 renderer.render(scene, camera);
-// 设置了动画之后OribitController才支持拖动
-const clock = new THREE.Clock();
-function animation() {
-    requestAnimationFrame(animation);
-    if (cameraParams.isMove) {
-        const time = clock.getElapsedTime();
-        // 添加相机轻微摇摆动画
-        const amplitude = 0.1; // 振幅
-        const frequency = 0.2; // 频率
-        camera.position.x = basePosition.x + Math.sin(time * frequency) * amplitude;
-        camera.position.y = basePosition.y + Math.cos(time * frequency) * amplitude;
-        camera.position.z = basePosition.z + Math.sin(time * frequency * 0.5) * amplitude * 0.5;
-    }
 
-    renderer.render(scene, camera);
-}
-animation();
-MoonEvent.addEventListener('custom-solar-animate',()=>{
-    cameraParams.isMove = false;
-})
-MoonEvent.addEventListener('custom-solar-reset',()=>{
-    cameraParams.isMove = isProd;
-})
-export { THREE, scene, camera, renderer, clock };
+export { THREE, scene, camera, renderer};
