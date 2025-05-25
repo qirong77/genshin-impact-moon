@@ -3,6 +3,7 @@ import { sceneWheelBackground } from './groups/background';
 import { sceneWheelNodeKrai } from './groups/node-krai';
 import { sceneWheelSolar } from './groups/solar';
 import gsap from 'gsap';
+
 export const sceneWheel = {
     sceneWheelBackground,
     sceneWheelNodeKrai,
