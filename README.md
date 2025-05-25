@@ -1,7 +1,7 @@
 # Genshin Impact Moon
 
 
-[Song of the Welkin Moon - 空月之歌](https://qirong77.github.io/genshin-impact-moon/)
+在线预览：https://qirong77.github.io/genshin-impact-moon/
 
 ![预览图](./image.png)
 
